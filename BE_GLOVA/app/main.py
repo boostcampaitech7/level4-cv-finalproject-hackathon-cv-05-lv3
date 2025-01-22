@@ -1,7 +1,12 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from starlette.middleware.sessions import SessionMiddleware
 from api import router 
+import os
+from dotenv import load_dotenv
 
+load_dotenv()
+SESSIONMIDDLEWARE_SECRET_KEY=os.getenv('SESSIONMIDDLEWARE_SECRET_KEY')
 app = FastAPI()
 
 # CORS 설정
@@ -12,6 +17,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# 세션 미들웨어 추가
+app.add_middleware(SessionMiddleware, secret_key=f"Bearer {SESSIONMIDDLEWARE_SECRET_KEY}" ) # openssl rand -hex 32로 임의 생성
 
 # API 라우트 추가
 app.include_router(router)
