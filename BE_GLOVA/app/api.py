@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException, Request, APIRouter
+from fastapi import FastAPI, HTTPException, Request, APIRouter, BackgroundTasks
 from dotenv import load_dotenv
 import requests
 import os
@@ -10,18 +10,24 @@ router = APIRouter() # 모든 엔드포인트를 이 router에 정의하고, mai
 
 load_dotenv()
 
-CLOVA_API_URL = "https://clovastudio.stream.ntruss.com/testapp/v1/chat-completions/HCX-003"
+# 임시 테스트 앱 CLOVA_REQUEST_ID, 실제 서비스와 연동 시 변경되므로 .env에서 변경!
+# CLOVA API1 설정정
+CLOVA_API_URL = os.getenv('CLOVA_API_URL')
 CLOVA_API_KEY = os.getenv('CLOVA_Authorization')
-if not CLOVA_API_KEY:
-    raise ValueError("CLOVA_Authorization 환경 변수가 설정되지 않았습니다.")
-CLOVA_REQUEST_ID = os.getenv('CLOVA_REQUEST_ID') # <- 임시 테스트 앱 리퀘스트 id, 실제 서비스와 연동 시 변경되므로 .env에서 변경!
+CLOVA_REQUEST_ID = os.getenv('CLOVA_REQUEST_ID') 
+# Clova API2 설정
+CLOVA_API2_URL = os.getenv('CLOVA_API2_URL')
+CLOVA_REQUEST_ID2 = os.getenv('CLOVA_REQUEST_ID2')
+# 환경변수 확인
+if not (CLOVA_API_KEY or CLOVA_API_URL or CLOVA_REQUEST_ID or CLOVA_API2_URL or CLOVA_REQUEST_ID2):
+    raise ValueError("CLOVA 환경 변수가 설정되지 않았습니다.")
 
-
+# 클로바 api1 호출출
 @router.post("/api/question")
-async def save_question(user_question: UserQuestion, request: Request):
+async def save_question(user_question: UserQuestion, request: Request, background_tasks: BackgroundTasks):
     class CompletionExecutor:
-        def __init__(self, host, api_key, request_id):
-            self._host = host
+        def __init__(self, api_url, api_key, request_id):
+            self._api_url = api_url
             self._api_key = api_key
             self._request_id = request_id
 
@@ -33,7 +39,7 @@ async def save_question(user_question: UserQuestion, request: Request):
                 'Accept': 'text/event-stream'
             }
 
-            with requests.post(self._host + '/testapp/v1/chat-completions/HCX-003',
+            with requests.post(self._api_url,
                                headers=headers, json=completion_request, stream=True) as r:
                 response_data = []
                 for line in r.iter_lines():
@@ -44,7 +50,7 @@ async def save_question(user_question: UserQuestion, request: Request):
     try:
         # Clova API 설정
         completion_executor = CompletionExecutor(
-            host="https://clovastudio.stream.ntruss.com",
+            api_url=f"{CLOVA_API_URL}",
             api_key=f"Bearer {CLOVA_API_KEY}",
             request_id=f"Bearer {CLOVA_REQUEST_ID}" 
         )
@@ -89,16 +95,18 @@ async def save_question(user_question: UserQuestion, request: Request):
                 content = data["message"]["content"]
                 print(content)
                     
-                match = re.search(r'답변: ["(.*?)"]\s+(.*)', content, re.DOTALL)
+                match = re.search(r'답변 : "(.*?)"\s+(.*)', content, re.DOTALL)
                 print(22)
-                # match = re.search(r'답변 : \["(.*?)"\]\((.*?)\) (.*)', content, re.DOTALL) <- 링크랑 같이 제거
                 if match:
                     print(11)
                     title = match.group(1)  # 책 제목
-                    # link = match.group(2)  # 링크 추출 <- 버그 수정 필요
                     description = match.group(2)  # 설명 추출
                     print(title)
                     print(description)
+
+                    # Clova API2를 백그라운드에서 호출
+                    background_tasks.add_task(fetch_book_details_async, title)
+                    print("클로바2 호출")
 
                     # 세션에 저장
                     request.session["result"] = ClovaResponse(title=title, description=description).dict()
@@ -113,6 +121,94 @@ async def save_question(user_question: UserQuestion, request: Request):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error connecting to Clova API: {e}")
 
+# Clova API2 호출 함수 (비동기)
+def fetch_book_details_async(book_title: str):
+    class SkillSetFinalAnswerExecutor:
+        def __init__(self, api_url, api_key, request_id):
+            self._api_url = api_url
+            self._api_key = api_key
+            self._request_id = request_id
+
+        def execute(self, skill_set_cot_request):
+            headers = {
+                'Authorization': self._api_key,
+                'X-NCP-CLOVASTUDIO-REQUEST-ID': self._request_id,
+                'Content-Type': 'application/json; charset=utf-8',
+                'Accept': 'text/event-stream',
+            }
+            
+            with requests.post(self._api_url, headers=headers, json=skill_set_cot_request, stream=True) as response:
+                for line in response.iter_lines():
+                    if line:
+                        print(line.decode("utf-8"))
+                        book_details = extract_book_details(line.decode("utf-8"))
+                        for idx, book in enumerate(book_details, start=1):
+                            print(f"--- Book {idx} ---")
+                            for key, value in book.items():
+                                print(f"{key.capitalize()}: {value}")
+    
+    final_answer_executor = SkillSetFinalAnswerExecutor(
+        api_url=f'{CLOVA_API2_URL}',
+        api_key=f"Bearer {CLOVA_API_KEY}",
+        request_id=f"Bearer {CLOVA_REQUEST_ID2}"
+    )
+    request_data = {
+        "query": book_title,
+        "tokenStream": False,
+        "requestOverride": {
+            "operations": [
+                {
+                    "operationId": "bookSearch",
+                    "header": {
+                        "X-Naver-Client-Id": os.getenv("NAVER_CLIENT_ID"),
+                        "X-Naver-Client-Secret": os.getenv("NAVER_CLIENT_SECRET"),
+                    },
+                    "query": {
+                        "sort": "sim",
+                        "query": book_title,
+                        "start": 1,
+                        "display": 1,
+                    },
+                    "requestBody": None,
+                }
+            ]
+        }
+    }
+
+    try:
+        final_answer_executor.execute(request_data)
+    except Exception as e:
+        print(f"Error fetching book details: {e}")
+
+
+# 스트리밍 데이터 처리 함수
+def extract_book_details(response_lines):
+    book_details = []
+    
+    for line in response_lines.strip().split("\n"):
+        if line.startswith("data:"):
+            json_data = line[5:].strip()  # "data:" 이후의 JSON 데이터 추출
+            try:
+                parsed_data = json.loads(json_data)
+                # 필요한 정보가 포함된 경우
+                if "apiResult" in parsed_data:
+                    response_body = json.loads(parsed_data["apiResult"][0]["responseBody"])
+                    for item in response_body.get("items", []):
+                        # 책 정보를 추출
+                        book_detail = {
+                            "title": item.get("title", "N/A"),
+                            "author": item.get("author", "N/A"),
+                            "publisher": item.get("publisher", "N/A"),
+                            "pubdate": item.get("pubdate", "N/A"),
+                            "isbn": item.get("isbn", "N/A"),
+                            "description": item.get("description", "N/A"),
+                            "image": item.get("image", "N/A"),
+                        }
+                        book_details.append(book_detail)
+            except json.JSONDecodeError:
+                continue
+    
+    return book_details
 
 @router.get("/api/result_txt", response_model=ClovaResponse)
 async def get_result_txt(request: Request):
