@@ -3,7 +3,7 @@ from typing import List
 
 class UserQuestion(BaseModel):
     name: str
-    sex: str
+    gender: str
     age: int
     answer: str
 
