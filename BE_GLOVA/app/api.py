@@ -4,8 +4,10 @@ import requests
 import os
 import json
 import re
-from schemas import UserQuestion, ClovaResponse, KeywordResponse, ImageResponse
+from schemas import UserQuestion, ClovaResponse, CalendarResponse, BadgeRequest, BadgeResponse
 from random import randint
+import datetime
+from typing import List
 
 router = APIRouter() # 모든 엔드포인트를 이 router에 정의하고, main에서 한 번에 추가 
 
@@ -26,8 +28,8 @@ if not (CLOVA_API_KEY or CLOVA_API_URL or CLOVA_REQUEST_ID or CLOVA_API2_URL or 
 
 # 클로바 api1 호출
 # 서버에 정보를 보내고, 결과를 받아옴 
-@router.post("/api/question")
-async def save_question(user_question: UserQuestion, request: Request, background_tasks: BackgroundTasks):
+@router.post("/api/home")
+async def save_question(user_question: UserQuestion):
     class CompletionExecutor:
         def __init__(self, api_url, api_key, request_id):
             self._api_url = api_url
@@ -71,7 +73,7 @@ async def save_question(user_question: UserQuestion, request: Request, backgroun
                 "- 1개의 답변이고, 명확하고 간결하며, 독자가 흥미를 느낄 수 있도록 작성하세요.\n\n"
                 "예시:\n질문: 아픈 건 싫어!\n답변: [아픈 건 싫으니까 방어력에 올인하려고 합니다.]"
             )},
-            {"role": "user", "content": user_question.answer}
+            {"role": "user", "content": user_question.question}
         ]
     
         request_data = {
@@ -100,12 +102,13 @@ async def save_question(user_question: UserQuestion, request: Request, backgroun
             # 클로바2 호출 (책 실제 확인) 딕셔너리 
             book_details = fetch_book_details_async(book_title)
             print(book_details)
-            if book_details == -1: # 책 존재 안함
-                continue
             if book_title in book_details['title']:
                 break
-            else:
+            if book_details == -1: # 책 존재 안함
+                request_data["seed"]+=10
                 continue
+            else:
+                break
             
         clovaResponse = ClovaResponse(bookimage=book_details['image'], bookTitle=book_details['title'], description=book_details['description'])
         return clovaResponse
@@ -257,29 +260,28 @@ def extract_book_details(response_data):
                 print(f"Problematic item: {item}")
     return 0
 
+calendar_data = []
+@router.post("/api/save_books")
+async def save_books(calendarResponse: CalendarResponse):
+    try:
+        datetime.datetime.strptime(calendarResponse.date, "%Y-%m-%d")
+        datetime.datetime.strptime(calendarResponse.time, "%H:%M")
 
-# @router.get("/api/result_txt", response_model=ClovaResponse)
-# async def get_result_txt(request: Request):
-#     try:
-#         result = request.session.get("result")
-#         if not result:
-#             raise HTTPException(status_code=404, detail="No result found. Please submit a question first.")
-#         return result
-#     except Exception as e:
-#         raise HTTPException(status_code=500, detail=f"Error fetching result text: {e}")
+        calendar_data.append(calendarResponse.dict())
 
-# @router.get("/api/loading", response_model=KeywordResponse)
-# async def get_loading_keywords():
-#     try:
-#         keywords = ["keyword1", "keyword2", "keyword3"]
-#         return {"keywords": keywords}
-#     except Exception as e:
-#         raise HTTPException(status_code=500, detail=f"Error fetching keywords: {e}")
+        return {
+            "statusCode": 200,
+            "message": "Book_data saved Successfully"
+        }
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=f"Invalid date or time format: {e}")
+    
+@router.get("/api/calendar", response_model=List[CalendarResponse])
+def get_calendar():
+    return calendar_data
 
-# @router.get("/api/result_img", response_model=ImageResponse)
-# async def get_result_img():
-#     try:
-#         image_base64 = ""
-#         return {"image": image_base64}
-#     except Exception as e:
-#         raise HTTPException(status_code=500, detail=f"Error fetching generated image: {e}")
+# @router.post("/api/badge_create")
+# def badge_create():
+    
+# @router.get("/api/badge")
+# def get_badge():
