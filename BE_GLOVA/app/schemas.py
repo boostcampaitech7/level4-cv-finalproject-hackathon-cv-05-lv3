@@ -2,17 +2,28 @@ from pydantic import BaseModel
 from typing import List
 
 class UserQuestion(BaseModel):
-    name: str
-    sex: str
+    # name: str
+    gender: str
     age: int
-    answer: str
+    question: str
 
 class ClovaResponse(BaseModel):
-    title: str
+    bookimage: str
+    bookTitle: str
     description: str
 
-class KeywordResponse(BaseModel):
-    keywords: List[str]
+class CalendarResponse(BaseModel):
+    date: str  # YYYY-MM-DD format
+    time: str  # HH:mm format
+    question: str
+    bookimage: str
+    bookTitle: str
 
-class ImageResponse(BaseModel):
-    image: str
+class BadgeRequest(BaseModel):
+    bookTitle: str
+    badgeImage: str
+
+class BadgeResponse(BaseModel):
+    createdAt: str #"2025-01-27T14:00:00Z", // IISO 8601 형식    
+    badgeImage: str
+    bookTitle: str
