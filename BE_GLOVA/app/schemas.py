@@ -8,7 +8,8 @@ class UserQuestion(BaseModel):
     answer: str
 
 class ClovaResponse(BaseModel):
-    title: str
+    bookimage: str
+    bookTitle: str
     description: str
 
 class KeywordResponse(BaseModel):

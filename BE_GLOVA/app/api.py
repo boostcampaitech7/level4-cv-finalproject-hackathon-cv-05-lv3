@@ -5,6 +5,7 @@ import os
 import json
 import re
 from schemas import UserQuestion, ClovaResponse, KeywordResponse, ImageResponse
+from random import randint
 
 router = APIRouter() # 모든 엔드포인트를 이 router에 정의하고, main에서 한 번에 추가 
 
@@ -24,6 +25,7 @@ if not (CLOVA_API_KEY or CLOVA_API_URL or CLOVA_REQUEST_ID or CLOVA_API2_URL or 
 
 
 # 클로바 api1 호출
+# 서버에 정보를 보내고, 결과를 받아옴 
 @router.post("/api/question")
 async def save_question(user_question: UserQuestion, request: Request, background_tasks: BackgroundTasks):
     class CompletionExecutor:
@@ -81,10 +83,10 @@ async def save_question(user_question: UserQuestion, request: Request, backgroun
             "repeatPenalty": 5.0,
             "stopBefore": [],
             "includeAiFilters": True,
-            "seed": 141
+            "seed": randint(0,10000)
         }
 
-        while(1):
+        while True:
             # Clova API 실행
             response_data = completion_executor.execute(request_data)
             # API 응답 확인 및 처리
@@ -98,18 +100,15 @@ async def save_question(user_question: UserQuestion, request: Request, backgroun
             # 클로바2 호출 (책 실제 확인) 딕셔너리 
             book_details = fetch_book_details_async(book_title)
             print(book_details)
-
+            if book_details == -1: # 책 존재 안함
+                continue
             if book_title in book_details['title']:
                 break
             else:
-                response_data["seed"] += 1
+                continue
             
-        request.session["result"] = ClovaResponse(title=book_details['title'], description=book_details['description']).dict()
-        return {
-                    "message": "Question processed successfully. Please proceed to the next page.",
-                    "title": book_details['title'],
-                    "description": book_details['description']
-                }
+        clovaResponse = ClovaResponse(bookimage=book_details['image'], bookTitle=book_details['title'], description=book_details['description'])
+        return clovaResponse
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error connecting to Clova API: {e}")
 
@@ -238,7 +237,11 @@ def extract_book_details(response_data):
 
                 if "apiResult" in result_data:
                         response_body = json.loads(result_data["apiResult"][0]["responseBody"])
-                        for item in response_body.get("items", []):
+                        items = response_body.get("items", [])
+
+                        if not items:
+                                return -1
+                        for item in items:
                             book_detail = {
                                 "title": item.get("title", "N/A"),
                                 "author": item.get("author", "N/A"),
@@ -252,30 +255,31 @@ def extract_book_details(response_data):
             except (json.JSONDecodeError, IndexError, KeyError) as e:
                 print(f"Error parsing response data: {e}")
                 print(f"Problematic item: {item}")
+    return 0
 
 
-@router.get("/api/result_txt", response_model=ClovaResponse)
-async def get_result_txt(request: Request):
-    try:
-        result = request.session.get("result")
-        if not result:
-            raise HTTPException(status_code=404, detail="No result found. Please submit a question first.")
-        return result
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error fetching result text: {e}")
+# @router.get("/api/result_txt", response_model=ClovaResponse)
+# async def get_result_txt(request: Request):
+#     try:
+#         result = request.session.get("result")
+#         if not result:
+#             raise HTTPException(status_code=404, detail="No result found. Please submit a question first.")
+#         return result
+#     except Exception as e:
+#         raise HTTPException(status_code=500, detail=f"Error fetching result text: {e}")
 
-@router.get("/api/loading", response_model=KeywordResponse)
-async def get_loading_keywords():
-    try:
-        keywords = ["keyword1", "keyword2", "keyword3"]
-        return {"keywords": keywords}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error fetching keywords: {e}")
+# @router.get("/api/loading", response_model=KeywordResponse)
+# async def get_loading_keywords():
+#     try:
+#         keywords = ["keyword1", "keyword2", "keyword3"]
+#         return {"keywords": keywords}
+#     except Exception as e:
+#         raise HTTPException(status_code=500, detail=f"Error fetching keywords: {e}")
 
-@router.get("/api/result_img", response_model=ImageResponse)
-async def get_result_img():
-    try:
-        image_base64 = ""
-        return {"image": image_base64}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error fetching generated image: {e}")
+# @router.get("/api/result_img", response_model=ImageResponse)
+# async def get_result_img():
+#     try:
+#         image_base64 = ""
+#         return {"image": image_base64}
+#     except Exception as e:
+#         raise HTTPException(status_code=500, detail=f"Error fetching generated image: {e}")
