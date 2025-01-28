@@ -176,3 +176,4 @@ pyrightconfig.json
 # data files
 *.xls
 *.csv
+chromedriver/
