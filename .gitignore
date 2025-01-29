@@ -176,3 +176,5 @@ pyrightconfig.json
 # data files
 *.xls
 *.csv
+
+**/*.env
