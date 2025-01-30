@@ -29,24 +29,29 @@ def apply_lora(pipe, lora_path, alpha=1.0):
 def generate_prompt(image_path, model, preprocess, tokenizer, device):
     image = Image.open(image_path).convert("RGB")
     image = preprocess(image).unsqueeze(0).to(device)
-    
+
     with torch.no_grad():
         image_features = model.encode_image(image)
-    
+
+    # 뱃지 스타일 프롬프트 후보
     text_candidates = [
         "a golden octagonal badge with intricate designs, highly detailed, embossed metal texture",
         "a futuristic neon glowing badge with a cyberpunk aesthetic, ultra-detailed, reflective",
         "a luxury platinum badge with precious gemstones embedded, elegant, high contrast",
         "a fantasy-style magical badge, radiating mystical energy, highly detailed, ornate patterns"
     ]
-    
-    text_tokens = tokenizer(text_candidates).to(device)
+
+    # 🔥 tokenizer 수정: batch_processing=False 옵션 추가
+    text_tokens = tokenizer(text_candidates, batch_processing=False).to(device)
+
     with torch.no_grad():
         text_features = model.encode_text(text_tokens)
+
     similarity = (image_features @ text_features.T).softmax(dim=-1)
     best_prompt_idx = similarity.argmax().item()
-    
+
     return text_candidates[best_prompt_idx]
+
 
 def main():
     source_dir = "dataset/source_images"
