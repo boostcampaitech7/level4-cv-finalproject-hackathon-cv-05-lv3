@@ -9,8 +9,8 @@ from safetensors.torch import load_file
 
 def load_clip_model():
     device = "cuda" if torch.cuda.is_available() else "cpu"
-    model, preprocess = open_clip.create_model_and_transforms("ViT-B-32", pretrained="openai")
-    tokenizer = open_clip.get_tokenizer("ViT-B-32")
+    # 기존 코드에서는 model, preprocess 두 개만 받았는데, tokenizer까지 추가
+    model, preprocess, tokenizer = open_clip.create_model_and_transforms("ViT-B-32", pretrained="openai")
     return model.to(device), preprocess, tokenizer, device
 
 def apply_lora(pipe, lora_path, alpha=1.0):
