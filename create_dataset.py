@@ -41,16 +41,17 @@ def generate_prompt(image_path, model, preprocess, tokenizer, device):
         "a fantasy-style magical badge, radiating mystical energy, highly detailed, ornate patterns"
     ]
 
-    # 🔥 tokenizer 수정: batch_processing=False 옵션 추가
-    text_tokens = tokenizer(text_candidates, batch_processing=False).to(device)
+    # ✅ 수정된 부분: tokenizer를 한 개씩 호출하여 리스트로 변환
+    text_tokens = [tokenizer(t).to(device) for t in text_candidates]
 
     with torch.no_grad():
-        text_features = model.encode_text(text_tokens)
+        text_features = torch.stack([model.encode_text(t) for t in text_tokens])
 
     similarity = (image_features @ text_features.T).softmax(dim=-1)
     best_prompt_idx = similarity.argmax().item()
 
     return text_candidates[best_prompt_idx]
+
 
 
 def main():
