@@ -26,7 +26,7 @@ export const Library_home = (): JSX.Element => {
   }, []);
 
   const handleBookClick = (book: Book) => {
-    navigate("../Library_1/Library_1", { state: { book } });
+    navigate("../Library_1/Library_1", { state: { book }, replace: true });
   };
 
   return (
