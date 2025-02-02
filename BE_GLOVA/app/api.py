@@ -12,6 +12,7 @@ import base64
 from pathlib import Path
 import zipfile
 from fastapi.responses import FileResponse
+from model import generate_badge
 
 router = APIRouter() # 모든 엔드포인트를 이 router에 정의하고, main에서 한 번에 추가 
 
@@ -329,23 +330,20 @@ async def get_calendar():
 # 뱃지 이미지 저장 폴더
 BADGE_DIR = "/data/ephemeral/home/whth/level4-cv-finalproject-hackathon-cv-05-lv3/BE_GLOVA/badge"
 
-# 폴더 없으면 생성
-os.makedirs(BADGE_DIR, exist_ok=True)
+# # 폴더 없으면 생성
+# os.makedirs(BADGE_DIR, exist_ok=True)
 
 @router.post("/api/badge_create")
-async def upload_badge(file: UploadFile = File(...)):
+async def create_badge(request: BadgeRequest):
     try:
-        # 파일 저장 경로 설정
-        file_path = os.path.join(BADGE_DIR, file.filename)
+        # filenames = generate_badge(request.bookTitle, request.badgeImages) # 임시 모델 연결 코드
+        return {
+            "statusCode": 200,
+            "message": "Badge image generated successfully"
+        }
 
-        # 파일 저장
-        with open(file_path, "wb") as buffer:
-            buffer.write(await file.read())
-
-        return {"statusCode": 200, "message": "Badge image saved successfully", "filename": file.filename}
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error saving badge image: {e}")
-
+        raise HTTPException(status_code=500, detail=f"Error generating badge: {e}")
 
 # 모든 뱃지 이미지를 Base64로 변환하여 반환 (GET)
 @router.get("/api/badge", response_model=List[Dict[str, str]])
@@ -360,7 +358,7 @@ async def get_all_badge_images():
                     
                 badge_images.append({
                     "filename": file.name,
-                    "base64": f"data:image/png;base64,{base64_image}"  # 프론트에서 바로 img 태그로 사용 가능
+                    "base64": f"data:image/png;base64,{base64_image}" 
                 })
 
         return badge_images

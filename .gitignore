@@ -1,3 +1,4 @@
 **/*.env
 BE_GLOVA/badge
 BE_GLOVA/calendar
+BE_GLOVA/modelll.py
