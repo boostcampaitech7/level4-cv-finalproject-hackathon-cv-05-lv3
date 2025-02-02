@@ -1,7 +1,7 @@
 from fastapi import HTTPException, APIRouter
 import os
 import json
-from schemas import CalendarResponse
+from ..schemas import CalendarResponse
 from typing import List
 
 router = APIRouter() # 모든 엔드포인트를 이 router에 정의하고, main에서 한 번에 추가 
