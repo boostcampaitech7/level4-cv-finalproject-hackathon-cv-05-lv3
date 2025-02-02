@@ -4,6 +4,7 @@ from starlette.middleware.sessions import SessionMiddleware
 from api import router 
 import os
 from dotenv import load_dotenv
+from apis import home, badge, books
 
 load_dotenv()
 SESSIONMIDDLEWARE_SECRET_KEY=os.getenv('SESSIONMIDDLEWARE_SECRET_KEY')
@@ -23,7 +24,9 @@ app.add_middleware(
 app.add_middleware(SessionMiddleware, secret_key=f"Bearer {SESSIONMIDDLEWARE_SECRET_KEY}" ) # openssl rand -hex 32로 임의 생성
 
 # API 라우트 추가
-app.include_router(router)
+app.include_router(home.router)
+app.include_router(books.router)
+app.include_router(badge.router)
 
 @app.get("/")
 def read_root():

@@ -1,18 +1,10 @@
-from fastapi import FastAPI, HTTPException, Request, APIRouter, File, UploadFile, BackgroundTasks
+from fastapi import HTTPException, APIRouter
 from dotenv import load_dotenv
 import requests
 import os
 import json
-import re
-from schemas import UserQuestion, ClovaResponse, CalendarResponse, BadgeRequest, BadgeResponse
+from schemas import UserQuestion, ClovaResponse
 from random import randint
-import datetime
-from typing import List, Dict
-import base64
-from pathlib import Path
-import zipfile
-from fastapi.responses import FileResponse
-from model import generate_badge
 
 router = APIRouter() # 모든 엔드포인트를 이 router에 정의하고, main에서 한 번에 추가 
 
@@ -75,7 +67,9 @@ async def save_question(user_question: UserQuestion):
                 f"- 사용자의 나이: {user_question.age}, 성별: {user_question.gender}\n"
                 "- 사용자의 질문에 대해 사용자의 나이, 성별을 분석하여 시중에 있는 책에서 관련 내용을 인용하거나 추천하는 방식으로 답변합니다.\n"
                 "- 사용자의 질의를 분석하고 질의와 상관관계를 보이는 책 제목으로 답해줘\n"
+                "- 절대 없는 책을 만들어서 가져오지 마. 어떻게든 이유를 만들어서 존재하는 책을 추천해야해.\n"
                 "- 1개의 답변이고, 명확하고 간결하며, 독자가 흥미를 느낄 수 있도록 작성하세요.\n\n"
+                "- 책 제목 대답할 땐 책 제목만 말해! 앞뒤로 작가같은 거 붙이지 말고! 그 다음에 엔터치고 책 설명이든 뭐든 붙여. 알겠지?\n"
                 "예시:\n질문: 아픈 건 싫어!\n답변: [아픈 건 싫으니까 방어력에 올인하려고 합니다.]"
             )},
             {"role": "user", "content": user_question.question}
@@ -107,12 +101,15 @@ async def save_question(user_question: UserQuestion):
             # 클로바2 호출 (책 실제 확인) 딕셔너리 
             book_details = fetch_book_details_async(book_title)
             print(book_details)
-            if book_title in book_details['title']:
-                break
+            # if book_title in book_details['title']:
+            #     break
             if book_details == -1: # 책 존재 안함
-                request_data["seed"]+=10
+                request_data["seed"]+=1
                 continue
             else:
+                break
+
+            if book_title in book_details['title']:
                 break
             
         clovaResponse = ClovaResponse(bookimage=book_details['image'], bookTitle=book_details['title'], description=book_details['description'])
@@ -264,103 +261,3 @@ def extract_book_details(response_data):
                 print(f"Error parsing response data: {e}")
                 print(f"Problematic item: {item}")
     return 0
-
-
-
-# 캘린더 데이터 저장 경로
-CALENDAR_DIR = "/data/ephemeral/home/whth/level4-cv-finalproject-hackathon-cv-05-lv3/BE_GLOVA/calendar"
-CALENDAR_FILE = os.path.join(CALENDAR_DIR, "calendar.json")
-
-# 폴더 없으면 생성
-os.makedirs(CALENDAR_DIR, exist_ok=True)
-
-@router.post("/api/save_books")
-async def save_books(calendarResponse: CalendarResponse):
-    try:
-        # datetime.datetime.strptime(calendarResponse.date, "%Y-%m-%d")
-        # datetime.datetime.strptime(calendarResponse.time, "%H:%M")
-
-        # 기존 데이터 불러오기 (파일이 없으면 빈 리스트 사용)
-        if os.path.exists(CALENDAR_FILE):
-            with open(CALENDAR_FILE, "r", encoding="utf-8") as f:
-                try:
-                    calendar_data = json.load(f)
-                except json.JSONDecodeError:
-                    calendar_data = []
-        else:
-            calendar_data = []
-
-        # 새 데이터 추가
-        new_entry = calendarResponse.dict()
-        calendar_data.append(new_entry)
-
-        # JSON 파일에 저장
-        with open(CALENDAR_FILE, "w", encoding="utf-8") as f:
-            json.dump(calendar_data, f, ensure_ascii=False, indent=4)
-
-        return {
-            "statusCode": 200,
-            "message": "Book data saved successfully"
-        }
-    except ValueError as e:
-        raise HTTPException(status_code=400, detail=f"Invalid date or time format: {e}")
-    
-@router.get("/api/calendar", response_model=List[CalendarResponse])
-async def get_calendar():
-    try:
-        if os.path.exists(CALENDAR_FILE):
-            with open(CALENDAR_FILE, "r", encoding="utf-8") as f:
-                try:
-                    calendar_data = json.load(f)
-                except json.JSONDecodeError:
-                    raise HTTPException(status_code=500, detail="Error reading calendar file")
-        else:
-            calendar_data = []
-
-        return calendar_data
-
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error fetching calendar data: {e}")
-
-
-
-
-
-
-# 뱃지 이미지 저장 폴더
-BADGE_DIR = "/data/ephemeral/home/whth/level4-cv-finalproject-hackathon-cv-05-lv3/BE_GLOVA/badge"
-
-# # 폴더 없으면 생성
-# os.makedirs(BADGE_DIR, exist_ok=True)
-
-@router.post("/api/badge_create")
-async def create_badge(request: BadgeRequest):
-    try:
-        # filenames = generate_badge(request.bookTitle, request.badgeImages) # 임시 모델 연결 코드
-        return {
-            "statusCode": 200,
-            "message": "Badge image generated successfully"
-        }
-
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error generating badge: {e}")
-
-# 모든 뱃지 이미지를 Base64로 변환하여 반환 (GET)
-@router.get("/api/badge", response_model=List[Dict[str, str]])
-async def get_all_badge_images():
-    try:
-        badge_images = []
-        
-        for file in Path(BADGE_DIR).iterdir():
-            if file.is_file():
-                with open(file, "rb") as image_file:
-                    base64_image = base64.b64encode(image_file.read()).decode("utf-8")
-                    
-                badge_images.append({
-                    "filename": file.name,
-                    "base64": f"data:image/png;base64,{base64_image}" 
-                })
-
-        return badge_images
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error fetching badge images: {e}")
