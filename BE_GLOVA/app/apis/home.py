@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 import requests
 import os
 import json
-from schemas import UserQuestion, ClovaResponse
+from ..schemas import UserQuestion, ClovaResponse
 from random import randint
 
 router = APIRouter() # 모든 엔드포인트를 이 router에 정의하고, main에서 한 번에 추가 

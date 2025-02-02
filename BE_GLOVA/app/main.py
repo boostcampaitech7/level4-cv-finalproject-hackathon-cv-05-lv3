@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.sessions import SessionMiddleware
-from .api import router 
+from api import router 
 import os
 from dotenv import load_dotenv
 from .apis import home, badge, books
