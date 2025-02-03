@@ -26,7 +26,7 @@ export interface Book {
 }
 
 export interface Badge {
-  createAt: string;
+  createdAt: string;
   badgeImage: string;
   bookTitle: string;
 }

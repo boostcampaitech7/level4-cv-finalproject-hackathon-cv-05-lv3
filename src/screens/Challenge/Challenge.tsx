@@ -103,7 +103,7 @@ export const Challenge = (): JSX.Element => {
                 alt="badge image"
               />
               <p className="text-sm text-gray-500 mt-2">
-                획득 날짜: {new Date(selectedBadge.createAt).toLocaleDateString()}
+                획득 날짜: {new Date(selectedBadge.createdAt).toLocaleDateString()}
               </p>
               <button
                 className="mt-4 px-4 py-2 bg-red-500 text-white rounded-lg"
