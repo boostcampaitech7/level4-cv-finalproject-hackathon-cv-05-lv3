@@ -70,30 +70,30 @@ export const Timer = (): JSX.Element => {
         <Vector className="!absolute !w-9 !h-6 !top-[30px] !left-[332px]" />
 
         {/* Main Content */}
-        <div className="flex flex-col items-center justify-center w-full mt-10">
+        <div className="flex flex-col items-center justify-center w-full">
           <h2 className="text-3xl font-bold">시간 : 분 : 초</h2>
-          <div className="relative mt-4">
-            <div className="w-48 h-48 relative">
-              <svg className="absolute top-0 left-0 w-full h-full" viewBox="0 0 100 100">
-                <circle cx="50" cy="50" r="45" stroke="#ddd" strokeWidth="10" fill="none" />
-                <circle cx="50" cy="50" r="45" stroke="#ff6666" strokeWidth="10" fill="none" strokeDasharray="283" strokeDashoffset={(progress / 100) * 283} />
-              </svg>
-              <div className="absolute inset-0 flex items-center justify-center">
-                <img src="/mnt/data/image.png" alt="Timer Icon" className="w-16 h-16 cursor-pointer" onClick={() => setShowModal(true)} />
+            <div className="relative mt-4">
+              <div className="w-48 h-48 relative">
+                <svg className="absolute top-0 left-0 w-full h-full" viewBox="0 0 100 100">
+                  <circle cx="50" cy="50" r="45" stroke="#ddd" strokeWidth="10" fill="none" />
+                  <circle cx="50" cy="50" r="45" stroke="#ff6666" strokeWidth="10" fill="none" strokeDasharray="283" strokeDashoffset={(progress / 100) * 283} />
+                </svg>
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <img src="/mnt/data/image.png" alt="Timer Icon" className="w-16 h-16 cursor-pointer" onClick={() => setShowModal(true)} />
+                </div>
               </div>
             </div>
-          </div>
-          <div className="flex gap-2 mt-5">
-            <input type="number" name="hours" value={time.hours} onChange={handleInputChange} className="w-14 text-center border" disabled={isRunning} />
-            <span>:</span>
-            <input type="number" name="minutes" value={time.minutes} onChange={handleInputChange} className="w-14 text-center border" disabled={isRunning} />
-            <span>:</span>
-            <input type="number" name="seconds" value={time.seconds} onChange={handleInputChange} className="w-14 text-center border" disabled={isRunning} />
-          </div>
-          <div className="flex gap-4 mt-5">
-            <Button onClick={() => setIsRunning((prev) => !prev)}>{isRunning ? "일시정지" : "타이머 시작"}</Button>
-            <Button onClick={() => { setTime({ hours: 0, minutes: 0, seconds: 0 }); setIsRunning(false); setProgress(100); }}>초기화</Button>
-          </div>
+            <div className="flex gap-2 mt-5">
+              <input type="number" name="hours" value={time.hours} onChange={handleInputChange} className="w-14 text-center border" disabled={isRunning} />
+              <span>:</span>
+              <input type="number" name="minutes" value={time.minutes} onChange={handleInputChange} className="w-14 text-center border" disabled={isRunning} />
+              <span>:</span>
+              <input type="number" name="seconds" value={time.seconds} onChange={handleInputChange} className="w-14 text-center border" disabled={isRunning} />
+            </div>
+            <div className="flex gap-4 mt-5">
+              <Button onClick={() => setIsRunning((prev) => !prev)}>{isRunning ? "일시정지" : "타이머 시작"}</Button>
+              <Button onClick={() => { setTime({ hours: 0, minutes: 0, seconds: 0 }); setIsRunning(false); setProgress(100); }}>초기화</Button>
+            </div>
           
           <AnimatePresence>
             {showModal && (

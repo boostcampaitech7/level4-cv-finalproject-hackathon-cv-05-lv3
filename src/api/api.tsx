@@ -54,11 +54,11 @@ export const Calendar2Server = async (question: string, bookimage: string, bookT
   try {
     // 서버에 데이터를 전송합니다.
     const response = await apiClient.post("/api/save_books", {
-      "date": now.toISOString().split("T")[0], // YYYY-MM-DD 형식의 날짜
-      "time": now.toTimeString().split(" ")[0], // HH:mm:ss 형식의 시간
-      "question": question,
-      "bookimage": bookimage,
-      "bookTitle": bookTitle,
+      date: now.toISOString().split("T")[0], // YYYY-MM-DD 형식의 날짜
+      time: now.toTimeString().split(" ")[0], // HH:mm:ss 형식의 시간
+      question: question,
+      bookimage: bookimage,
+      bookTitle: bookTitle,
     });
 
     // 서버 응답 데이터 반환
