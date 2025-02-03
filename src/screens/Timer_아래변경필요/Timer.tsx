@@ -4,140 +4,136 @@ import {
   TimerIcon,
   TrophyIcon,
 } from "lucide-react";
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+
+import React, { useState, useEffect } from "react";
+import { AnimatePresence } from "framer-motion";
+
+import { Vector } from "../../icons/Vector";  
+import { Button } from "../../components/ui/button";
+import { Card, CardContent } from "../../components/ui/card";
+import { BrowserRouter as Router, Route, Routes, useNavigate, useLocation } from "react-router-dom";
+import { Calendar2Server } from "../../api/api";
+
 
 const navigationItems = [
   { icon: TrophyIcon, label: "CHALLENGE", href: "/Challenge", active: false },
   { icon: HomeIcon, label: "HOME", href: "/Home", active: false },
-  { icon: BookOpen, label: "BOOKS", href: "/Library", active: false },
+  { icon: BookOpen  , label: "BOOKS", href: "/Library", active: false },
   { icon: TimerIcon, label: "TIMER", href: "/Timer", active: true },
 ];
 
 export const Timer = (): JSX.Element => {
   const navigate = useNavigate();
 
-  const [hours, setHours] = useState(0);
-  const [minutes, setMinutes] = useState(25);
-  const [seconds, setSeconds] = useState(0);
-  const [timeLeft, setTimeLeft] = useState((hours * 3600) + (minutes * 60) + seconds);
+  const [time, setTime] = useState({ hours: 0, minutes: 0, seconds: 0 });
   const [isRunning, setIsRunning] = useState(false);
+  const [progress, setProgress] = useState(100);
   const [showModal, setShowModal] = useState(false);
-
-  const radius = 90;
-  const circumference = 2 * Math.PI * radius;
+  const totalSeconds = time.hours * 3600 + time.minutes * 60 + time.seconds;
 
   useEffect(() => {
-    if (!isRunning) return;
-
-    const timer = setInterval(() => {
-      setTimeLeft((prev) => {
-        if (prev <= 1) {
-          clearInterval(timer);
-          setShowModal(true);
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-
+    let timer: NodeJS.Timeout;
+    if (isRunning && totalSeconds > 0) {
+      timer = setInterval(() => {
+        setTime((prevTime) => {
+          const total = prevTime.hours * 3600 + prevTime.minutes * 60 + prevTime.seconds - 1;
+          if (total <= 0) {
+            clearInterval(timer);
+            setIsRunning(false);
+            return { hours: 0, minutes: 0, seconds: 0 };
+          }
+          setProgress((total / (time.hours * 3600 + time.minutes * 60 + time.seconds)) * 100);
+          return {
+            hours: Math.floor(total / 3600),
+            minutes: Math.floor((total % 3600) / 60),
+            seconds: total % 60,
+          };
+        });
+      }, 1000);
+    } else {
+      clearInterval(timer);
+    }
     return () => clearInterval(timer);
-  }, [isRunning]);
+  }, [isRunning, totalSeconds]);
 
-  useEffect(() => {
-    setTimeLeft((hours * 3600) + (minutes * 60) + seconds);
-  }, [hours, minutes, seconds]);
-
-  const handleTimeChange = (setter: React.Dispatch<React.SetStateAction<number>>, value: string) => {
-    let newValue = parseInt(value, 10);
-    if (isNaN(newValue) || newValue < 0) newValue = 0;
-    if (setter === setHours && newValue > 12) newValue = 12;
-    if (setter === setMinutes && newValue > 59) newValue = 59;
-    if (setter === setSeconds && newValue > 59) newValue = 59;
-    setter(newValue);
+  const handleInputChange = (e) => {
+    if (isRunning) return;
+    const { name, value } = e.target;
+    let intValue = Math.max(0, Math.min(name === "hours" ? 12 : 59, parseInt(value) || 0));
+    setTime((prev) => ({ ...prev, [name]: intValue }));
   };
-
-  const resetTimer = () => {
-    setIsRunning(false);
-    setTimeLeft((hours * 3600) + (minutes * 60) + seconds);
-  };
-
-  const formatTime = (seconds: number) => {
-    const hrs = Math.floor(seconds / 3600);
-    const mins = Math.floor((seconds % 3600) / 60);
-    const secs = seconds % 60;
-    return `${String(hrs).padStart(2, "0")}:${String(mins).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
-  };
-
-  const progress = timeLeft / ((hours * 3600) + (minutes * 60) + seconds);
-  const gaugeColor = "#FF5733";
 
   return (
-    <div className="bg-white flex flex-col items-center w-full min-h-screen p-6">
-      <div className="w-full max-w-[393px] h-[852px] flex flex-col items-center justify-center">
-        <div className="flex gap-2 mb-4">
-          <input type="number" value={hours} onChange={(e) => handleTimeChange(setHours, e.target.value)} disabled={isRunning} className="border border-gray-300 rounded-md p-2 text-center w-16" />
-          <span>:</span>
-          <input type="number" value={minutes} onChange={(e) => handleTimeChange(setMinutes, e.target.value)} disabled={isRunning} className="border border-gray-300 rounded-md p-2 text-center w-16" />
-          <span>:</span>
-          <input type="number" value={seconds} onChange={(e) => handleTimeChange(setSeconds, e.target.value)} disabled={isRunning} className="border border-gray-300 rounded-md p-2 text-center w-16" />
-        </div>
+    <div className="flex justify-center w-full bg-white">
+      <div className="relative w-[393px] h-[852px] bg-white">
+        {/* Top Bar */}
+        <Vector className="!absolute !w-9 !h-6 !top-[30px] !left-[332px]" />
 
-        <div className="relative w-[200px] h-[200px]">
-          <svg width="200" height="200" viewBox="0 0 200 200">
-            <circle cx="100" cy="100" r={radius} stroke="#E0E0E0" strokeWidth="10" fill="none" />
-            <circle
-              cx="100"
-              cy="100"
-              r={radius}
-              stroke={gaugeColor}
-              strokeWidth="10"
-              fill="none"
-              strokeDasharray={circumference}
-              strokeDashoffset={circumference * (1 - progress)}
-              strokeLinecap="round"
-              transform="rotate(-90 100 100) scale(-1,1)"
-            />
-          </svg>
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-3xl font-bold">
-            {formatTime(timeLeft)}
+        {/* Main Content */}
+        <div className="flex flex-col items-center justify-center w-full mt-10">
+          <h2 className="text-3xl font-bold">시간 : 분 : 초</h2>
+          <div className="relative mt-4">
+            <div className="w-48 h-48 relative">
+              <svg className="absolute top-0 left-0 w-full h-full" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="45" stroke="#ddd" strokeWidth="10" fill="none" />
+                <circle cx="50" cy="50" r="45" stroke="#ff6666" strokeWidth="10" fill="none" strokeDasharray="283" strokeDashoffset={(progress / 100) * 283} />
+              </svg>
+              <div className="absolute inset-0 flex items-center justify-center">
+                <img src="/mnt/data/image.png" alt="Timer Icon" className="w-16 h-16 cursor-pointer" onClick={() => setShowModal(true)} />
+              </div>
+            </div>
           </div>
+          <div className="flex gap-2 mt-5">
+            <input type="number" name="hours" value={time.hours} onChange={handleInputChange} className="w-14 text-center border" disabled={isRunning} />
+            <span>:</span>
+            <input type="number" name="minutes" value={time.minutes} onChange={handleInputChange} className="w-14 text-center border" disabled={isRunning} />
+            <span>:</span>
+            <input type="number" name="seconds" value={time.seconds} onChange={handleInputChange} className="w-14 text-center border" disabled={isRunning} />
+          </div>
+          <div className="flex gap-4 mt-5">
+            <Button onClick={() => setIsRunning((prev) => !prev)}>{isRunning ? "일시정지" : "타이머 시작"}</Button>
+            <Button onClick={() => { setTime({ hours: 0, minutes: 0, seconds: 0 }); setIsRunning(false); setProgress(100); }}>초기화</Button>
+          </div>
+          
+          <AnimatePresence>
+            {showModal && (
+              <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                <div className="w-4/5 h-2/3 bg-white rounded-xl p-5 shadow-lg">
+                  <h2 className="text-xl font-bold">모달 창</h2>
+                  <p>타이머 관련 추가 설정을 여기에 배치하세요.</p>
+                  <Button onClick={() => setShowModal(false)}>닫기</Button>
+                </div>
+              </div>
+            )}
+          </AnimatePresence>
         </div>
 
-        <div className="flex gap-4 mt-6">
-          <button onClick={() => setIsRunning(!isRunning)} className="px-6 py-3 bg-blue-500 text-white rounded-lg text-lg">
-            {isRunning ? "일시정지" : "시작"}
-          </button>
-          <button onClick={resetTimer} className="px-6 py-3 bg-gray-400 text-white rounded-lg text-lg">초기화</button>
-        </div>
-      </div>
-
-
-      {/* Bottom Navigation */}
-      <nav className="fixed bottom-0 left-0 right-0 max-w-[393px] mx-auto">
-        <div className="flex items-center justify-center gap-[15px] px-[5px] py-0 h-[100px] bg-white shadow-[0px_-2px_10px_#00000040]">
-          {navigationItems.map((item) => (
-            <button
-              key={item.label}
-              onClick={() => navigate(item.href, { replace: true })} // replace 옵션으로 뒤로가기 방지
-              className="flex flex-col items-center w-[82px] h-[75px] bg-transparent border-none"
-            >
-              <item.icon
-                className={`w-14 h-14 ${
-                  item.active ? "text-black" : "text-[#b3b3b3]"
-                }`}
-              />
-              <span
-                className={`font-['Koulen'] text-xl ${
-                  item.active ? "text-black" : "text-[#b3b3b3]"
-                }`}
+        {/* Bottom Navigation */}
+        <nav className="fixed bottom-0 left-0 right-0 max-w-[393px] mx-auto">
+          <div className="flex items-center justify-center gap-[15px] px-[5px] py-0 h-[100px] bg-white shadow-[0px_-2px_10px_#00000040]">
+            {navigationItems.map((item) => (
+              <button
+                key={item.label}
+                onClick={() => navigate(item.href, { replace: true })} // replace 옵션으로 뒤로가기 방지
+                className="flex flex-col items-center w-[82px] h-[75px] bg-transparent border-none"
               >
-                {item.label}
-              </span>
-            </button>
-          ))}
-        </div>
-      </nav>
+                <item.icon
+                  className={`w-14 h-14 ${
+                    item.active ? "text-black" : "text-[#b3b3b3]"
+                  }`}
+                />
+                <span
+                  className={`font-['Koulen'] text-xl ${
+                    item.active ? "text-black" : "text-[#b3b3b3]"
+                  }`}
+                >
+                  {item.label}
+                </span>
+              </button>
+            ))}
+          </div>
+        </nav>
+      </div>
     </div>
   );
 };
