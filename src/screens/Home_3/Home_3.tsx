@@ -10,7 +10,7 @@ import { Card, CardContent } from "../../components/ui/card";
 import { Vector } from "../../icons/Vector";
 import { BrowserRouter as Router, Route, Routes, useNavigate, useLocation } from "react-router-dom";
 import {Question2Server} from "../../api/api";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 
 const navigationItems = [
   { icon: TrophyIcon, label: "CHALLENGE", href: "/Challenge", active: false },
@@ -24,23 +24,19 @@ export const Home3 = (): JSX.Element => {
 
   const { age, gender, question } = location.state || {};
 
+  const fetchAndNavigate = useCallback(async () => {
+    try {
+      console.log(age, gender, question);
+      const data = await Question2Server(age, gender, question);
+      navigate("/Home_4", { state: { ...data } });
+    } catch (error) {
+      console.error("Error while fetching data:", error);
+    }
+  }, [age, gender, question, navigate]); // ✅ 필요한 의존성만 설정
+  
   useEffect(() => {
-    const fetchAndNavigate = async () => {
-      try {
-        console.log(age, gender, question);
-  
-        // 새로 만든 fetchData 함수를 호출
-        const data = await Question2Server(age, gender, question);
-  
-        // 데이터를 Home_4로 전달하며 페이지 이동
-        navigate("/Home_4", { state: { ...data } });
-      } catch (error) {
-        console.error("Error while fetching data:", error);
-      }
-    };
-
     fetchAndNavigate();
-  }, [navigate]);
+  }, [fetchAndNavigate]); // ✅ useCallback을 통해 fetchAndNavigate가 변경되지 않도록 함
 
   return (
     <div className="bg-white flex flex-row justify-center w-full">

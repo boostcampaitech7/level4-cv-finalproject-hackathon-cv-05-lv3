@@ -73,11 +73,11 @@ import {
                 className="flex-1 rounded-[3px_20px_20px_3px] bg-[#d9d9d9] hover:bg-[#c4c4c4]"
                 onClick={() => {
                   Calendar2Server(data.question, data.bookimage, data.bookTitle);
-                  navigate("/Calendar", { replace: true })
+                  navigate("/Library", { replace: true })
                   }
                 }
               >
-                캘린더에 저장하기
+                도서관에 저장하기
               </Button>
             </div>
           </div>

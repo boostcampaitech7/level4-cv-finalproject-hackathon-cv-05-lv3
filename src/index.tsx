@@ -5,7 +5,7 @@ import { createRoot } from "react-dom/client";
 import App from "./App.js";
 
 createRoot(document.getElementById("app") as HTMLElement).render(
-  <StrictMode>
+  //<StrictMode>
     <App />
-  </StrictMode>,
+  //</StrictMode>,
 );

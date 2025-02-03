@@ -8,7 +8,7 @@ export const Vector = ({ className }: Props): JSX.Element => {
   const [isOverlayVisible, setIsOverlayVisible] = useState(false);
 
   const toggleOverlay = () => {
-    setIsOverlayVisible((prev) => !prev); // 토글 동작
+    setIsOverlayVisible((prev) => !prev);
   };
 
   return (
@@ -40,7 +40,10 @@ export const Vector = ({ className }: Props): JSX.Element => {
           className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
           onClick={toggleOverlay} // 오버레이 클릭 시 닫기
         >
-          <div className="bg-white p-6 rounded-lg shadow-lg">
+          <div
+            className="bg-white p-6 rounded-lg shadow-lg"
+            onClick={(e) => e.stopPropagation()} // 내부 클릭 시 닫히지 않도록 설정
+          >
             <p className="text-lg font-bold">Overlay Content</p>
             <button
               onClick={toggleOverlay}
