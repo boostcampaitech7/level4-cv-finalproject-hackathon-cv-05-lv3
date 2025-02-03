@@ -9,6 +9,7 @@ import { Challenge } from "./screens/Challenge";
 import { Library_home } from "./screens/Library_home";
 import { Library_1 } from "./screens/Library_1";
 import { Timer } from "./screens/Timer_아래변경필요";
+import { Map } from "./screens/Map";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
         <Route path="/Library_detail" element={<Library_1 />} />
 
         <Route path="/Timer" element={<Timer />} />
+        <Route path="/Map" element={<Map />} />
         {/* 다른 화면 경로 추가 가능 */}
       </Routes>
     </Router>
