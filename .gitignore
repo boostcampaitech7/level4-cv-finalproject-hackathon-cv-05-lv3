@@ -179,3 +179,7 @@ pyrightconfig.json
 chromedriver/
 
 **/*.env
+
+.DS_Store
+*.json
+logs/
