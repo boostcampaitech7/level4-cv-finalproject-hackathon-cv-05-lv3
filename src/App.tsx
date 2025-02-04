@@ -9,6 +9,7 @@ import { Challenge } from "./screens/Challenge";
 import { Library_home } from "./screens/Library_home";
 import { Library_1 } from "./screens/Library_1";
 import { Timer } from "./screens/Timer";
+import { Community } from "./screens/Community";
 
 function App() {
   return (
@@ -29,6 +30,8 @@ function App() {
         <Route path="/Library_detail" element={<Library_1 />} />
 
         <Route path="/Timer" element={<Timer />} />
+
+        <Route path="/Commu" element={<Community />} />
         {/* 다른 화면 경로 추가 가능 */}
       </Routes>
     </Router>

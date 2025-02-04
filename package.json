@@ -29,6 +29,7 @@
     "react-day-picker": "^9.5.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.8.1",
+    "react-swipeable": "^7.0.2",
     "tailwind-merge": "2.5.4",
     "vite-plugin-css-modules": "^0.0.1"
   },
