@@ -32,3 +32,5 @@ class BadgeResponse(BaseModel):
 class LocationRequest(BaseModel):
     latitude: float
     longitude: float
+    region: Optional[str] = None
+    dtl_region: Optional[str] = None

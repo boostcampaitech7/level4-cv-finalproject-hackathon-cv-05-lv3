@@ -292,17 +292,54 @@ def get_calendar():
 # 사용자의 위치 데이터를 저장할 리스트 (데이터베이스 대체용)
 location_data = []
 
+# 사용자의 위치 데이터 전송
 @router.post("/api/location")
 async def receive_location(location_request: LocationRequest):
-    print(f"🚀 Server received request: Latitude={location_request.latitude}, Longitude={location_request.longitude}")
-    return {
-        "statusCode": 200,
-        "message": "Location data received successfully",
-        "location": {
+    try:
+        print(f"📍 Received location data: Latitude={location_request.latitude}, Longitude={location_request.longitude}")
+
+        # 네이버 Reverse Geocoding API 요청
+        naver_api_url = f"https://naveropenapi.apigw.ntruss.com/map-reversegeocode/v2/gc?coords={location_request.longitude},{location_request.latitude}&output=json&orders=roadaddr"
+
+        headers = {
+            "X-NCP-APIGW-API-KEY-ID": NAVER_MAP_CLIENT_ID,
+            "X-NCP-APIGW-API-KEY": NAVER_MAP_CLIENT_SECRET,
+        }
+
+        response = requests.get(naver_api_url, headers=headers)
+
+        if response.status_code != 200:
+            print(f"🚨 Naver API Error: {response.status_code}")
+            raise HTTPException(status_code=response.status_code, detail="Error calling Naver API")
+
+        data = response.json()
+        
+        # 📌 시/도 + 시/군/구까지 파싱
+        country = data.get("results", [{}])[0].get("region", {}).get("area0", {}).get("name", "국가 정보 없음")
+        region = data.get("results", [{}])[0].get("region", {}).get("area1", {}).get("name", "시/도 정보 없음")
+        dtl_region = data.get("results", [{}])[0].get("region", {}).get("area2", {}).get("name", "시/군/구 정보 없음")
+
+        print(f"🏠 Resolved Address: {region} {dtl_region}")
+
+        # 데이터 저장
+        location_data.append({
             "latitude": location_request.latitude,
             "longitude": location_request.longitude,
+            "region": region,
+            "dtl_region": dtl_region,
+            "timestamp": datetime.datetime.utcnow().isoformat()
+        })
+
+        print(f"✅ Location data stored successfully: {location_request.latitude}, {location_request.longitude}, {region}, {dtl_region}")
+
+        return {
+            "statusCode": 200,
+            "message": "Location data received successfully",
         }
-    }
+
+    except Exception as e:
+        print(f"❌ Error processing location data: {e}")
+        raise HTTPException(status_code=500, detail=f"Error processing location data: {e}")
 
 @router.get("/api/location", response_model=List[dict])
 def get_locations():
