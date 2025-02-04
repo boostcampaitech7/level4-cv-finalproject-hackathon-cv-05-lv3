@@ -9,7 +9,7 @@ import { Vector } from "../../icons/Vector";
 import { Button } from "../../components/ui/button";
 import { Card, CardContent } from "../../components/ui/card";
 import { BrowserRouter as Router, Route, Routes, useNavigate, useLocation } from "react-router-dom";
-import { Calendar2Server } from "../../api/api";
+import { Calendar2Server, sendLocationToServer } from "../../api/api";
 import { useEffect } from "react";
 
 const navigationItems = [
@@ -63,14 +63,15 @@ export const Map = (): JSX.Element => {
         infowindow.setContent(
           '<div style="padding:20px;">geolocation.getCurrentPosition() 위치</div>'
         );
-        // infowindow.open(map, location);
-        console.log("Coordinates: " + location.toString());
-
+                
         // 위치 마커 추가
         new naver.maps.Marker({
           position: location,
           map: map
         });
+                
+        // 위치 정보를 서버로 전송
+        sendLocationToServer(position.coords.latitude, position.coords.longitude);
       }
   
       function onErrorGeolocation() {

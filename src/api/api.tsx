@@ -137,3 +137,13 @@ export const Server2Badge = async (): Promise<Badge[]> => {
     return []; // 오류 발생 시 빈 배열 반환
   }
 };
+
+// 서버로 위치 정보를 전송하는 함수
+export const sendLocationToServer = async (latitude: number, longitude: number) => {
+  try {
+    const response = await apiClient.post("/api/location", { latitude, longitude });
+    console.log("Location sent successfully:", response.data);
+  } catch (error) {
+    console.error("Error sending location data:", error);
+  }
+}
