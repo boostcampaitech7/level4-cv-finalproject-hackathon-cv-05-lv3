@@ -8,6 +8,7 @@ class UserQuestion(BaseModel):
     question: str
 
 class ClovaResponse(BaseModel):
+    question: str
     bookimage: str
     bookTitle: str
     description: str
@@ -15,9 +16,9 @@ class ClovaResponse(BaseModel):
 class CalendarResponse(BaseModel):
     date: str  # YYYY-MM-DD format
     time: str  # HH:mm format
-    question: str
     bookimage: str
     bookTitle: str
+    question: str
 
 class BadgeRequest(BaseModel):
     bookTitle: str

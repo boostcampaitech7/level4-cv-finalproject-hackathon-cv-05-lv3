@@ -1,7 +1,7 @@
 from fastapi import HTTPException, APIRouter
 import os
 import json
-from ..schemas import CalendarResponse
+from schemas import CalendarResponse
 from typing import List
 
 router = APIRouter() # 모든 엔드포인트를 이 router에 정의하고, main에서 한 번에 추가 
@@ -17,6 +17,7 @@ os.makedirs(CALENDAR_DIR, exist_ok=True)
 @router.post("/api/save_books")
 async def save_books(calendarResponse: CalendarResponse):
     try:
+        print(f"📥 받은 요청 데이터: {calendarResponse.dict()}") 
         # datetime.datetime.strptime(calendarResponse.date, "%Y-%m-%d")
         # datetime.datetime.strptime(calendarResponse.time, "%H:%M")
 

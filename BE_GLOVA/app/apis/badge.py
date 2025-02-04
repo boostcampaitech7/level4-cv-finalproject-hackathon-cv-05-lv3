@@ -1,6 +1,6 @@
 from fastapi import HTTPException, APIRouter
 import json
-from ..schemas import BadgeRequest
+from schemas import BadgeRequest
 import base64
 from pathlib import Path
 # from ..model import generate_badge
