@@ -45,7 +45,7 @@ export const Map = (): JSX.Element => {
   
       const map = new naver.maps.Map("map", {
         center: new naver.maps.LatLng(37.5666805, 126.9784147),
-        zoom: 10,
+        zoom: 13,
         mapTypeId: naver.maps.MapTypeId.NORMAL,
       });
   
@@ -58,13 +58,19 @@ export const Map = (): JSX.Element => {
         );
   
         map.setCenter(location);
-        map.setZoom(10);
+        map.setZoom(13);
   
         infowindow.setContent(
           '<div style="padding:20px;">geolocation.getCurrentPosition() 위치</div>'
         );
-        infowindow.open(map, location);
+        // infowindow.open(map, location);
         console.log("Coordinates: " + location.toString());
+
+        // 위치 마커 추가
+        new naver.maps.Marker({
+          position: location,
+          map: map
+        });
       }
   
       function onErrorGeolocation() {
