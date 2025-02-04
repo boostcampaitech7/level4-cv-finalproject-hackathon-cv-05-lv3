@@ -1,11 +1,23 @@
 from fastapi import HTTPException, APIRouter
+from fastapi.responses import FileResponse
 import json
-from schemas import BadgeRequest
+from schemas import BadgeRequest, VoiceRequest
 import base64
 from pathlib import Path
+from datetime import datetime
+import os
+from dotenv import load_dotenv
+import urllib.parse
+import urllib.request
 # from ..model import generate_badge
 
 router = APIRouter() # 모든 엔드포인트를 이 router에 정의하고, main에서 한 번에 추가 
+
+load_dotenv()
+
+# 클로바 보이스 키 설정
+CLOVA_VOICE_CLIENT_ID = os.getenv('CLOVA_VOICE_CLIENT_ID')
+CLOVA_VOICE_CLIENT_SECRET = os.getenv('CLOVA_VOICE_CLIENT_SECRET')
 
 # 뱃지 이미지 저장 폴더
 BADGE_DIR = Path("/data/ephemeral/home/whth/level4-cv-finalproject-hackathon-cv-05-lv3/BE_GLOVA/badge")
@@ -13,13 +25,79 @@ BADGE_DIR = Path("/data/ephemeral/home/whth/level4-cv-finalproject-hackathon-cv-
 METADATA_FILE = Path("/data/ephemeral/home/whth/level4-cv-finalproject-hackathon-cv-05-lv3/BE_GLOVA/badge/badge_metadata.json")
 # METADATA_FILE = Path(BADGE_DIR) / "badge_metadata.json"
 
-# # 폴더 없으면 생성
-# os.makedirs(BADGE_DIR, exist_ok=True)
+def clova_voice(speak: str, dir_name: str):
+    class VoiceExecutor:
+        def __init__(self, client_id, client_secret):
+            self.client_id = client_id
+            self.client_secret = client_secret
+        
+        def execute(self, request_data, name, VOICE_DIR):
+            data = urllib.parse.urlencode(request_data).encode("utf-8")
+            url = "https://naveropenapi.apigw.ntruss.com/tts-premium/v1/tts"
+            headers = {
+                "X-NCP-APIGW-API-KEY-ID" : self.client_id,
+                "X-NCP-APIGW-API-KEY" : self.client_secret
+            }
+            request = urllib.request.Request(url, data=data, headers=headers)
+            try:
+                with urllib.request.urlopen(request) as response:
+                    rescode = response.getcode()
+                    if rescode == 200:
+                        print("TTS mp3 save")
+                        response_body = response.read()
+                        with open(os.path.join(VOICE_DIR, name), 'wb') as f:
+                            f.write(response_body)
+                    else:
+                        print(f"Error Code: {rescode}")
+            except urllib.error.URLError as e:
+                print(f"Request failed: {e.reason}")
+    
+    voice_execute = VoiceExecutor(
+        client_id= CLOVA_VOICE_CLIENT_ID,
+        client_secret= CLOVA_VOICE_CLIENT_SECRET
+    )
+    
+    text = speak
+    speaker = "dara-danna" 
+    speed = "0"
+    volume = "0"
+    pitch = "0"
+    fmt = "mp3"
+    val = {
+        "speaker": speaker,
+        "volume": volume,
+        "speed":speed,
+        "pitch": pitch,
+        "text":text,
+        "format": fmt
+    }
+    try:
+        # 저장 위치 : 뱃지/뱃지 이름/
+        VOICE_DIR = Path(BADGE_DIR) / dir_name
+        if not os.path.exists(VOICE_DIR):
+            os.makedirs(VOICE_DIR)
+        voice_execute.execute(val, "female.mp3", VOICE_DIR)
+        val["speaker"] = "dsinu-matt"
+        voice_execute.execute(val, "male.mp3", VOICE_DIR)
 
+    except Exception as e:
+        print(f"Error fetching book details: {e}")
+
+
+
+# 뱃지 생성 + 보이스 생성(양성)
 @router.post("/api/badge_create")
 async def create_badge(request: BadgeRequest):
     try:
-        # filenames = generate_badge(request.bookTitle, request.badgeImages) # 임시 모델 연결 코드
+        # 저장 위치 : 뱃지/ 뱃지 이름=책제목+시간/ 
+        timestamp = datetime.utcnow().strftime("%Y-%m-%dT%H-%M-%S")
+        dir_name = f"{request.bookTitle.replace(' ', '_')}_{timestamp}"
+        DIR = Path(BADGE_DIR) / dir_name
+
+        os.mkdir(DIR)
+
+        # filenames = generate_badge(request.bookTitle, request.badgeImages, dir_naem) # 임시 모델 연결 코드
+        clova_voice(request.speak, dir_name)
         return {
             "statusCode": 200,
             "message": "Badge image generated successfully"
@@ -50,5 +128,17 @@ async def get_all_badge_images():
                     "bookTitle": badge_metadata[file.name]["bookTitle"]
                 })
         return badge_images
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error fetching badge images: {e}")
+
+# 책제목? 성별 -> 대사 음성 
+@router.get("api/badge/voice")
+async def get_voice(request: VoiceRequest):
+    try:
+        # 책 제목보고 음성 찾아서
+        # 성별로 하나만 가져와서
+
+        return FileResponse("1111.mp3", media_type="audio/mpeg", filename="output.mp3")
+    
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error fetching badge images: {e}")
