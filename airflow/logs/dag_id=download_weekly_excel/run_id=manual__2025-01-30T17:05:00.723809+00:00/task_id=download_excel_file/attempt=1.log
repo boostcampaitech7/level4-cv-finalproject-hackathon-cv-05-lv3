@@ -1,0 +1,26 @@
+[2025-01-31T02:05:02.944+0900] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-01-31T02:05:02.952+0900] {taskinstance.py:2613} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: download_weekly_excel.download_excel_file manual__2025-01-30T17:05:00.723809+00:00 [queued]>
+[2025-01-31T02:05:02.956+0900] {taskinstance.py:2613} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: download_weekly_excel.download_excel_file manual__2025-01-30T17:05:00.723809+00:00 [queued]>
+[2025-01-31T02:05:02.957+0900] {taskinstance.py:2866} INFO - Starting attempt 1 of 2
+[2025-01-31T02:05:02.969+0900] {taskinstance.py:2889} INFO - Executing <Task(PythonOperator): download_excel_file> on 2025-01-30 17:05:00.723809+00:00
+[2025-01-31T02:05:02.972+0900] {standard_task_runner.py:72} INFO - Started process 1074505 to run task
+[2025-01-31T02:05:02.976+0900] {standard_task_runner.py:104} INFO - Running: ['airflow', 'tasks', 'run', 'download_weekly_excel', 'download_excel_file', 'manual__2025-01-30T17:05:00.723809+00:00', '--job-id', '3', '--raw', '--subdir', 'DAGS_FOLDER/download.py', '--cfg-path', '/tmp/tmpr65d1jt9']
+[2025-01-31T02:05:02.977+0900] {standard_task_runner.py:105} INFO - Job 3: Subtask download_excel_file
+[2025-01-31T02:05:03.013+0900] {task_command.py:467} INFO - Running <TaskInstance: download_weekly_excel.download_excel_file manual__2025-01-30T17:05:00.723809+00:00 [running]> on host instance-14709
+[2025-01-31T02:05:03.072+0900] {taskinstance.py:3132} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='download_weekly_excel' AIRFLOW_CTX_TASK_ID='download_excel_file' AIRFLOW_CTX_EXECUTION_DATE='2025-01-30T17:05:00.723809+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-01-30T17:05:00.723809+00:00'
+[2025-01-31T02:05:03.073+0900] {logging_mixin.py:190} INFO - Task instance is in running state
+[2025-01-31T02:05:03.073+0900] {logging_mixin.py:190} INFO -  Previous state of the Task instance: queued
+[2025-01-31T02:05:03.073+0900] {logging_mixin.py:190} INFO - Current task name:download_excel_file state:running start_date:2025-01-30 17:05:02.952319+00:00
+[2025-01-31T02:05:03.073+0900] {logging_mixin.py:190} INFO - Dag name:download_weekly_excel and current dag run status:running
+[2025-01-31T02:05:03.074+0900] {taskinstance.py:731} INFO - ::endgroup::
+[2025-01-31T02:05:11.651+0900] {logging_mixin.py:190} INFO - File downloaded and saved to /data/ephemeral/home/new_books.xlsx
+[2025-01-31T02:05:11.653+0900] {python.py:240} INFO - Done. Returned value was: None
+[2025-01-31T02:05:11.658+0900] {taskinstance.py:340} INFO - ::group::Post task execution logs
+[2025-01-31T02:05:11.658+0900] {taskinstance.py:352} INFO - Marking task as SUCCESS. dag_id=download_weekly_excel, task_id=download_excel_file, run_id=manual__2025-01-30T17:05:00.723809+00:00, execution_date=20250130T170500, start_date=20250130T170502, end_date=20250130T170511
+[2025-01-31T02:05:11.671+0900] {logging_mixin.py:190} INFO - Task instance in success state
+[2025-01-31T02:05:11.672+0900] {logging_mixin.py:190} INFO -  Previous state of the Task instance: running
+[2025-01-31T02:05:11.672+0900] {logging_mixin.py:190} INFO - Dag name:download_weekly_excel queued_at:2025-01-30 17:05:00.737880+00:00
+[2025-01-31T02:05:11.672+0900] {logging_mixin.py:190} INFO - Task hostname:instance-14709 operator:PythonOperator
+[2025-01-31T02:05:11.680+0900] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2025-01-31T02:05:11.688+0900] {taskinstance.py:3895} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-01-31T02:05:11.689+0900] {local_task_job_runner.py:245} INFO - ::endgroup::

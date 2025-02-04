@@ -1,0 +1,785 @@
+[2025-02-04T09:00:53.668+0900] {processor.py:186} INFO - Started process (PID=1691187) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:00:53.669+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T09:00:53.670+0900] {logging_mixin.py:190} INFO - [2025-02-04T09:00:53.670+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:00:53.673+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:00:53.684+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T09:01:49.138+0900] {processor.py:186} INFO - Started process (PID=1691273) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:01:49.141+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T09:01:49.142+0900] {logging_mixin.py:190} INFO - [2025-02-04T09:01:49.142+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:01:49.145+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:01:49.156+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.029 seconds
+[2025-02-04T09:02:44.891+0900] {processor.py:186} INFO - Started process (PID=1691366) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:02:44.892+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T09:02:44.894+0900] {logging_mixin.py:190} INFO - [2025-02-04T09:02:44.893+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:02:44.896+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:02:44.908+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.028 seconds
+[2025-02-04T09:03:40.454+0900] {processor.py:186} INFO - Started process (PID=1691452) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:03:40.455+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T09:03:40.457+0900] {logging_mixin.py:190} INFO - [2025-02-04T09:03:40.456+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:03:40.459+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:03:40.470+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T09:04:34.339+0900] {processor.py:186} INFO - Started process (PID=1691544) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:04:34.341+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T09:04:34.343+0900] {logging_mixin.py:190} INFO - [2025-02-04T09:04:34.342+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:04:34.345+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:04:34.357+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.028 seconds
+[2025-02-04T09:05:28.440+0900] {processor.py:186} INFO - Started process (PID=1691631) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:05:28.442+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T09:05:28.443+0900] {logging_mixin.py:190} INFO - [2025-02-04T09:05:28.443+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:05:28.446+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:05:28.457+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.028 seconds
+[2025-02-04T09:06:22.433+0900] {processor.py:186} INFO - Started process (PID=1691722) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:06:22.435+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T09:06:22.436+0900] {logging_mixin.py:190} INFO - [2025-02-04T09:06:22.436+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:06:22.439+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:06:22.450+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T09:07:19.172+0900] {processor.py:186} INFO - Started process (PID=1691809) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:07:19.174+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T09:07:19.175+0900] {logging_mixin.py:190} INFO - [2025-02-04T09:07:19.175+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:07:19.178+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:07:19.189+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T09:08:12.670+0900] {processor.py:186} INFO - Started process (PID=1691903) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:08:12.671+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T09:08:12.673+0900] {logging_mixin.py:190} INFO - [2025-02-04T09:08:12.672+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:08:12.675+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:08:12.686+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T09:09:04.512+0900] {processor.py:186} INFO - Started process (PID=1691988) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:09:04.515+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T09:09:04.516+0900] {logging_mixin.py:190} INFO - [2025-02-04T09:09:04.516+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:09:04.519+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:09:04.529+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T09:09:58.987+0900] {processor.py:186} INFO - Started process (PID=1692074) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:09:58.992+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T09:09:58.993+0900] {logging_mixin.py:190} INFO - [2025-02-04T09:09:58.993+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:09:58.996+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:09:59.007+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.030 seconds
+[2025-02-04T09:10:53.295+0900] {processor.py:186} INFO - Started process (PID=1692166) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:10:53.297+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T09:10:53.298+0900] {logging_mixin.py:190} INFO - [2025-02-04T09:10:53.298+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:10:53.301+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:10:53.312+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.028 seconds
+[2025-02-04T09:11:48.404+0900] {processor.py:186} INFO - Started process (PID=1692252) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:11:48.406+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T09:11:48.408+0900] {logging_mixin.py:190} INFO - [2025-02-04T09:11:48.407+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:11:48.410+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:11:48.421+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.026 seconds
+[2025-02-04T09:12:43.949+0900] {processor.py:186} INFO - Started process (PID=1692344) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:12:43.951+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T09:12:43.952+0900] {logging_mixin.py:190} INFO - [2025-02-04T09:12:43.952+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:12:43.955+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:12:43.965+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.026 seconds
+[2025-02-04T09:13:40.508+0900] {processor.py:186} INFO - Started process (PID=1692433) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:13:40.509+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T09:13:40.511+0900] {logging_mixin.py:190} INFO - [2025-02-04T09:13:40.510+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:13:40.513+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:13:40.524+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.026 seconds
+[2025-02-04T09:14:33.845+0900] {processor.py:186} INFO - Started process (PID=1692523) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:14:33.846+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T09:14:33.848+0900] {logging_mixin.py:190} INFO - [2025-02-04T09:14:33.847+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:14:33.850+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:14:33.862+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T09:15:27.605+0900] {processor.py:186} INFO - Started process (PID=1692609) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:15:27.607+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T09:15:27.608+0900] {logging_mixin.py:190} INFO - [2025-02-04T09:15:27.608+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:15:27.611+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:15:27.622+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T09:16:19.723+0900] {processor.py:186} INFO - Started process (PID=1692693) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:16:19.724+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T09:16:19.726+0900] {logging_mixin.py:190} INFO - [2025-02-04T09:16:19.725+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:16:19.728+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:16:19.739+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.026 seconds
+[2025-02-04T09:17:14.105+0900] {processor.py:186} INFO - Started process (PID=1692786) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:17:14.106+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T09:17:14.107+0900] {logging_mixin.py:190} INFO - [2025-02-04T09:17:14.107+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:17:14.110+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:17:14.121+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.026 seconds
+[2025-02-04T09:18:07.175+0900] {processor.py:186} INFO - Started process (PID=1692871) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:18:07.176+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T09:18:07.178+0900] {logging_mixin.py:190} INFO - [2025-02-04T09:18:07.177+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:18:07.180+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:18:07.191+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T09:18:59.673+0900] {processor.py:186} INFO - Started process (PID=1692955) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:18:59.674+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T09:18:59.676+0900] {logging_mixin.py:190} INFO - [2025-02-04T09:18:59.675+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:18:59.678+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:18:59.689+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.026 seconds
+[2025-02-04T09:19:52.853+0900] {processor.py:186} INFO - Started process (PID=1693046) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:19:52.855+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T09:19:52.856+0900] {logging_mixin.py:190} INFO - [2025-02-04T09:19:52.856+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:19:52.859+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:19:52.869+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.026 seconds
+[2025-02-04T09:20:48.180+0900] {processor.py:186} INFO - Started process (PID=1693133) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:20:48.181+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T09:20:48.183+0900] {logging_mixin.py:190} INFO - [2025-02-04T09:20:48.182+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:20:48.185+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:20:48.197+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.028 seconds
+[2025-02-04T09:21:39.884+0900] {processor.py:186} INFO - Started process (PID=1693218) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:21:39.885+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T09:21:39.886+0900] {logging_mixin.py:190} INFO - [2025-02-04T09:21:39.886+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:21:39.889+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:21:39.900+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.026 seconds
+[2025-02-04T09:22:28.979+0900] {processor.py:186} INFO - Started process (PID=1693300) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:22:28.980+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T09:22:28.981+0900] {logging_mixin.py:190} INFO - [2025-02-04T09:22:28.981+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:22:28.984+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:22:28.994+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.026 seconds
+[2025-02-04T09:23:20.460+0900] {processor.py:186} INFO - Started process (PID=1693385) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:23:20.462+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T09:23:20.463+0900] {logging_mixin.py:190} INFO - [2025-02-04T09:23:20.463+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:23:20.466+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:23:20.477+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T09:24:16.396+0900] {processor.py:186} INFO - Started process (PID=1693477) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:24:16.397+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T09:24:16.399+0900] {logging_mixin.py:190} INFO - [2025-02-04T09:24:16.398+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:24:16.401+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:24:16.412+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.026 seconds
+[2025-02-04T09:25:11.847+0900] {processor.py:186} INFO - Started process (PID=1693569) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:25:11.848+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T09:25:11.850+0900] {logging_mixin.py:190} INFO - [2025-02-04T09:25:11.849+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:25:11.852+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:25:11.864+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T09:26:04.576+0900] {processor.py:186} INFO - Started process (PID=1693655) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:26:04.577+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T09:26:04.579+0900] {logging_mixin.py:190} INFO - [2025-02-04T09:26:04.578+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:26:04.581+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:26:04.592+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T09:26:57.724+0900] {processor.py:186} INFO - Started process (PID=1693741) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:26:57.726+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T09:26:57.727+0900] {logging_mixin.py:190} INFO - [2025-02-04T09:26:57.727+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:26:57.730+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:26:57.741+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T09:27:50.393+0900] {processor.py:186} INFO - Started process (PID=1693825) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:27:50.395+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T09:27:50.396+0900] {logging_mixin.py:190} INFO - [2025-02-04T09:27:50.396+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:27:50.399+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:27:50.410+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T09:28:44.934+0900] {processor.py:186} INFO - Started process (PID=1693917) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:28:44.935+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T09:28:44.937+0900] {logging_mixin.py:190} INFO - [2025-02-04T09:28:44.936+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:28:44.939+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:28:44.950+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T09:29:40.791+0900] {processor.py:186} INFO - Started process (PID=1694012) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:29:40.793+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T09:29:40.794+0900] {logging_mixin.py:190} INFO - [2025-02-04T09:29:40.794+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:29:40.797+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:29:40.808+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T09:30:34.313+0900] {processor.py:186} INFO - Started process (PID=1694098) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:30:34.315+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T09:30:34.316+0900] {logging_mixin.py:190} INFO - [2025-02-04T09:30:34.316+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:30:34.319+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:30:34.330+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T09:31:28.443+0900] {processor.py:186} INFO - Started process (PID=1694182) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:31:28.444+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T09:31:28.446+0900] {logging_mixin.py:190} INFO - [2025-02-04T09:31:28.445+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:31:28.448+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:31:28.459+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.026 seconds
+[2025-02-04T09:32:20.603+0900] {processor.py:186} INFO - Started process (PID=1694274) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:32:20.605+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T09:32:20.606+0900] {logging_mixin.py:190} INFO - [2025-02-04T09:32:20.606+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:32:20.609+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:32:20.620+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T09:33:14.558+0900] {processor.py:186} INFO - Started process (PID=1694361) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:33:14.560+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T09:33:14.561+0900] {logging_mixin.py:190} INFO - [2025-02-04T09:33:14.561+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:33:14.564+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:33:14.574+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.026 seconds
+[2025-02-04T09:34:08.088+0900] {processor.py:186} INFO - Started process (PID=1694445) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:34:08.089+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T09:34:08.090+0900] {logging_mixin.py:190} INFO - [2025-02-04T09:34:08.090+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:34:08.093+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:34:08.104+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T09:35:04.202+0900] {processor.py:186} INFO - Started process (PID=1694538) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:35:04.203+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T09:35:04.205+0900] {logging_mixin.py:190} INFO - [2025-02-04T09:35:04.204+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:35:04.207+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:35:04.218+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.026 seconds
+[2025-02-04T09:35:57.987+0900] {processor.py:186} INFO - Started process (PID=1694624) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:35:57.989+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T09:35:57.990+0900] {logging_mixin.py:190} INFO - [2025-02-04T09:35:57.990+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:35:57.993+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:35:58.004+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T09:36:54.234+0900] {processor.py:186} INFO - Started process (PID=1694717) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:36:54.235+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T09:36:54.236+0900] {logging_mixin.py:190} INFO - [2025-02-04T09:36:54.236+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:36:54.239+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:36:54.249+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.026 seconds
+[2025-02-04T09:37:48.747+0900] {processor.py:186} INFO - Started process (PID=1694804) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:37:48.748+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T09:37:48.749+0900] {logging_mixin.py:190} INFO - [2025-02-04T09:37:48.749+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:37:48.752+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:37:48.763+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T09:38:43.098+0900] {processor.py:186} INFO - Started process (PID=1694894) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:38:43.100+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T09:38:43.101+0900] {logging_mixin.py:190} INFO - [2025-02-04T09:38:43.100+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:38:43.104+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:38:43.114+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T09:39:38.637+0900] {processor.py:186} INFO - Started process (PID=1694981) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:39:38.638+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T09:39:38.639+0900] {logging_mixin.py:190} INFO - [2025-02-04T09:39:38.639+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:39:38.642+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:39:38.653+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.026 seconds
+[2025-02-04T09:40:36.457+0900] {processor.py:186} INFO - Started process (PID=1695075) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:40:36.459+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T09:40:36.460+0900] {logging_mixin.py:190} INFO - [2025-02-04T09:40:36.460+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:40:36.463+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:40:36.474+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T09:41:37.051+0900] {processor.py:186} INFO - Started process (PID=1695169) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:41:37.053+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T09:41:37.054+0900] {logging_mixin.py:190} INFO - [2025-02-04T09:41:37.054+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:41:37.057+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:41:37.068+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T09:42:36.714+0900] {processor.py:186} INFO - Started process (PID=1695263) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:42:36.715+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T09:42:36.716+0900] {logging_mixin.py:190} INFO - [2025-02-04T09:42:36.716+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:42:36.719+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:42:36.730+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.028 seconds
+[2025-02-04T09:43:37.365+0900] {processor.py:186} INFO - Started process (PID=1695357) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:43:37.367+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T09:43:37.369+0900] {logging_mixin.py:190} INFO - [2025-02-04T09:43:37.368+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:43:37.371+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:43:37.382+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T09:44:36.340+0900] {processor.py:186} INFO - Started process (PID=1695453) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:44:36.342+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T09:44:36.343+0900] {logging_mixin.py:190} INFO - [2025-02-04T09:44:36.343+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:44:36.346+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:44:36.356+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.026 seconds
+[2025-02-04T09:45:39.007+0900] {processor.py:186} INFO - Started process (PID=1695548) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:45:39.008+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T09:45:39.009+0900] {logging_mixin.py:190} INFO - [2025-02-04T09:45:39.008+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:45:39.010+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:45:39.018+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.143 seconds
+[2025-02-04T09:46:37.968+0900] {processor.py:186} INFO - Started process (PID=1695642) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:46:37.970+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T09:46:37.971+0900] {logging_mixin.py:190} INFO - [2025-02-04T09:46:37.971+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:46:37.974+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:46:37.985+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T09:47:30.284+0900] {processor.py:186} INFO - Started process (PID=1695729) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:47:30.285+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T09:47:30.286+0900] {logging_mixin.py:190} INFO - [2025-02-04T09:47:30.286+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:47:30.289+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:47:30.300+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T09:48:22.971+0900] {processor.py:186} INFO - Started process (PID=1695819) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:48:22.972+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T09:48:22.974+0900] {logging_mixin.py:190} INFO - [2025-02-04T09:48:22.973+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:48:22.976+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:48:22.988+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.028 seconds
+[2025-02-04T09:49:15.033+0900] {processor.py:186} INFO - Started process (PID=1695903) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:49:15.034+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T09:49:15.035+0900] {logging_mixin.py:190} INFO - [2025-02-04T09:49:15.035+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:49:15.038+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:49:15.049+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.026 seconds
+[2025-02-04T09:50:08.747+0900] {processor.py:186} INFO - Started process (PID=1695989) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:50:08.748+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T09:50:08.749+0900] {logging_mixin.py:190} INFO - [2025-02-04T09:50:08.749+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:50:08.752+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:50:08.763+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T09:51:03.232+0900] {processor.py:186} INFO - Started process (PID=1696081) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:51:03.233+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T09:51:03.234+0900] {logging_mixin.py:190} INFO - [2025-02-04T09:51:03.234+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:51:03.237+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:51:03.247+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.026 seconds
+[2025-02-04T09:51:56.389+0900] {processor.py:186} INFO - Started process (PID=1696167) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:51:56.390+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T09:51:56.391+0900] {logging_mixin.py:190} INFO - [2025-02-04T09:51:56.391+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:51:56.394+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:51:56.405+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T09:52:48.541+0900] {processor.py:186} INFO - Started process (PID=1696251) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:52:48.543+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T09:52:48.544+0900] {logging_mixin.py:190} INFO - [2025-02-04T09:52:48.544+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:52:48.547+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:52:48.558+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T09:53:41.396+0900] {processor.py:186} INFO - Started process (PID=1696407) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:53:41.397+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T09:53:41.399+0900] {logging_mixin.py:190} INFO - [2025-02-04T09:53:41.398+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:53:41.401+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:53:41.413+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.028 seconds
+[2025-02-04T09:54:31.761+0900] {processor.py:186} INFO - Started process (PID=1696491) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:54:31.763+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T09:54:31.764+0900] {logging_mixin.py:190} INFO - [2025-02-04T09:54:31.764+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:54:31.767+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:54:31.778+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.026 seconds
+[2025-02-04T09:55:23.344+0900] {processor.py:186} INFO - Started process (PID=1696576) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:55:23.345+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T09:55:23.346+0900] {logging_mixin.py:190} INFO - [2025-02-04T09:55:23.346+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:55:23.349+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:55:23.360+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T09:56:17.480+0900] {processor.py:186} INFO - Started process (PID=1696662) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:56:17.481+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T09:56:17.483+0900] {logging_mixin.py:190} INFO - [2025-02-04T09:56:17.482+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:56:17.485+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:56:17.496+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T09:57:12.531+0900] {processor.py:186} INFO - Started process (PID=1696755) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:57:12.533+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T09:57:12.534+0900] {logging_mixin.py:190} INFO - [2025-02-04T09:57:12.534+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:57:12.537+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:57:12.548+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T09:58:04.363+0900] {processor.py:186} INFO - Started process (PID=1696839) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:58:04.365+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T09:58:04.366+0900] {logging_mixin.py:190} INFO - [2025-02-04T09:58:04.366+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:58:04.369+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:58:04.381+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.028 seconds
+[2025-02-04T09:59:00.374+0900] {processor.py:186} INFO - Started process (PID=1696926) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:59:00.376+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T09:59:00.377+0900] {logging_mixin.py:190} INFO - [2025-02-04T09:59:00.377+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:59:00.380+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:59:00.391+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T09:59:54.009+0900] {processor.py:186} INFO - Started process (PID=1697020) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:59:54.010+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T09:59:54.012+0900] {logging_mixin.py:190} INFO - [2025-02-04T09:59:54.011+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:59:54.014+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T09:59:54.025+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.026 seconds
+[2025-02-04T10:00:49.880+0900] {processor.py:186} INFO - Started process (PID=1697105) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:00:49.882+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T10:00:49.883+0900] {logging_mixin.py:190} INFO - [2025-02-04T10:00:49.883+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:00:49.885+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:00:49.896+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.026 seconds
+[2025-02-04T10:01:45.671+0900] {processor.py:186} INFO - Started process (PID=1697198) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:01:45.673+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T10:01:45.674+0900] {logging_mixin.py:190} INFO - [2025-02-04T10:01:45.673+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:01:45.676+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:01:45.688+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.028 seconds
+[2025-02-04T10:02:39.557+0900] {processor.py:186} INFO - Started process (PID=1697308) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:02:39.559+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T10:02:39.560+0900] {logging_mixin.py:190} INFO - [2025-02-04T10:02:39.560+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:02:39.563+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:02:39.574+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T10:03:35.386+0900] {processor.py:186} INFO - Started process (PID=1697402) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:03:35.387+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T10:03:35.389+0900] {logging_mixin.py:190} INFO - [2025-02-04T10:03:35.388+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:03:35.391+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:03:35.402+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.026 seconds
+[2025-02-04T10:04:28.964+0900] {processor.py:186} INFO - Started process (PID=1697488) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:04:28.966+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T10:04:28.967+0900] {logging_mixin.py:190} INFO - [2025-02-04T10:04:28.967+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:04:28.970+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:04:28.980+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.026 seconds
+[2025-02-04T10:05:23.071+0900] {processor.py:186} INFO - Started process (PID=1697580) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:05:23.073+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T10:05:23.075+0900] {logging_mixin.py:190} INFO - [2025-02-04T10:05:23.074+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:05:23.077+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:05:23.088+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.028 seconds
+[2025-02-04T10:06:15.973+0900] {processor.py:186} INFO - Started process (PID=1697665) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:06:15.975+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T10:06:15.977+0900] {logging_mixin.py:190} INFO - [2025-02-04T10:06:15.976+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:06:15.980+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:06:15.992+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.034 seconds
+[2025-02-04T10:07:10.915+0900] {processor.py:186} INFO - Started process (PID=1697757) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:07:10.917+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T10:07:10.918+0900] {logging_mixin.py:190} INFO - [2025-02-04T10:07:10.918+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:07:10.921+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:07:10.932+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T10:08:02.499+0900] {processor.py:186} INFO - Started process (PID=1697842) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:08:02.501+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T10:08:02.502+0900] {logging_mixin.py:190} INFO - [2025-02-04T10:08:02.502+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:08:02.505+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:08:02.516+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.028 seconds
+[2025-02-04T10:08:53.390+0900] {processor.py:186} INFO - Started process (PID=1697926) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:08:53.392+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T10:08:53.393+0900] {logging_mixin.py:190} INFO - [2025-02-04T10:08:53.393+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:08:53.396+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:08:53.407+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T10:09:47.175+0900] {processor.py:186} INFO - Started process (PID=1698012) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:09:47.176+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T10:09:47.177+0900] {logging_mixin.py:190} INFO - [2025-02-04T10:09:47.177+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:09:47.180+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:09:47.191+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T10:10:37.017+0900] {processor.py:186} INFO - Started process (PID=1698095) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:10:37.019+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T10:10:37.020+0900] {logging_mixin.py:190} INFO - [2025-02-04T10:10:37.020+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:10:37.023+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:10:37.033+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T10:11:29.226+0900] {processor.py:186} INFO - Started process (PID=1698179) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:11:29.227+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T10:11:29.228+0900] {logging_mixin.py:190} INFO - [2025-02-04T10:11:29.228+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:11:29.231+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:11:29.242+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.026 seconds
+[2025-02-04T10:12:23.905+0900] {processor.py:186} INFO - Started process (PID=1698272) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:12:23.907+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T10:12:23.908+0900] {logging_mixin.py:190} INFO - [2025-02-04T10:12:23.908+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:12:23.911+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:12:23.922+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T10:13:18.249+0900] {processor.py:186} INFO - Started process (PID=1698357) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:13:18.253+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T10:13:18.255+0900] {logging_mixin.py:190} INFO - [2025-02-04T10:13:18.255+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:13:18.258+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:13:18.270+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.031 seconds
+[2025-02-04T10:14:13.899+0900] {processor.py:186} INFO - Started process (PID=1698449) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:14:13.900+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T10:14:13.902+0900] {logging_mixin.py:190} INFO - [2025-02-04T10:14:13.901+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:14:13.904+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:14:13.915+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.026 seconds
+[2025-02-04T10:15:07.597+0900] {processor.py:186} INFO - Started process (PID=1698535) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:15:07.599+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T10:15:07.600+0900] {logging_mixin.py:190} INFO - [2025-02-04T10:15:07.600+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:15:07.603+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:15:07.614+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T10:16:01.380+0900] {processor.py:186} INFO - Started process (PID=1698627) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:16:01.381+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T10:16:01.383+0900] {logging_mixin.py:190} INFO - [2025-02-04T10:16:01.382+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:16:01.386+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:16:01.397+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.028 seconds
+[2025-02-04T10:16:52.187+0900] {processor.py:186} INFO - Started process (PID=1698710) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:16:52.188+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T10:16:52.189+0900] {logging_mixin.py:190} INFO - [2025-02-04T10:16:52.189+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:16:52.192+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:16:52.202+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.026 seconds
+[2025-02-04T10:17:47.512+0900] {processor.py:186} INFO - Started process (PID=1698796) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:17:47.514+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T10:17:47.515+0900] {logging_mixin.py:190} INFO - [2025-02-04T10:17:47.515+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:17:47.518+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:17:47.529+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T10:18:42.151+0900] {processor.py:186} INFO - Started process (PID=1698888) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:18:42.152+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T10:18:42.154+0900] {logging_mixin.py:190} INFO - [2025-02-04T10:18:42.153+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:18:42.156+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:18:42.167+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T10:19:37.843+0900] {processor.py:186} INFO - Started process (PID=1698974) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:19:37.845+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T10:19:37.846+0900] {logging_mixin.py:190} INFO - [2025-02-04T10:19:37.846+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:19:37.849+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:19:37.859+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.026 seconds
+[2025-02-04T10:20:31.199+0900] {processor.py:186} INFO - Started process (PID=1699066) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:20:31.200+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T10:20:31.202+0900] {logging_mixin.py:190} INFO - [2025-02-04T10:20:31.201+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:20:31.204+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:20:31.215+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T10:21:25.066+0900] {processor.py:186} INFO - Started process (PID=1699152) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:21:25.068+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T10:21:25.069+0900] {logging_mixin.py:190} INFO - [2025-02-04T10:21:25.068+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:21:25.071+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:21:25.083+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T10:22:17.853+0900] {processor.py:186} INFO - Started process (PID=1699238) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:22:17.855+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T10:22:17.856+0900] {logging_mixin.py:190} INFO - [2025-02-04T10:22:17.856+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:22:17.859+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:22:17.870+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.026 seconds
+[2025-02-04T10:23:09.649+0900] {processor.py:186} INFO - Started process (PID=1699322) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:23:09.650+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T10:23:09.652+0900] {logging_mixin.py:190} INFO - [2025-02-04T10:23:09.651+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:23:09.654+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:23:09.666+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.028 seconds
+[2025-02-04T10:24:02.301+0900] {processor.py:186} INFO - Started process (PID=1699414) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:24:02.302+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T10:24:02.303+0900] {logging_mixin.py:190} INFO - [2025-02-04T10:24:02.303+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:24:02.306+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:24:02.317+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.026 seconds
+[2025-02-04T10:24:55.046+0900] {processor.py:186} INFO - Started process (PID=1699499) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:24:55.048+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T10:24:55.049+0900] {logging_mixin.py:190} INFO - [2025-02-04T10:24:55.049+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:24:55.052+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:24:55.063+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T10:25:48.910+0900] {processor.py:186} INFO - Started process (PID=1699584) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:25:48.912+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T10:25:48.913+0900] {logging_mixin.py:190} INFO - [2025-02-04T10:25:48.913+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:25:48.916+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:25:48.927+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T10:26:40.289+0900] {processor.py:186} INFO - Started process (PID=1699669) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:26:40.291+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T10:26:40.292+0900] {logging_mixin.py:190} INFO - [2025-02-04T10:26:40.292+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:26:40.295+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:26:40.306+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T10:27:32.293+0900] {processor.py:186} INFO - Started process (PID=1699760) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:27:32.295+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T10:27:32.296+0900] {logging_mixin.py:190} INFO - [2025-02-04T10:27:32.296+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:27:32.299+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:27:32.309+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.026 seconds
+[2025-02-04T10:28:23.885+0900] {processor.py:186} INFO - Started process (PID=1699844) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:28:23.887+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T10:28:23.889+0900] {logging_mixin.py:190} INFO - [2025-02-04T10:28:23.888+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:28:23.891+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:28:23.903+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.029 seconds
+[2025-02-04T10:29:18.490+0900] {processor.py:186} INFO - Started process (PID=1699929) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:29:18.491+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T10:29:18.493+0900] {logging_mixin.py:190} INFO - [2025-02-04T10:29:18.492+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:29:18.495+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:29:18.507+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.028 seconds
+[2025-02-04T10:30:12.850+0900] {processor.py:186} INFO - Started process (PID=1700021) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:30:12.852+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T10:30:12.853+0900] {logging_mixin.py:190} INFO - [2025-02-04T10:30:12.853+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:30:12.856+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:30:12.867+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.029 seconds
+[2025-02-04T10:31:07.577+0900] {processor.py:186} INFO - Started process (PID=1700107) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:31:07.579+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T10:31:07.580+0900] {logging_mixin.py:190} INFO - [2025-02-04T10:31:07.580+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:31:07.583+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:31:07.594+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T10:32:02.032+0900] {processor.py:186} INFO - Started process (PID=1700199) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:32:02.033+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T10:32:02.034+0900] {logging_mixin.py:190} INFO - [2025-02-04T10:32:02.034+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:32:02.037+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:32:02.047+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.026 seconds
+[2025-02-04T10:32:54.611+0900] {processor.py:186} INFO - Started process (PID=1700285) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:32:54.612+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T10:32:54.614+0900] {logging_mixin.py:190} INFO - [2025-02-04T10:32:54.613+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:32:54.616+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:32:54.627+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.026 seconds
+[2025-02-04T10:33:51.111+0900] {processor.py:186} INFO - Started process (PID=1700377) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:33:51.113+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T10:33:51.114+0900] {logging_mixin.py:190} INFO - [2025-02-04T10:33:51.114+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:33:51.117+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:33:51.127+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.026 seconds
+[2025-02-04T10:34:43.848+0900] {processor.py:186} INFO - Started process (PID=1700462) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:34:43.849+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T10:34:43.851+0900] {logging_mixin.py:190} INFO - [2025-02-04T10:34:43.850+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:34:43.853+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:34:43.864+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T10:35:35.877+0900] {processor.py:186} INFO - Started process (PID=1700547) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:35:35.880+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T10:35:35.881+0900] {logging_mixin.py:190} INFO - [2025-02-04T10:35:35.880+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:35:35.883+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:35:35.894+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T10:36:27.241+0900] {processor.py:186} INFO - Started process (PID=1700631) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:36:27.243+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T10:36:27.244+0900] {logging_mixin.py:190} INFO - [2025-02-04T10:36:27.244+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:36:27.247+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:36:27.257+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T10:37:19.472+0900] {processor.py:186} INFO - Started process (PID=1700714) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:37:19.473+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T10:37:19.475+0900] {logging_mixin.py:190} INFO - [2025-02-04T10:37:19.474+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:37:19.477+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:37:19.488+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T10:38:15.100+0900] {processor.py:186} INFO - Started process (PID=1700807) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:38:15.101+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T10:38:15.102+0900] {logging_mixin.py:190} INFO - [2025-02-04T10:38:15.102+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:38:15.105+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:38:15.116+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.026 seconds
+[2025-02-04T10:39:07.517+0900] {processor.py:186} INFO - Started process (PID=1700893) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:39:07.519+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T10:39:07.520+0900] {logging_mixin.py:190} INFO - [2025-02-04T10:39:07.520+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:39:07.523+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:39:07.533+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.026 seconds
+[2025-02-04T10:40:03.097+0900] {processor.py:186} INFO - Started process (PID=1700984) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:40:03.099+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T10:40:03.100+0900] {logging_mixin.py:190} INFO - [2025-02-04T10:40:03.100+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:40:03.103+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:40:03.114+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T10:40:59.036+0900] {processor.py:186} INFO - Started process (PID=1701071) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:40:59.038+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T10:40:59.039+0900] {logging_mixin.py:190} INFO - [2025-02-04T10:40:59.038+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:40:59.041+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:40:59.052+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.026 seconds
+[2025-02-04T10:41:54.116+0900] {processor.py:186} INFO - Started process (PID=1701163) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:41:54.118+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T10:41:54.119+0900] {logging_mixin.py:190} INFO - [2025-02-04T10:41:54.119+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:41:54.122+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:41:54.133+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T10:42:47.903+0900] {processor.py:186} INFO - Started process (PID=1701250) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:42:47.904+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T10:42:47.905+0900] {logging_mixin.py:190} INFO - [2025-02-04T10:42:47.905+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:42:47.908+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:42:47.919+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T10:43:40.487+0900] {processor.py:186} INFO - Started process (PID=1701334) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:43:40.489+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T10:43:40.490+0900] {logging_mixin.py:190} INFO - [2025-02-04T10:43:40.490+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:43:40.493+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:43:40.504+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T10:44:33.167+0900] {processor.py:186} INFO - Started process (PID=1701425) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:44:33.168+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T10:44:33.169+0900] {logging_mixin.py:190} INFO - [2025-02-04T10:44:33.169+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:44:33.172+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:44:33.183+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T10:45:24.615+0900] {processor.py:186} INFO - Started process (PID=1701510) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:45:24.616+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T10:45:24.617+0900] {logging_mixin.py:190} INFO - [2025-02-04T10:45:24.617+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:45:24.620+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:45:24.631+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T10:46:19.004+0900] {processor.py:186} INFO - Started process (PID=1701595) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:46:19.006+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T10:46:19.007+0900] {logging_mixin.py:190} INFO - [2025-02-04T10:46:19.007+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:46:19.010+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:46:19.021+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.028 seconds
+[2025-02-04T10:47:15.162+0900] {processor.py:186} INFO - Started process (PID=1701688) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:47:15.164+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T10:47:15.165+0900] {logging_mixin.py:190} INFO - [2025-02-04T10:47:15.164+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:47:15.168+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:47:15.179+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T10:48:07.314+0900] {processor.py:186} INFO - Started process (PID=1701774) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:48:07.315+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T10:48:07.316+0900] {logging_mixin.py:190} INFO - [2025-02-04T10:48:07.316+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:48:07.319+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:48:07.330+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.028 seconds
+[2025-02-04T10:49:03.785+0900] {processor.py:186} INFO - Started process (PID=1701867) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:49:03.786+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T10:49:03.787+0900] {logging_mixin.py:190} INFO - [2025-02-04T10:49:03.787+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:49:03.790+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:49:03.800+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.026 seconds
+[2025-02-04T10:49:58.796+0900] {processor.py:186} INFO - Started process (PID=1701953) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:49:58.797+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T10:49:58.798+0900] {logging_mixin.py:190} INFO - [2025-02-04T10:49:58.798+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:49:58.801+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:49:58.812+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T10:50:53.250+0900] {processor.py:186} INFO - Started process (PID=1702046) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:50:53.252+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T10:50:53.253+0900] {logging_mixin.py:190} INFO - [2025-02-04T10:50:53.253+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:50:53.256+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:50:53.267+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.028 seconds
+[2025-02-04T10:51:46.526+0900] {processor.py:186} INFO - Started process (PID=1702131) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:51:46.528+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T10:51:46.529+0900] {logging_mixin.py:190} INFO - [2025-02-04T10:51:46.528+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:51:46.531+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:51:46.542+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.026 seconds
+[2025-02-04T10:52:40.288+0900] {processor.py:186} INFO - Started process (PID=1702215) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:52:40.289+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T10:52:40.291+0900] {logging_mixin.py:190} INFO - [2025-02-04T10:52:40.290+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:52:40.293+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:52:40.305+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.028 seconds
+[2025-02-04T10:53:36.126+0900] {processor.py:186} INFO - Started process (PID=1702311) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:53:36.127+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T10:53:36.128+0900] {logging_mixin.py:190} INFO - [2025-02-04T10:53:36.128+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:53:36.131+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:53:36.142+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T10:54:26.836+0900] {processor.py:186} INFO - Started process (PID=1702394) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:54:26.837+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T10:54:26.839+0900] {logging_mixin.py:190} INFO - [2025-02-04T10:54:26.838+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:54:26.841+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:54:26.853+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T10:55:18.487+0900] {processor.py:186} INFO - Started process (PID=1702478) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:55:18.488+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T10:55:18.490+0900] {logging_mixin.py:190} INFO - [2025-02-04T10:55:18.489+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:55:18.492+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:55:18.503+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.026 seconds
+[2025-02-04T10:56:09.671+0900] {processor.py:186} INFO - Started process (PID=1702561) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:56:09.672+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T10:56:09.674+0900] {logging_mixin.py:190} INFO - [2025-02-04T10:56:09.673+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:56:09.676+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:56:09.687+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T10:57:02.941+0900] {processor.py:186} INFO - Started process (PID=1702652) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:57:02.944+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T10:57:02.945+0900] {logging_mixin.py:190} INFO - [2025-02-04T10:57:02.944+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:57:02.947+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:57:02.958+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T10:57:58.747+0900] {processor.py:186} INFO - Started process (PID=1702740) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:57:58.749+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T10:57:58.750+0900] {logging_mixin.py:190} INFO - [2025-02-04T10:57:58.750+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:57:58.753+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:57:58.764+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T10:58:53.158+0900] {processor.py:186} INFO - Started process (PID=1702830) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:58:53.159+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T10:58:53.160+0900] {logging_mixin.py:190} INFO - [2025-02-04T10:58:53.160+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:58:53.163+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:58:53.174+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T10:59:51.058+0900] {processor.py:186} INFO - Started process (PID=1702925) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:59:51.059+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T10:59:51.060+0900] {logging_mixin.py:190} INFO - [2025-02-04T10:59:51.060+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:59:51.063+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T10:59:51.074+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T11:00:42.593+0900] {processor.py:186} INFO - Started process (PID=1703010) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:00:42.596+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T11:00:42.597+0900] {logging_mixin.py:190} INFO - [2025-02-04T11:00:42.596+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:00:42.599+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:00:42.611+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.028 seconds
+[2025-02-04T11:01:35.738+0900] {processor.py:186} INFO - Started process (PID=1703094) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:01:35.740+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T11:01:35.741+0900] {logging_mixin.py:190} INFO - [2025-02-04T11:01:35.741+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:01:35.744+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:01:35.755+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T11:02:26.634+0900] {processor.py:186} INFO - Started process (PID=1703178) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:02:26.635+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T11:02:26.636+0900] {logging_mixin.py:190} INFO - [2025-02-04T11:02:26.636+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:02:26.639+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:02:26.650+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T11:03:20.820+0900] {processor.py:186} INFO - Started process (PID=1703269) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:03:20.821+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T11:03:20.823+0900] {logging_mixin.py:190} INFO - [2025-02-04T11:03:20.822+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:03:20.825+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:03:20.836+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.026 seconds
+[2025-02-04T11:04:15.107+0900] {processor.py:186} INFO - Started process (PID=1703354) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:04:15.108+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T11:04:15.110+0900] {logging_mixin.py:190} INFO - [2025-02-04T11:04:15.109+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:04:15.112+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:04:15.123+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T11:05:11.700+0900] {processor.py:186} INFO - Started process (PID=1703447) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:05:11.702+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T11:05:11.703+0900] {logging_mixin.py:190} INFO - [2025-02-04T11:05:11.703+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:05:11.705+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:05:11.716+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.026 seconds
+[2025-02-04T11:06:08.896+0900] {processor.py:186} INFO - Started process (PID=1703536) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:06:08.898+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T11:06:08.900+0900] {logging_mixin.py:190} INFO - [2025-02-04T11:06:08.899+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:06:08.902+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:06:08.913+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.028 seconds
+[2025-02-04T11:07:03.149+0900] {processor.py:186} INFO - Started process (PID=1703628) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:07:03.150+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T11:07:03.151+0900] {logging_mixin.py:190} INFO - [2025-02-04T11:07:03.151+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:07:03.154+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:07:03.165+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T11:07:57.402+0900] {processor.py:186} INFO - Started process (PID=1703713) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:07:57.404+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T11:07:57.405+0900] {logging_mixin.py:190} INFO - [2025-02-04T11:07:57.405+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:07:57.408+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:07:57.419+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.026 seconds
+[2025-02-04T11:08:53.391+0900] {processor.py:186} INFO - Started process (PID=1703807) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:08:53.394+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T11:08:53.396+0900] {logging_mixin.py:190} INFO - [2025-02-04T11:08:53.395+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:08:53.398+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:08:53.409+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.028 seconds
+[2025-02-04T11:09:52.392+0900] {processor.py:186} INFO - Started process (PID=1703901) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:09:52.394+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T11:09:52.396+0900] {logging_mixin.py:190} INFO - [2025-02-04T11:09:52.395+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:09:52.399+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:09:52.410+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.030 seconds
+[2025-02-04T11:10:52.938+0900] {processor.py:186} INFO - Started process (PID=1703996) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:10:52.940+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T11:10:52.941+0900] {logging_mixin.py:190} INFO - [2025-02-04T11:10:52.941+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:10:52.944+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:10:52.955+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T11:11:53.737+0900] {processor.py:186} INFO - Started process (PID=1704092) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:11:53.739+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T11:11:53.740+0900] {logging_mixin.py:190} INFO - [2025-02-04T11:11:53.740+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:11:53.743+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:11:53.753+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.026 seconds
+[2025-02-04T11:12:54.043+0900] {processor.py:186} INFO - Started process (PID=1704186) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:12:54.047+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T11:12:54.048+0900] {logging_mixin.py:190} INFO - [2025-02-04T11:12:54.048+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:12:54.051+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:12:54.061+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.029 seconds
+[2025-02-04T11:13:52.825+0900] {processor.py:186} INFO - Started process (PID=1704279) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:13:52.827+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T11:13:52.828+0900] {logging_mixin.py:190} INFO - [2025-02-04T11:13:52.828+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:13:52.831+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:13:52.842+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T11:14:53.787+0900] {processor.py:186} INFO - Started process (PID=1704375) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:14:53.789+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T11:14:53.790+0900] {logging_mixin.py:190} INFO - [2025-02-04T11:14:53.789+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:14:53.792+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:14:53.803+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.026 seconds
+[2025-02-04T11:15:52.106+0900] {processor.py:186} INFO - Started process (PID=1704469) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:15:52.107+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T11:15:52.109+0900] {logging_mixin.py:190} INFO - [2025-02-04T11:15:52.108+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:15:52.111+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:15:52.122+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T11:16:56.203+0900] {processor.py:186} INFO - Started process (PID=1704566) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:16:56.204+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T11:16:56.206+0900] {logging_mixin.py:190} INFO - [2025-02-04T11:16:56.205+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:16:56.208+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:16:56.327+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.134 seconds
+[2025-02-04T11:17:52.779+0900] {processor.py:186} INFO - Started process (PID=1704661) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:17:52.780+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T11:17:52.782+0900] {logging_mixin.py:190} INFO - [2025-02-04T11:17:52.781+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:17:52.784+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:17:52.795+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T11:18:48.428+0900] {processor.py:186} INFO - Started process (PID=1704747) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:18:48.429+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T11:18:48.430+0900] {logging_mixin.py:190} INFO - [2025-02-04T11:18:48.430+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:18:48.433+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:18:48.444+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T11:19:42.121+0900] {processor.py:186} INFO - Started process (PID=1704838) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:19:42.122+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T11:19:42.124+0900] {logging_mixin.py:190} INFO - [2025-02-04T11:19:42.123+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:19:42.126+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:19:42.138+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T11:20:36.716+0900] {processor.py:186} INFO - Started process (PID=1704962) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:20:36.717+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T11:20:36.719+0900] {logging_mixin.py:190} INFO - [2025-02-04T11:20:36.718+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:20:36.721+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:20:36.732+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T11:21:33.866+0900] {processor.py:186} INFO - Started process (PID=1705201) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:21:33.867+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T11:21:33.868+0900] {logging_mixin.py:190} INFO - [2025-02-04T11:21:33.868+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:21:33.871+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:21:33.882+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.027 seconds
+[2025-02-04T11:22:30.034+0900] {processor.py:186} INFO - Started process (PID=1705417) to work on /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:22:30.036+0900] {processor.py:914} INFO - Processing file /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py for tasks to queue
+[2025-02-04T11:22:30.037+0900] {logging_mixin.py:190} INFO - [2025-02-04T11:22:30.037+0900] {dagbag.py:588} INFO - Filling up the DagBag from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:22:30.043+0900] {processor.py:927} WARNING - No viable dags retrieved from /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py
+[2025-02-04T11:22:30.055+0900] {processor.py:208} INFO - Processing /opt/conda/lib/python3.10/site-packages/airflow/example_dags/plugins/listener_plugin.py took 0.032 seconds
