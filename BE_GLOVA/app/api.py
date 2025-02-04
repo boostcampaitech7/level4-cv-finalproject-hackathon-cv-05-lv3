@@ -4,16 +4,12 @@ import requests
 import os
 import json
 import re
-import logging
 from schemas import UserQuestion, ClovaResponse, CalendarResponse, BadgeRequest, BadgeResponse, LocationRequest
 from random import randint
 import datetime
 from typing import List
 
 router = APIRouter() # 모든 엔드포인트를 이 router에 정의하고, main에서 한 번에 추가 
-
-# main.py에서 설정한 logger 가져오기
-logger = logging.getLogger(__name__)
 
 load_dotenv()
 
