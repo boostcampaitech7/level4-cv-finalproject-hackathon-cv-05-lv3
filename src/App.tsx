@@ -8,7 +8,7 @@ import { Home4 } from "./screens/Home_4";
 import { Challenge } from "./screens/Challenge";
 import { Library_home } from "./screens/Library_home";
 import { Library_1 } from "./screens/Library_1";
-import { Timer } from "./screens/Timer_아래변경필요";
+import { Timer } from "./screens/Timer";
 
 function App() {
   return (
