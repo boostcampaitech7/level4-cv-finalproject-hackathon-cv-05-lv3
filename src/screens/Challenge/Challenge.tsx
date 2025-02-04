@@ -4,7 +4,7 @@ import { Card, CardContent } from "../../components/ui/card";
 import { Separator } from "../../components/ui/separator";
 import { Vector } from "../../icons/Vector";
 import { useNavigate } from "react-router-dom";
-import { Badge, Server2Badge } from "../../api/api"; // ✅ Badge 인터페이스 사용
+import { Badge, Server2Badge, Server2AudioFile } from "../../api/api"; // ✅ Badge 인터페이스 사용
 
 const navigationItems = [
   { icon: TrophyIcon, label: "CHALLENGE", href: "/Challenge", active: true },
@@ -45,6 +45,7 @@ export const Challenge = (): JSX.Element => {
   const [badges, setBadges] = useState<Badge[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedBadge, setSelectedBadge] = useState<Badge | null>(null);
+  const [audioElement, setAudioElement] = useState<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -66,6 +67,21 @@ export const Challenge = (): JSX.Element => {
     setIsModalOpen(false);
   };
 
+  const openAudio = async (badge: Badge): Promise<void> => {
+    setSelectedBadge(badge);
+    try{
+      const mp3URL = await Server2AudioFile();
+      if (audioElement) {
+        audioElement.pause();
+      }
+      const newAudioElement = new Audio(mp3URL);
+      setAudioElement(newAudioElement);
+      newAudioElement.play();
+    } catch (error) {
+      console.error("Error fetching audio:", error);
+    }
+  };
+
   return (
     <div className="bg-white flex flex-row justify-center w-full h-screen overflow-y-auto">
       <div className="bg-white w-[393px] h-[852px] relative">
@@ -85,7 +101,8 @@ export const Challenge = (): JSX.Element => {
                   className="w-[100px] h-[100px] object-cover cursor-pointer"
                   alt="badge image"
                   src={base64ToImageUrl(badge.badgeImage)}
-                  onClick={() => openModal(badge)} // ✅ 클릭 시 모달 오픈
+                  // onClick={() => openModal(badge)} // ✅ 클릭 시 모달 오픈
+                  onClick = {() => openAudio(badge)}
                 />
               </CardContent>
             </Card>
@@ -93,7 +110,7 @@ export const Challenge = (): JSX.Element => {
         </div>
 
         {/* ✅ Modal (이미지 클릭 시 표시) */}
-        {isModalOpen && selectedBadge && (
+        {/* {isModalOpen && selectedBadge && (
           <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
             <div className="bg-white p-5 rounded-lg w-[300px] shadow-lg text-center">
               <h2 className="text-lg font-bold">{selectedBadge.bookTitle}</h2>
@@ -113,7 +130,7 @@ export const Challenge = (): JSX.Element => {
               </button>
             </div>
           </div>
-        )}
+        )} */}
 
         {/* ✅ Bottom Navigation */}
         <nav className="fixed bottom-0 left-0 right-0 max-w-[393px] mx-auto">

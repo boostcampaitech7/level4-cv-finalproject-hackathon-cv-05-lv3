@@ -134,7 +134,7 @@ export const Badge2Server = async (bookTitle:string, speak:string) => {
   }
 };
 
-
+// 뱃지 가져오기
 export const Server2Badge = async (): Promise<Badge[]> => {
   try {
     const response = await apiClient.get("/api/badge");
@@ -147,5 +147,22 @@ export const Server2Badge = async (): Promise<Badge[]> => {
   } catch (error) {
     console.error("Error fetching books:", error);
     return []; // 오류 발생 시 빈 배열 반환
+  }
+};
+
+
+//뱃지 mp3 가져오기
+export const Server2AudioFile = async () => {
+  try {
+    const response = await fetch("http://localhost:8000/api/get_audio");
+    if (!response.ok) {
+      throw new Error("Failed to fetch audio");
+    }
+    const arrayBuffer = await response.arrayBuffer();
+    const blob = new Blob([arrayBuffer], { type: "audio/mp3" });
+    return URL.createObjectURL(blob);
+  } catch (error) {
+    console.error("Error fetching audio:", error);
+    throw error;
   }
 };
