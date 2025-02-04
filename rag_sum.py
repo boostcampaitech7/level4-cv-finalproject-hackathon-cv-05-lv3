@@ -117,7 +117,7 @@ if __name__ == '__main__':
     log_message("[1/4] 사용자 질문에서 키워드 추출 시작")
     chat_api = ChatCompletionExecutor(
         host='https://clovastudio.stream.ntruss.com',
-        api_key='Bearer nv-7971e91321b14d33afdc8380834d1822sQZV',
+        api_key='',
         request_id='a53490fd9f0f4a1f805ff105fd5d55b8'
     )
 
