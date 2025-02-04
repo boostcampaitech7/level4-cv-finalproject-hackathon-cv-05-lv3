@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 from typing import List
+from typing import Optional
 
 class UserQuestion(BaseModel):
     # name: str
@@ -27,3 +28,7 @@ class BadgeResponse(BaseModel):
     createdAt: str #"2025-01-27T14:00:00Z", // IISO 8601 형식    
     badgeImage: str
     bookTitle: str
+
+class LocationRequest(BaseModel):
+    latitude: float
+    longitude: float

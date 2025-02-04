@@ -4,12 +4,16 @@ import requests
 import os
 import json
 import re
-from schemas import UserQuestion, ClovaResponse, CalendarResponse, BadgeRequest, BadgeResponse
+import logging
+from schemas import UserQuestion, ClovaResponse, CalendarResponse, BadgeRequest, BadgeResponse, LocationRequest
 from random import randint
 import datetime
 from typing import List
 
 router = APIRouter() # 모든 엔드포인트를 이 router에 정의하고, main에서 한 번에 추가 
+
+# main.py에서 설정한 logger 가져오기
+logger = logging.getLogger(__name__)
 
 load_dotenv()
 
@@ -21,6 +25,9 @@ CLOVA_REQUEST_ID = os.getenv('CLOVA_REQUEST_ID')
 # Clova API2 설정
 CLOVA_API2_URL = os.getenv('CLOVA_API2_URL')
 CLOVA_REQUEST_ID2 = os.getenv('CLOVA_REQUEST_ID2')
+NAVER_MAP_CLIENT_ID = os.getenv("NAVER_MAP_CLIENT_ID")
+NAVER_MAP_CLIENT_SECRET = os.getenv("NAVER_MAP_CLIENT_SECRET")
+
 # 환경변수 확인
 if not (CLOVA_API_KEY or CLOVA_API_URL or CLOVA_REQUEST_ID or CLOVA_API2_URL or CLOVA_REQUEST_ID2):
     raise ValueError("CLOVA 환경 변수가 설정되지 않았습니다.")
@@ -285,3 +292,23 @@ def get_calendar():
     
 # @router.get("/api/badge")
 # def get_badge():
+
+# 사용자의 위치 데이터를 저장할 리스트 (데이터베이스 대체용)
+location_data = []
+
+@router.post("/api/location")
+async def receive_location(location_request: LocationRequest):
+    print(f"🚀 Server received request: Latitude={location_request.latitude}, Longitude={location_request.longitude}")
+    return {
+        "statusCode": 200,
+        "message": "Location data received successfully",
+        "location": {
+            "latitude": location_request.latitude,
+            "longitude": location_request.longitude,
+        }
+    }
+
+@router.get("/api/location", response_model=List[dict])
+def get_locations():
+    print(f"📜 Returning stored locations: {len(location_data)} entries")
+    return location_data
