@@ -13,14 +13,33 @@ const navigationItems = [
   { icon: TimerIcon, label: "TIMER", href: "/Timer", active: false },
 ];
 
+export interface Book {
+  date: string;
+  time: string;
+  bookTitle: string;
+  bookimage: string;
+  question: string;
+}
+
 export const Library_1 = (): JSX.Element => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const books = location.state || {};
+  // const books = location.state || {};
+  const books: Book = {
+    date: "2025-02-04",
+    time: "14:30",
+    bookTitle: "The Art of Thinking Clearly",
+    bookimage: "../../image_data/rectangle-15@2x.png",
+    question: "What is the main takeaway from this book?",
+  };
+  
+  const [speak, setSpeak] = useState<string>("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const MakeBadge = async () => {
-    Badge2Server();
+    console.log(speak);
+    Badge2Server(books.bookTitle, speak);
     navigate("/Challenge", { replace: true });
   };
 
@@ -62,10 +81,41 @@ export const Library_1 = (): JSX.Element => {
 
         <button
           className="w-[361px] flex items-center justify-center gap-2.5 p-2.5 bg-[#d9d9d9] rounded-[20px] absolute top-[678px] left-3.5 text-black text-lg font-normal [font-family:'Inter',Helvetica]"
-          onClick={() => MakeBadge()}
+          onClick={() => setIsModalOpen(true)}
         >
           완독 버튼
         </button>
+        
+        {/* ✅ Modal (이미지 클릭 시 표시) */}
+        {isModalOpen && (
+          <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
+            <div className="bg-white p-5 rounded-lg w-[300px] shadow-lg text-center relative">
+              <h2 className="text-lg font-bold">인상 깊었던 내용을 적어주세요!</h2>
+              {/* ✅ 텍스트 박스 */}
+              <textarea
+                className="w-full h-[177px] max-h-[177px] p-2 border border-gray-300 rounded-md focus:outline-none resize-none overflow-auto text-black text-[15px] font-bold"
+                placeholder="TEXT INPUT"
+                value={speak} // 입력값을 상태로 연결
+                maxLength={50} // 50자 제한
+                onChange={(e) => setSpeak(e.target.value)} // 상태 업데이트
+                onBlur={() => {
+                  if (speak.trim() === "") {
+                    setSpeak(books.bookTitle);
+                  }
+                }}
+              />
+              
+              {/* ✅ 제출 버튼 */}
+              <button
+                className="mt-4 px-4 py-2 bg-red-500 text-white rounded-lg"
+                onClick={MakeBadge}
+              >
+                제출
+              </button>
+            </div>
+          </div>
+        )}
+
 
         {/* Bottom Navigation */}
         <nav className="fixed bottom-0 left-0 right-0 max-w-[393px] mx-auto">

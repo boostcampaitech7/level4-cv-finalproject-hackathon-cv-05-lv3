@@ -117,9 +117,14 @@ export const Server2Books = async (): Promise<Book[]> => {
 
 
 // 뱃지 생성 요청
-export const Badge2Server = async () => {
+export const Badge2Server = async (bookTitle:string, speak:string) => {
   try {
-    const response = await apiClient.post("/api/badge_create");
+    const response = await apiClient.post("/api/badge_create",
+      {
+        bookTitle: bookTitle,
+        speak: speak
+      }
+    );
 
     return response.data; // 서버에서 받은 데이터를 반환
 
