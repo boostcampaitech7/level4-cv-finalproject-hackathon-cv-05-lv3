@@ -6,3 +6,6 @@ starlette==0.41.3
 uvicorn==0.34.0
 requests==2.32.3
 itsdangerous
+sqlalchemy
+pymysql
+psycopg2-binary
