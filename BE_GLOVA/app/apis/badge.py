@@ -90,8 +90,8 @@ def clova_voice(speak: str, dir_name: str):
 async def create_badge(request: BadgeRequest):
     try:
         # 저장 위치 : 뱃지/ 뱃지 이름=책제목+시간/ 
-        timestamp = datetime.utcnow().strftime("%Y-%m-%dT%H-%M-%S")
-        dir_name = f"{request.bookTitle.replace(' ', '_')}_{timestamp}"
+        # timestamp = datetime.utcnow().strftime("%Y-%m-%dT%H-%M-%S")
+        dir_name = f"{request.bookTitle.replace(' ', '_')}"
         DIR = Path(BADGE_DIR) / dir_name
 
         os.mkdir(DIR)
@@ -138,8 +138,8 @@ async def download_voice(request: VoiceRequest):
         # 책 제목보고 음성 찾아서
         # 성별로 하나만 가져와서
         # time = request.time.replace(':', '-')
-        time = "2025-02-05T01-13-13"
-        dir_name = f"{request.bookTitle.replace(' ', '_')}_{time}"
+        # time = "2025-02-05T01-13-13" 책 하나당 하나만 만들겟대여~
+        dir_name = f"{request.bookTitle.replace(' ', '_')}"
         gender = f"{request.gender}.mp3"
         DIR = Path(BADGE_DIR) / dir_name / gender
         
