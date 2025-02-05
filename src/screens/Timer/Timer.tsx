@@ -179,45 +179,59 @@
 //   );
 // };
 
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { toPng } from "html-to-image";
-import { Button } from "../../components/ui/button";
-import { Input } from "../../components/ui/input";
+
+const pastelColors = [
+  "bg-pink-200", "bg-blue-200", "bg-green-200", "bg-yellow-200", "bg-purple-200", "bg-red-200", "bg-indigo-200"
+];
 
 export const Timer = (): JSX.Element => {
-  const [text, setText] = useState("흠냐냐"); // 기본 텍스트
-  const ref = useRef<HTMLDivElement>(null);
+  const [bgColor, setBgColor] = useState("");
+  const captureRef = useRef(null);
+  const text = "무슨일이 생길까?";
 
-  const handleDownload = () => {
-    if (ref.current) {
-      toPng(ref.current)
+  useEffect(() => {
+    const randomColor = pastelColors[Math.floor(Math.random() * pastelColors.length)];
+    setBgColor(randomColor);
+  }, []);
+
+  const handleDownload = async () => {
+    if (captureRef.current) {
+      toPng(captureRef.current)
         .then((dataUrl) => {
           const link = document.createElement("a");
           link.href = dataUrl;
           link.download = "generated-image.png";
           link.click();
         })
-        .catch((err) => console.error("Error generating image:", err));
+        .catch((err) => {
+          console.error("Error generating image: ", err);
+        });
     }
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
-      <Input
-        type="text"
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-        placeholder="텍스트 입력"
-        className="mb-4 p-2 border rounded"
-      />
-      <div ref={ref} className="relative w-80 h-48 bg-white rounded-lg shadow-lg flex flex-col items-center justify-center">
-        <div className="absolute top-0 w-full bg-black text-white text-center py-2 rounded-t-lg">
-          무엇이든 물어보세요!
+    <div className="flex flex-col items-center justify-center min-h-screen">
+      <div
+        ref={captureRef}
+        className={`flex flex-col w-[300px] h-[400px] aspect-[3/4] border-none ${bgColor} p-4 rounded-lg shadow-lg items-center justify-center`}
+      >
+        <div className="flex h-[60px] w-full items-center justify-center p-2.5 bg-neutral-800 rounded-[15px_15px_0px_0px] border-t-2 border-r-2 border-l-2 border-black">
+          <div className="font-bold text-white text-[20px] text-center [font-family:'Inter',Helvetica]">
+            무엇이든 물어보세요!
+          </div>
         </div>
-        <div className="mt-10 text-lg font-bold">{text}</div>
-        <div className="absolute top-2 right-2 w-8 h-8 bg-gray-200 rounded-full"></div>
+        <div className="flex flex-col w-full text-[20px] min-h-[100px] gap-2.5 p-[11px] bg-white rounded-[0px_0px_15px_15px] border-r-2 border-b-2 border-l-2 border-black whitespace-pre-wrap text-center items-center justify-center">
+          {text}
+        </div>
       </div>
-      <Button onClick={handleDownload} className="mt-4">이미지 저장</Button>
+      <button
+        onClick={handleDownload}
+        className="mt-4 bg-blue-500 text-white py-2 px-4 rounded-lg shadow-md hover:bg-blue-600"
+      >
+        이미지 다운로드
+      </button>
     </div>
   );
 };
