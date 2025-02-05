@@ -1,18 +1,11 @@
 import { useEffect, useState } from "react";
-import { BookOpen, HomeIcon, TimerIcon, TrophyIcon } from "lucide-react";
 import { Card, CardContent } from "../../components/ui/card";
 import { Separator } from "../../components/ui/separator";
 import { Vector } from "../../icons/Vector";
 import { useNavigate } from "react-router-dom";
 import { Badge, Server2Badge, Server2AudioFile } from "../../api/api"; // ✅ Badge 인터페이스 사용
 
-const navigationItems = [
-  { icon: TrophyIcon, label: "CHALLENGE", href: "/Challenge", active: true },
-  { icon: HomeIcon, label: "HOME", href: "/Home", active: false },
-  { icon: BookOpen, label: "BOOKS", href: "/Library", active: false },
-  { icon: TimerIcon, label: "TIMER", href: "/Timer", active: false },
-];
-
+import NaviBar from "../../components/ui/navigationbar";
 
 // Base64 이미지를 img URL로 변환하는 함수
 export const base64ToImageUrl = (base64: string): string => {
@@ -132,27 +125,7 @@ export const Challenge = (): JSX.Element => {
           </div>
         )} */}
 
-        {/* ✅ Bottom Navigation */}
-        <nav className="fixed bottom-0 left-0 right-0 max-w-[393px] mx-auto">
-          <div className="flex items-center justify-center gap-[15px] px-[5px] py-0 h-[100px] bg-white shadow-[0px_-2px_10px_#00000040]">
-            {navigationItems.map((item) => (
-              <button
-                key={item.label}
-                onClick={() => navigate(item.href, { replace: true })}
-                className="flex flex-col items-center w-[82px] h-[75px] bg-transparent border-none"
-              >
-                <item.icon
-                  className={`w-14 h-14 ${item.active ? "text-black" : "text-[#b3b3b3]"}`}
-                />
-                <span
-                  className={`font-['Koulen'] text-xl ${item.active ? "text-black" : "text-[#b3b3b3]"}`}
-                >
-                  {item.label}
-                </span>
-              </button>
-            ))}
-          </div>
-        </nav>
+        <NaviBar activeLabel="Challenge" />
       </div>
     </div>
   );
