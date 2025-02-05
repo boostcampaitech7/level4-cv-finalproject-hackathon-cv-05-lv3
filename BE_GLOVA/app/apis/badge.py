@@ -132,13 +132,19 @@ async def get_all_badge_images():
         raise HTTPException(status_code=500, detail=f"Error fetching badge images: {e}")
 
 # 책제목? 성별 -> 대사 음성 
-@router.get("api/badge/voice")
-async def get_voice(request: VoiceRequest):
+@router.post("/api/badge/voice")
+async def download_voice(request: VoiceRequest):
     try:
         # 책 제목보고 음성 찾아서
         # 성별로 하나만 가져와서
-
-        return FileResponse("1111.mp3", media_type="audio/mpeg", filename="output.mp3")
-    
+        # time = request.time.replace(':', '-')
+        time = "2025-02-05T01-13-13"
+        dir_name = f"{request.bookTitle.replace(' ', '_')}_{time}"
+        gender = f"{request.gender}.mp3"
+        DIR = Path(BADGE_DIR) / dir_name / gender
+        
+        print(DIR)
+        
+        return FileResponse(DIR, media_type="audio/mpeg", filename="output.mp3")
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error fetching badge images: {e}")
