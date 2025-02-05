@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.sessions import SessionMiddleware
 import os
 from dotenv import load_dotenv
-from apis import home, badge, books
+from apis import home, badge, books, realhome
 
 load_dotenv()
 SESSIONMIDDLEWARE_SECRET_KEY=os.getenv('SESSIONMIDDLEWARE_SECRET_KEY')
@@ -26,6 +26,7 @@ app.add_middleware(SessionMiddleware, secret_key=f"Bearer {SESSIONMIDDLEWARE_SEC
 app.include_router(home.router)
 app.include_router(books.router)
 app.include_router(badge.router)
+app.include_router(realhome.router)
 
 @app.get("/")
 def read_root():
