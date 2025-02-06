@@ -35,3 +35,19 @@ def get_database_url(db_type: str):
 # MySQL과 PostgreSQL의 연결 URL 생성
 MYSQL_DATABASE_URL = get_database_url("MYSQL")
 POSTGRESQL_DATABASE_URL = get_database_url("POSTGRESQL")
+
+# 테이블 상태 관리
+DB_STATUS = {
+    "MYSQL_TABLES_CREATED": False,
+    "POSTGRESQL_TABLES_CREATED": False
+}
+
+def update_db_status(mysql_created: bool, postgresql_created: bool):
+    """데이터베이스 테이블 생성 상태를 업데이트하는 함수"""
+    global DB_STATUS
+    DB_STATUS["MYSQL_TABLES_CREATED"] = mysql_created
+    DB_STATUS["POSTGRESQL_TABLES_CREATED"] = postgresql_created
+
+def get_db_status():
+    """현재 데이터베이스 상태를 반환하는 함수"""
+    return DB_STATUS
