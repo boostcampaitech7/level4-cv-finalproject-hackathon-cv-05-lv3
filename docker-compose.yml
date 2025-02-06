@@ -1,0 +1,59 @@
+version: '3.8'
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: final_front
+    expose:
+      - "3000"
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    environment:
+      - VITE_API_URL=http://223.195.111.44:8080
+      - VITE_WS_URL=ws://223.195.111.44:8080/ws
+      - PYTHONPATH=/app
+      - CLOVA_Authorization=${CLOVA_Authorization}
+      - CLOVA_REQUEST_ID=${CLOVA_REQUEST_ID}
+      - CLOVA_API_URL=${CLOVA_API_URL}
+      - SESSIONMIDDLEWARE_SECRET_KEY=${SESSIONMIDDLEWARE_SECRET_KEY}
+      - CLOVA_REQUEST_ID2=${CLOVA_REQUEST_ID2}
+      - CLOVA_API2_URL=${CLOVA_API2_URL}
+      - NAVER_CLIENT_ID=${NAVER_CLIENT_ID}
+      - NAVER_CLIENT_SECRET=${NAVER_CLIENT_SECRET}
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: final_back
+    expose:
+      - "8000"
+    ports:
+      - "8000:8000"
+    environment:
+      - CLOVA_Authorization=${CLOVA_Authorization}
+      - CLOVA_REQUEST_ID=${CLOVA_REQUEST_ID}
+      - CLOVA_API_URL=${CLOVA_API_URL}
+      - SESSIONMIDDLEWARE_SECRET_KEY=${SESSIONMIDDLEWARE_SECRET_KEY}
+      - CLOVA_REQUEST_ID2=${CLOVA_REQUEST_ID2}
+      - CLOVA_API2_URL=${CLOVA_API2_URL}
+      - NAVER_CLIENT_ID=${NAVER_CLIENT_ID}
+      - NAVER_CLIENT_SECRET=${NAVER_CLIENT_SECRET}
+      - NVIDIA_VISIBLE_DEVICES=all  # GPU 사용을 위해 추가
+    runtime: nvidia  # GPU runtime 지정
+
+  apache:
+    build:
+      context: .
+      dockerfile: Dockerfile.apache  # Apache용 Dockerfile 사용
+    container_name: final_apache
+    ports:
+      - "8080:80"
+    volumes:
+      - ./httpd.conf:/usr/local/apache2/conf/httpd.conf:ro
+    depends_on:
+      - frontend
+      - backend

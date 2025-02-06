@@ -1,0 +1,23 @@
+# Apache httpd 기반 이미지 사용
+FROM httpd:2.4
+
+# 필수 패키지 설치 (curl, netcat-openbsd, telnet, nodejs, npm 추가)
+RUN apt-get update && apt-get install -y \
+    curl \
+    netcat-openbsd \
+    telnet \
+    nodejs \
+    npm \
+    && rm -rf /var/lib/apt/lists/*
+
+# wscat 전역 설치 (웹소켓 테스트 도구)
+RUN npm install -g wscat
+
+# httpd.conf를 컨테이너 내부로 복사
+COPY httpd.conf /usr/local/apache2/conf/httpd.conf
+
+# 기본 포트 80 노출
+EXPOSE 80
+
+# Apache 실행
+CMD ["httpd", "-D", "FOREGROUND"]
