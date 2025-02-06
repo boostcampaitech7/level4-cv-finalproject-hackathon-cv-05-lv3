@@ -107,7 +107,7 @@ class Review(MySQLBase):
     user = relationship("User", back_populates="reviews")
 
 # 사용자 질문 테이블 (user_questions)
-class UserQuestion(PostgreSQLBase):
+class UserQuestionORMModel(PostgreSQLBase):
     __tablename__ = "user_questions"
     __table_args__ = {"schema": "public"}
 
