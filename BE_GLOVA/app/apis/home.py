@@ -1,0 +1,439 @@
+from fastapi import HTTPException, APIRouter, Depends
+from dotenv import load_dotenv
+import requests
+import os
+import json
+from random import randint
+from sqlalchemy.orm import Session
+from database.connections import get_mysql_db, get_postgresql_db
+from database.crud import (
+    get_users, create_user, get_tokens, create_token, get_books, create_book,
+    get_sessions, create_session, get_recommended_books, create_recommended_book,
+    get_badges, create_badge, get_reviews, create_review, 
+    get_user_questions, create_user_question, get_clova_answers, create_clova_answer
+)
+from schemas import (
+    UserQuestion, ClovaResponse, 
+    UserSchema, TokenSchema, BookSchema, SessionSchema, RecommendedBookSchema, 
+    BadgeSchema, ReviewSchema, UserQuestionSchema, ClovaAnswerSchema
+)
+from random import randint
+
+router = APIRouter() # 모든 엔드포인트를 이 router에 정의하고, main에서 한 번에 추가 
+
+load_dotenv()
+
+# 임시 테스트 앱 CLOVA_REQUEST_ID, 실제 서비스와 연동 시 변경되므로 .env에서 변경!
+# CLOVA API1 설정정
+CLOVA_API_URL = os.getenv('CLOVA_API_URL')
+CLOVA_API_KEY = os.getenv('CLOVA_Authorization')
+CLOVA_REQUEST_ID = os.getenv('CLOVA_REQUEST_ID') 
+# Clova API2 설정
+CLOVA_API2_URL = os.getenv('CLOVA_API2_URL')
+CLOVA_REQUEST_ID2 = os.getenv('CLOVA_REQUEST_ID2')
+# 환경변수 확인
+if not (CLOVA_API_KEY or CLOVA_API_URL or CLOVA_REQUEST_ID or CLOVA_API2_URL or CLOVA_REQUEST_ID2):
+    raise ValueError("CLOVA 환경 변수가 설정되지 않았습니다.")
+
+
+# 클로바 api1 호출
+# 서버에 정보를 보내고, 결과를 받아옴 
+@router.post("/api/home")
+async def save_question(user_question: UserQuestion):
+    class CompletionExecutor:
+        def __init__(self, api_url, api_key, request_id):
+            self._api_url = api_url
+            self._api_key = api_key
+            self._request_id = request_id
+
+        def execute(self, completion_request):
+            headers = {
+                'Authorization': self._api_key,
+                'X-NCP-CLOVASTUDIO-REQUEST-ID': self._request_id,
+                'Content-Type': 'application/json; charset=utf-8',
+                'Accept': 'text/event-stream'
+            }
+            try:
+                with requests.post(self._api_url,
+                                headers=headers, json=completion_request, stream=True) as r:
+                    r.raise_for_status()  # HTTP 에러 발생 시 예외 처리
+                    response_data = []
+                    for line in r.iter_lines():
+                        if line:
+                            response_data.append(line.decode("utf-8"))
+                    return response_data
+            except requests.RequestException as e:
+                raise HTTPException(status_code=500, detail=f"Error during Clova API call: {str(e)}")
+
+
+    try:
+        # Clova API 설정
+        completion_executor = CompletionExecutor(
+            api_url=f"{CLOVA_API_URL}",
+            api_key=f"Bearer {CLOVA_API_KEY}",
+            request_id=CLOVA_REQUEST_ID
+        )
+    
+        preset_text = [
+            {"role": "system", "content": (
+                "- 당신은 재치있는 도서 큐레이터입니다.\n"
+                f"- 사용자의 나이: {user_question.age}, 성별: {user_question.gender}\n"
+                "- 사용자의 질문에 대해 사용자의 나이, 성별을 분석하여 시중에 있는 책에서 관련 내용을 인용하거나 추천하는 방식으로 답변합니다.\n"
+                "- 사용자의 질의를 분석하고 질의와 상관관계를 보이는 책 제목으로 답해줘\n"
+                "- 절대 없는 책을 만들어서 가져오지 마. 어떻게든 이유를 만들어서 존재하는 책을 추천해야해.\n"
+                "- 1개의 답변이고, 명확하고 간결하며, 독자가 흥미를 느낄 수 있도록 작성하세요.\n\n"
+                "- 책 제목 대답할 땐 책 제목만 말해! 앞뒤로 작가같은 거 붙이지 말고! 그 다음에 엔터치고 책 설명이든 뭐든 붙여. 알겠지?\n"
+                "예시:\n질문: 아픈 건 싫어!\n답변: [아픈 건 싫으니까 방어력에 올인하려고 합니다.]"
+            )},
+            {"role": "user", "content": user_question.question}
+        ]
+    
+        request_data = {
+            "messages": preset_text,
+            "topP": 0.8,
+            "topK": 0,
+            "maxTokens": 256,
+            "temperature": 0.5,
+            "repeatPenalty": 5.0,
+            "stopBefore": [],
+            "includeAiFilters": True,
+            "seed": randint(0,10000)
+        }
+
+        while True:
+            # Clova API 실행
+            response_data = completion_executor.execute(request_data)
+            # API 응답 확인 및 처리
+            if not response_data:
+                raise HTTPException(status_code=500, detail="Clova API returned an empty response.")
+
+            book_title, book_description = extract_book_info(response_data)
+            print(f"Book Title: {book_title}")
+            print(f"Book Description: {book_description}")
+
+            # 클로바2 호출 (책 실제 확인) 딕셔너리 
+            book_details = fetch_book_details_async(book_title)
+            print(book_details)
+            # if book_title in book_details['title']:
+            #     break
+            if book_details == -1: # 책 존재 안함
+                request_data["seed"]+=1
+                continue
+            else:
+                break
+
+            if book_title in book_details['title']:
+                break
+            
+        clovaResponse = ClovaResponse(question=user_question.question,bookimage=book_details['image'], bookTitle=book_details['title'], description=book_details['description'])
+        return clovaResponse
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error connecting to Clova API: {e}")
+
+
+# response_data에서 책 제목과 설명 추출
+def extract_book_info(response_data):
+    book_title = None
+    book_description = None
+    result_found = False  # 'event:result'가 발견되었는지 추적
+
+    for index, item in enumerate(response_data):
+        # 'event:result'가 포함된 항목을 찾음
+        if "event:result" in item:
+            result_found = True  # 'event:result' 발견
+            continue  # 다음 항목으로 이동
+
+        # 'event:result' 바로 다음 항목에서 'data:' 처리
+        if result_found and "data:" in item:
+            try:
+                json_data = item.split('data:', 1)[1].strip()
+                result_data = json.loads(json_data)  
+                content = result_data["message"]["content"]
+                
+                # 책 제목과 설명 분리
+                if content.startswith("[") and "]" in content:
+                    book_title = content.split("]", 1)[0][1:].strip()  # 대괄호 내부 텍스트
+                    book_description = content.split("]", 1)[1].strip()  # 대괄호 이후 텍스트
+                break  
+            except (json.JSONDecodeError, IndexError, KeyError) as e:
+                print(f"Error parsing response data: {e}")
+                print(f"Problematic item: {item}")
+
+    return book_title, book_description
+
+# Clova API2 호출 함수
+def fetch_book_details_async(book_title: str):
+    class SkillSetFinalAnswerExecutor:
+        def __init__(self, api_url, api_key, request_id):
+            self._api_url = api_url
+            self._api_key = api_key
+            self._request_id = request_id
+
+        def execute(self, skill_set_cot_request):
+            headers = {
+                'Authorization': self._api_key,
+                'X-NCP-CLOVASTUDIO-REQUEST-ID': self._request_id,
+                'Content-Type': 'application/json; charset=utf-8',
+                'Accept': 'text/event-stream',
+            }
+            
+            try:
+                with requests.post(self._api_url, headers=headers, json=skill_set_cot_request, stream=True) as response:
+                    response.raise_for_status()
+                    response_data=[]
+                    for line in response.iter_lines():
+                        if line:
+                            response_data.append(line.decode("utf-8"))
+                            # print(line.decode("utf-8"))
+                    return response_data
+                            
+            except requests.RequestException as e:
+                raise HTTPException(status_code=500, detail=f"Error during Clova API call: {str(e)}")
+    
+    final_answer_executor = SkillSetFinalAnswerExecutor(
+        api_url=f'{CLOVA_API2_URL}',
+        api_key=f"Bearer {CLOVA_API_KEY}",
+        request_id=CLOVA_REQUEST_ID2
+    )
+    request_data = {
+        "query": "책",
+        "tokenStream": False,
+        "requestOverride": {
+            "baseOperation": {
+                "header": {
+                    "Authorization": f"Bearer {CLOVA_API_KEY}"
+                },
+                "query": {
+                    "appid": "appid-12345678"
+                },
+                "requestBody": {
+                    "taskId": "book-search-task-0001"
+                }
+            },
+            "operations": [  
+                {
+                    "operationId": "bookSearch",
+                    "header": {
+                        "X-Naver-Client-Id": os.getenv("NAVER_CLIENT_ID"),
+                        "X-Naver-Client-Secret": os.getenv("NAVER_CLIENT_SECRET"),
+                    },
+                    "query": {
+                        "sort": "sim",
+                        "query": book_title,
+                        "start": 1,
+                        "display": 1,
+                    },
+                    "requestBody": None,
+                }
+            ]
+        }
+    }
+
+    try:
+        response_data = final_answer_executor.execute(request_data)
+        if not response_data:
+            raise HTTPException(status_code=500, detail="Clova API returned an empty response.")
+        book_details = extract_book_details(response_data)
+        return book_details
+    except Exception as e:
+        print(f"Error fetching book details: {e}")
+
+
+# response_data에서 각종 책 정보 추출출
+def extract_book_details(response_data):
+    event_found = False # 'event:final_answer'가 발견되었느지 추적
+
+    for index, item in enumerate(response_data):
+        if "event:final_answer" in item:
+            event_found = True
+            continue
+
+        if event_found and "data:" in item:
+            try:
+                json_data = item.split('data:', 1)[1].strip()
+                result_data = json.loads(json_data)
+
+                if "apiResult" in result_data:
+                        response_body = json.loads(result_data["apiResult"][0]["responseBody"])
+                        items = response_body.get("items", [])
+
+                        if not items:
+                                return -1
+                        for item in items:
+                            book_detail = {
+                                "title": item.get("title", "N/A"),
+                                "author": item.get("author", "N/A"),
+                                "publisher": item.get("publisher", "N/A"),
+                                "pubdate": item.get("pubdate", "N/A"),
+                                "isbn": item.get("isbn", "N/A"),
+                                "description": item.get("description", "N/A"),
+                                "image": item.get("image", "N/A"),
+                            }
+                            return book_detail 
+            except (json.JSONDecodeError, IndexError, KeyError) as e:
+                print(f"Error parsing response data: {e}")
+                print(f"Problematic item: {item}")
+    return 0
+
+# Users API (MySQL)
+@router.get("/db/users", response_model=list[UserSchema], tags=["MySQL"])
+async def api_get_users(db: Session = Depends(get_mysql_db)):
+    """
+    Users 테이블 조회
+    """
+    return get_users(db)
+
+@router.post("/db/users", response_model=UserSchema, tags=["MySQL"])
+async def api_create_user(user: UserSchema, db: Session = Depends(get_mysql_db)):
+    """
+    Users 테이블에 새로운 사용자 추가
+    """
+    try:
+        return create_user(db, user.model_dump())
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"User 추가 중 오류 발생: {str(e)}")
+
+# Tokens API (MySQL)
+@router.get("/db/tokens", response_model=list[TokenSchema], tags=["MySQL"])
+async def api_get_tokens(db: Session = Depends(get_mysql_db)):
+    """
+    Tokens 테이블 조회
+    """
+    return get_tokens(db)
+
+@router.post("/db/tokens", response_model=TokenSchema, tags=["MySQL"])
+async def api_create_token(token: TokenSchema, db: Session = Depends(get_mysql_db)):
+    """
+    Tokens 테이블에 새로운 토큰 추가
+    """
+    try:
+        return create_token(db, token.model_dump())
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Token 추가 중 오류 발생: {str(e)}")
+
+# Books API (MySQL)
+@router.get("/db/books", response_model=list[BookSchema], tags=["MySQL"])
+async def api_get_books(db: Session = Depends(get_mysql_db)):
+    """
+    Books 테이블 조회
+    """
+    return get_books(db)
+
+@router.post("/db/books", response_model=BookSchema, tags=["MySQL"])
+async def api_create_book(book: BookSchema, db: Session = Depends(get_mysql_db)):
+    """
+    Books 테이블에 새로운 책 추가
+    """
+    try:
+         return create_book(db, book.model_dump())
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Book 추가 중 오류 발생: {str(e)}")
+    
+# Sessions API (MySQL)
+@router.get("/db/sessions", response_model=list[SessionSchema], tags=["MySQL"])
+async def api_get_sessions(db: Session = Depends(get_mysql_db)):
+    """
+    Sessions 테이블 조회
+    """
+    return get_sessions(db)
+
+
+@router.post("/db/sessions", response_model=SessionSchema, tags=["MySQL"])
+async def api_create_session(session: SessionSchema, db: Session = Depends(get_mysql_db)):
+    """
+    Sessions 테이블에 새로운 세션 추가
+    """
+    try:
+        return create_session(db, session.model_dump())
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Session 추가 중 오류 발생: {str(e)}")
+
+# RecommendedBooks API (MySQL)
+@router.get("/db/recommended_books", response_model=list[RecommendedBookSchema], tags=["MySQL"])
+async def api_get_recommended_books(db: Session = Depends(get_mysql_db)):
+    """
+    RecommendedBooks 테이블 조회
+    """
+    return get_recommended_books(db)
+
+@router.post("/db/recommended_books", response_model=RecommendedBookSchema, tags=["MySQL"])
+async def api_create_recommended_book(recommended_book: RecommendedBookSchema, db: Session = Depends(get_mysql_db)):
+    """
+    RecommendedBooks 테이블에 새로운 추천 도서 추가
+    """
+    try:
+        return create_recommended_book(db, recommended_book.model_dump())
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"RecommendedBook 추가 중 오류 발생: {str(e)}")
+
+# Badges API (MySQL)
+@router.get("/db/badges", response_model=list[BadgeSchema], tags=["MySQL"])
+async def api_get_badges(db: Session = Depends(get_mysql_db)):
+    """
+    Badges 테이블 조회
+    """
+    return get_badges(db)
+
+@router.post("/db/badges", response_model=BadgeSchema, tags=["MySQL"])
+async def api_create_badge(badge: BadgeSchema, db: Session = Depends(get_mysql_db)):
+    """
+    Badges 테이블에 새로운 배지 추가
+    """
+    try:
+        return create_badge(db, badge.model_dump())
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Badge 추가 중 오류 발생: {str(e)}")
+
+# Reviews API (MySQL)
+@router.get("/db/reviews", response_model=list[ReviewSchema], tags=["MySQL"])
+async def api_get_reviews(db: Session = Depends(get_mysql_db)):
+    """
+    Reviews 테이블 조회
+    """
+    return get_reviews(db)
+
+@router.post("/db/reviews", response_model=ReviewSchema, tags=["MySQL"])
+async def api_create_review(review: ReviewSchema, db: Session = Depends(get_mysql_db)):
+    """
+    Reviews 테이블에 새로운 리뷰 추가
+    """
+    try:
+        return create_review(db, review.model_dump())
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Review 추가 중 오류 발생: {str(e)}")
+
+# UserQuestions API (PostgreSQL)
+@router.get("/db/user_questions", response_model=list[UserQuestionSchema], tags=["PostgreSQL"])
+async def api_get_user_questions(db: Session = Depends(get_postgresql_db)):
+    """
+    UserQuestions 테이블 조회  
+    """
+    return get_user_questions(db)
+
+@router.post("/db/user_questions", response_model=UserQuestionSchema, tags=["PostgreSQL"])
+async def api_create_user_question(question: UserQuestionSchema, db: Session = Depends(get_postgresql_db)):
+    """
+    UserQuestions 테이블에 새로운 질문 추가
+    """
+    try:
+        return create_user_question(db, question.model_dump())
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"UserQuestion 추가 중 오류 발생: {str(e)}")
+
+# ClovaAnswers API (PostgreSQL)
+@router.get("/db/clova_answers", response_model=list[ClovaAnswerSchema], tags=["PostgreSQL"])
+async def api_get_clova_answers(db: Session = Depends(get_postgresql_db)):
+    """
+    ClovaAnswers 테이블 조회  
+    """
+    return get_clova_answers(db)
+
+@router.post("/db/clova_answers", response_model=ClovaAnswerSchema, tags=["PostgreSQL"])
+async def api_create_clova_answer(answer: ClovaAnswerSchema, db: Session = Depends(get_postgresql_db)):
+    """
+    ClovaAnswers 테이블에 새로운 답변 추가  
+    """
+    try:
+        return create_clova_answer(db, answer.model_dump())
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"ClovaAnswer 추가 중 오류 발생: {str(e)}")
