@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine, inspect
 from sqlalchemy.orm import sessionmaker
-from config import MYSQL_DATABASE_URL, POSTGRESQL_DATABASE_URL, update_db_status, get_db_status
-from models import MySQLBase, PostgreSQLBase  # 모델 가져오기
+from .config import MYSQL_DATABASE_URL, POSTGRESQL_DATABASE_URL, update_db_status, get_db_status
+from .models import MySQLBase, PostgreSQLBase  # 모델 가져오기
 
 # MySQL 연결
 mysql_engine = create_engine(MYSQL_DATABASE_URL)

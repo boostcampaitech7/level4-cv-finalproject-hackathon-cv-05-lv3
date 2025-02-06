@@ -2,7 +2,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, String, BigInteger, Enum, Date, ForeignKey, Text, TIMESTAMP, CheckConstraint
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import relationship
-from snowflake_generator import snowflake_generator
+from .snowflake_generator import snowflake_generator
 
 # MySQL용 모델 베이스
 MySQLBase = declarative_base()
