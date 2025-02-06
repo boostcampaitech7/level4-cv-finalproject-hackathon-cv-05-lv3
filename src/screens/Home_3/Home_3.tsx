@@ -1,7 +1,6 @@
 
 import { Calendar } from "../../components/ui/calendar";
 import { Card, CardContent } from "../../components/ui/card";
-import { Vector } from "../../icons/Vector";
 import { BrowserRouter as Router, Route, Routes, useNavigate, useLocation } from "react-router-dom";
 import {Question2Server} from "../../api/api";
 import { useCallback, useEffect } from "react";
@@ -39,8 +38,6 @@ export const Home3 = (): JSX.Element => {
           <div className="relative w-2.5 h-2.5 bg-[#b38f00] rounded-[5px]" />
           <div className="relative w-[13px] h-[13px] bg-[#ffcc00] rounded-[6.5px]" />
         </div>
-
-        <Vector className="!absolute !w-9 !h-6 !top-[30px] !left-[332px]" />
 
         <Card className="absolute w-[351px] top-[220px] left-[21px] border-none">
           <CardContent className="p-0">

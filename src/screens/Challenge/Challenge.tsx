@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Card, CardContent } from "../../components/ui/card";
 import { Separator } from "../../components/ui/separator";
-import { Vector } from "../../icons/Vector";
 import { useNavigate } from "react-router-dom";
 import { Badge, Server2Badge, Server2AudioFile } from "../../api/api"; // ✅ Badge 인터페이스 사용
 
@@ -78,7 +77,6 @@ export const Challenge = (): JSX.Element => {
   return (
     <div className="bg-white flex flex-row justify-center w-full h-screen overflow-y-auto">
       <div className="bg-white w-[393px] h-[852px] relative">
-        <Vector className="!absolute !w-9 !h-6 !top-[30px] !left-[332px]" />
         <div className="inline-flex items-center justify-center w-full mt-[70px]">
           <h1 className="text-4xl font-normal text-black text-center">독서의 전당</h1>
         </div>

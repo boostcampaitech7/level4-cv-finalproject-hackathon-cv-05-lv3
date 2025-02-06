@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route, Routes, useNavigate } from "react-route
 
 import { Button } from "../../components/ui/button";
 import { Card, CardContent, CardHeader } from "../../components/ui/card";
-import { Vector } from "../../icons/Vector";
 import NaviBar from "../../components/ui/navigationbar";
 
 export const Home1 = (): JSX.Element => {
@@ -15,9 +14,6 @@ export const Home1 = (): JSX.Element => {
   return (
     <div className="bg-white flex flex-row justify-center w-full">
       <div className="bg-white w-[393px] h-[852px] relative">
-        {/* 상단 메뉴 */}
-        <Vector className="!absolute !w-9 !h-6 !top-[30px] !left-[332px]" />
-
         {/* 진행 바 */}
         <div className="inline-flex top-[125px] left-[165px] items-center gap-[15px] absolute">
           <div className="relative w-[13px] h-[13px] bg-[#ffcc00] rounded-[6.5px]" />

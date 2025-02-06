@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { ChevronLeft } from "lucide-react";
 import { Card, CardContent } from "../../components/ui/card";
 import { Separator } from "../../components/ui/separator";
-import { Vector } from "../../icons/Vector";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Badge2Server } from "../../api/api";
 import NaviBar from "../../components/ui/navigationbar";
@@ -40,7 +39,6 @@ export const Library_1 = (): JSX.Element => {
   return (
     <div className="bg-white flex flex-row justify-center w-full">
       <div className="bg-white w-[393px] h-[852px] relative">
-        <Vector className="!absolute !w-9 !h-6 !top-[30px] !left-[332px]" />
         <img
           className="top-[110px] left-3.5 absolute w-[365px] h-px object-cover"
           alt="Line"
@@ -74,7 +72,7 @@ export const Library_1 = (): JSX.Element => {
         </div>
 
         <button
-          className="w-[48px] h-[48px] flex items-center justify-left gap-2.5 p-2.5 rounded-[20px] absolute top-[17px] left-3.5 text-black text-lg font-normal [font-family:'Inter',Helvetica]"
+          className="w-[48px] h-[30px] bg-gray-300 flex items-center justify-left gap-2.5 p-2.5 rounded-[20px] absolute top-[20px] left text-black text-lg font-normal [font-family:'Inter',Helvetica]"
           onClick={() => navigate('/Library', {replace:true})}
         >
           <ChevronLeft size={48}/>

@@ -11,6 +11,7 @@ import { Library_1 } from "./screens/Library_1";
 import { Timer } from "./screens/Timer";
 import { Community } from "./screens/Community";
 import { NaverOAuth } from "./api/naverlogin";
+import { Review } from "./screens/Review/review";
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
         <Route path="/Timer" element={<Timer />} />
 
         <Route path="/Commu" element={<Community />} />
+        <Route path="/Review" element={<Review />}/>
         {/* 다른 화면 경로 추가 가능 */}
       </Routes>
     </Router>
