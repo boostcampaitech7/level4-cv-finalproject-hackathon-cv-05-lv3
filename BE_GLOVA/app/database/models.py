@@ -1,5 +1,5 @@
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, String, BigInteger, Enum, Date, ForeignKey, Text, TIMESTAMP, CheckConstraint
+from sqlalchemy import Column, String, BigInteger, Enum, Date, ForeignKey, Text, TIMESTAMP, CheckConstraint, func
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import relationship
 from .snowflake_generator import snowflake_generator
@@ -74,8 +74,8 @@ class RecommendedBook(MySQLBase):
     book_id = Column(BigInteger, ForeignKey("books.book_id"), nullable=False)
     user_id = Column(String(64), ForeignKey("users.user_id"), nullable=False)
     session_id = Column(String(255), ForeignKey("sessions.session_id"), nullable=False)
-    recommended_at = Column(TIMESTAMP, server_default="CURRENT_TIMESTAMP")
-    finished_at = Column(TIMESTAMP, server_default="CURRENT_TIMESTAMP")
+    recommended_at = Column(TIMESTAMP, server_default=func.current_timestamp(), nullable=False)
+    finished_at = Column(TIMESTAMP, server_default=func.current_timestamp(), nullable=False)
 
     # 관계 설정
     user = relationship("User", back_populates="recommended_books")
@@ -89,7 +89,7 @@ class Badge(MySQLBase):
     book_id = Column(BigInteger, ForeignKey("books.book_id"), nullable=False)
     badge_image = Column(String(2048), nullable=False)
     badge_audio_url = Column(String(2048), nullable=False)
-    created_at = Column(TIMESTAMP, server_default="CURRENT_TIMESTAMP")
+    created_at = Column(TIMESTAMP, server_default=func.current_timestamp(), nullable=False)
 
     # 관계 설정
     user = relationship("User", back_populates="badges")
@@ -102,7 +102,7 @@ class Review(MySQLBase):
     user_id = Column(String(64), ForeignKey("users.user_id"), nullable=False)
     book_id = Column(BigInteger, ForeignKey("books.book_id"), nullable=False)
     review_text = Column(String(2048), nullable=False)
-    created_at = Column(TIMESTAMP, server_default="CURRENT_TIMESTAMP")
+    created_at = Column(TIMESTAMP, server_default=func.current_timestamp(), nullable=False)
 
     user = relationship("User", back_populates="reviews")
 
@@ -114,7 +114,7 @@ class UserQuestion(PostgreSQLBase):
     user_id = Column(String(64), ForeignKey("users.user_id"), nullable=False)
     session_id = Column(String(36), ForeignKey("sessions.session_id"), nullable=False)
     question_text = Column(JSONB, nullable=False)
-    created_at = Column(TIMESTAMP, server_default="CURRENT_TIMESTAMP")
+    created_at = Column(TIMESTAMP, server_default=func.current_timestamp(), nullable=False)
 
 # CLOVA 답변 테이블 (clova_answers)
 class ClovaAnswer(PostgreSQLBase):
@@ -124,4 +124,4 @@ class ClovaAnswer(PostgreSQLBase):
     user_id = Column(String(64), ForeignKey("users.user_id"), nullable=False)
     session_id = Column(String(36), ForeignKey("sessions.session_id"), nullable=False)
     answer_text = Column(JSONB, nullable=False)
-    created_at = Column(TIMESTAMP, server_default="CURRENT_TIMESTAMP")
+    created_at = Column(TIMESTAMP, server_default=func.current_timestamp(), nullable=False)
