@@ -111,8 +111,8 @@ class UserQuestion(PostgreSQLBase):
     __tablename__ = "user_questions"
 
     question_id = Column(BigInteger, primary_key=True, autoincrement=True)
-    user_id = Column(String(64), ForeignKey("users.user_id"), nullable=False)
-    session_id = Column(String(36), ForeignKey("sessions.session_id"), nullable=False)
+    user_id = Column(String(64), nullable=False)
+    session_id = Column(String(36), nullable=False)
     question_text = Column(JSONB, nullable=False)
     created_at = Column(TIMESTAMP, server_default=func.current_timestamp(), nullable=False)
 
@@ -121,7 +121,7 @@ class ClovaAnswer(PostgreSQLBase):
     __tablename__ = "clova_answers"
 
     answer_id = Column(BigInteger, primary_key=True, autoincrement=True)
-    user_id = Column(String(64), ForeignKey("users.user_id"), nullable=False)
-    session_id = Column(String(36), ForeignKey("sessions.session_id"), nullable=False)
+    user_id = Column(String(64), nullable=False)
+    session_id = Column(String(36), nullable=False)
     answer_text = Column(JSONB, nullable=False)
     created_at = Column(TIMESTAMP, server_default=func.current_timestamp(), nullable=False)
