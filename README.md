@@ -1,7 +1,6 @@
 # Hi Book GLOVA (하이북글로바) - 도서 친근화 서비스
 ![무물 이미지 하나 만들고]
 
-우리 이거 도커로 다운받는거야...? 링크로 띡?
 ### 하이북클로바 실행 방법
 ```
 git clone https://github.com/boostcampaitech7/level4-cv-finalproject-hackathon-cv-05-lv3.git
