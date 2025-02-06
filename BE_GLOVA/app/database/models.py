@@ -109,6 +109,7 @@ class Review(MySQLBase):
 # 사용자 질문 테이블 (user_questions)
 class UserQuestion(PostgreSQLBase):
     __tablename__ = "user_questions"
+    __table_args__ = {"schema": "public"}
 
     question_id = Column(BigInteger, primary_key=True, autoincrement=True)
     user_id = Column(String(64), nullable=False)
@@ -119,6 +120,7 @@ class UserQuestion(PostgreSQLBase):
 # CLOVA 답변 테이블 (clova_answers)
 class ClovaAnswer(PostgreSQLBase):
     __tablename__ = "clova_answers"
+    __table_args__ = {"schema": "public"}
 
     answer_id = Column(BigInteger, primary_key=True, autoincrement=True)
     user_id = Column(String(64), nullable=False)
