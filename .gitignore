@@ -183,3 +183,4 @@ chromedriver/
 .DS_Store
 *.json
 logs/
+node_modules
