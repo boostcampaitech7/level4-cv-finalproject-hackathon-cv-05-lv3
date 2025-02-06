@@ -3,20 +3,13 @@ import { BrowserRouter as Router, Route, Routes, useNavigate } from "react-route
 import { Button } from "../../components/ui/button";
 import { Card, CardContent } from "../../components/ui/card";
 import { Input } from "../../components/ui/input";
+import { NaverOAuth } from "../../api/naverlogin"
 
 export const Login = (): JSX.Element => {
-  const [ID, setID] = useState("");
-  const [password, setPassword] = useState("");
-  
   const navigate = useNavigate();
 
-  function Login_checker() {
-    if (ID == "test" && password == "1234") {
-      console.log("로그인 성공");
-      navigate("/Home", { replace: true });
-    } else {
-      console.log("로그인 실패");
-    }
+  function handleLoginSuccess() {
+    navigate("/Home", { replace: true });
   }
 
   return (
@@ -29,31 +22,12 @@ export const Login = (): JSX.Element => {
         />
 
         <p className="text-xl text-center text-black font-normal mb-8">
-          함께 읽어가는 우리만의 챌린지
+          오늘은 또 무슨일이 생길까 피카츄 라이츄 파이리 꼬부기 버터풀 라이츄 디지몬 친구들~
         </p>
 
         <Card className="w-full bg-transparent border-none shadow-none">
           <CardContent className="flex flex-col gap-4 items-center">
-            <Input
-              className="w-[200px] h-10 bg-[#c6c6c6] rounded-[20px] text-xl text-center text-black"
-              placeholder="ID"
-              value={ID}
-              onChange={(e) => setID(e.target.value)}
-            />
-
-            <Input
-              type="password"
-              className="w-[200px] h-10 bg-[#c6c6c6] rounded-[20px] text-xl text-center text-black"
-              placeholder="PASSWORD"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-
-            <Button className="w-[200px] h-10 bg-[#c6c6c6] rounded-[20px] text-xl text-black hover:bg-[#b4b4b4]"
-              onClick={Login_checker}
-              >
-              ENTER
-            </Button>
+            <NaverOAuth onLoginSuccess={handleLoginSuccess} />
           </CardContent>
         </Card>
       </div>

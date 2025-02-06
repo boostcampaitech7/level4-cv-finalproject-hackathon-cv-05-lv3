@@ -1,23 +1,11 @@
-import {
-  BookOpen,
-  HomeIcon,
-  TimerIcon,
-  TrophyIcon,
-} from "lucide-react";
 
 import { Calendar } from "../../components/ui/calendar";
 import { Card, CardContent } from "../../components/ui/card";
-import { Vector } from "../../icons/Vector";
 import { BrowserRouter as Router, Route, Routes, useNavigate, useLocation } from "react-router-dom";
 import {Question2Server} from "../../api/api";
 import { useCallback, useEffect } from "react";
+import NaviBar from "../../components/ui/navigationbar";
 
-const navigationItems = [
-  { icon: TrophyIcon, label: "CHALLENGE", href: "/Challenge", active: false },
-  { icon: HomeIcon, label: "HOME", href: "/Home", active: true },
-  { icon: BookOpen  , label: "BOOKS", href: "/Library", active: false },
-  { icon: TimerIcon, label: "TIMER", href: "/Timer", active: false },
-];
 export const Home3 = (): JSX.Element => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -51,8 +39,6 @@ export const Home3 = (): JSX.Element => {
           <div className="relative w-[13px] h-[13px] bg-[#ffcc00] rounded-[6.5px]" />
         </div>
 
-        <Vector className="!absolute !w-9 !h-6 !top-[30px] !left-[332px]" />
-
         <Card className="absolute w-[351px] top-[220px] left-[21px] border-none">
           <CardContent className="p-0">
             <img
@@ -63,31 +49,7 @@ export const Home3 = (): JSX.Element => {
           </CardContent>
         </Card>
 
-        {/* Navigation Bar */}
-        <nav className="fixed bottom-0 left-0 right-0 max-w-[393px] mx-auto">
-          <div className="flex items-center justify-center gap-[15px] px-[5px] py-0 h-[100px] bg-white shadow-[0px_-2px_10px_#00000040]">
-            {navigationItems.map((item) => (
-              <button
-                key={item.label}
-                onClick={() => navigate(item.href, { replace: true })} // replace 옵션으로 뒤로가기 방지
-                className="flex flex-col items-center w-[82px] h-[75px] bg-transparent border-none"
-              >
-                <item.icon
-                  className={`w-14 h-14 ${
-                    item.active ? "text-black" : "text-[#b3b3b3]"
-                  }`}
-                />
-                <span
-                  className={`font-['Koulen'] text-xl ${
-                    item.active ? "text-black" : "text-[#b3b3b3]"
-                  }`}
-                >
-                  {item.label}
-                </span>
-              </button>
-            ))}
-          </div>
-        </nav>
+        <NaviBar activeLabel="Home"/>
       </div>
     </div>
   );

@@ -52,6 +52,13 @@ export const Question2Server = async (age: string, gender: string, question: str
 export const Calendar2Server = async (question: string, bookimage: string, bookTitle: string) => {
   const now = new Date();
   try {
+    console.log("서버로 보낼 데이터:", {date: now.toISOString().split("T")[0], // YYYY-MM-DD 형식의 날짜
+    time: now.toTimeString().split(" ")[0], // HH:mm:ss 형식의 시간
+    question: question,
+    bookimage: bookimage,
+    bookTitle: bookTitle,
+    })
+
     // 서버에 데이터를 전송합니다.
     const response = await apiClient.post("/api/save_books", {
       date: now.toISOString().split("T")[0], // YYYY-MM-DD 형식의 날짜
@@ -110,9 +117,14 @@ export const Server2Books = async (): Promise<Book[]> => {
 
 
 // 뱃지 생성 요청
-export const Badge2Server = async () => {
+export const Badge2Server = async (bookTitle:string, speak:string) => {
   try {
-    const response = await apiClient.post("/api/badge_create");
+    const response = await apiClient.post("/api/badge_create",
+      {
+        bookTitle: bookTitle,
+        speak: speak
+      }
+    );
 
     return response.data; // 서버에서 받은 데이터를 반환
 
@@ -122,7 +134,7 @@ export const Badge2Server = async () => {
   }
 };
 
-
+// 뱃지 가져오기
 export const Server2Badge = async (): Promise<Badge[]> => {
   try {
     const response = await apiClient.get("/api/badge");
@@ -135,6 +147,23 @@ export const Server2Badge = async (): Promise<Badge[]> => {
   } catch (error) {
     console.error("Error fetching books:", error);
     return []; // 오류 발생 시 빈 배열 반환
+  }
+};
+
+
+//뱃지 mp3 가져오기
+export const Server2AudioFile = async () => {
+  try {
+    const response = await fetch("http://localhost:8000/api/get_audio");
+    if (!response.ok) {
+      throw new Error("Failed to fetch audio");
+    }
+    const arrayBuffer = await response.arrayBuffer();
+    const blob = new Blob([arrayBuffer], { type: "audio/mp3" });
+    return URL.createObjectURL(blob);
+  } catch (error) {
+    console.error("Error fetching audio:", error);
+    throw error;
   }
 };
 
