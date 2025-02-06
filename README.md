@@ -2,8 +2,12 @@
 ![무물 이미지 하나 만들고]
 
 우리 이거 도커로 다운받는거야...? 링크로 띡?
-### 하이북클로바 실행 방법(링크?)
-docker... 하나하나 실행하게하면 너무 아웃인디 습
+### 하이북클로바 실행 방법
+```
+git clone https://github.com/boostcampaitech7/level4-cv-finalproject-hackathon-cv-05-lv3.git
+
+docker-compose up --build -d
+```
 
 ## 프로젝트 소개
 "하이북글로바"는 가볍고 재미있게 독서를 즐길 수 있도록 돕는 서비스입니다. SNS 감성의 [무엇이든 물어보세요]기능, 위시 리스트 피드, 독서 뱃지 생성 등을 통해 MZ 세대의 독서 경험을 더욱 특별하게 만듭니다.📚✨
