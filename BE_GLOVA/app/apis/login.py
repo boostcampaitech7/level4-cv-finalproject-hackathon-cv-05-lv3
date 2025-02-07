@@ -27,6 +27,14 @@ NAVER_REDIRECT_URI = os.getenv('NAVER_REDIRECT_URI')
 ENCODED_REDIRECT_URI = urllib.parse.quote(NAVER_REDIRECT_URI, safe="")  # URL 인코딩 적용
 ALGORITHM = "HS256"
 
+# JWT access_token 생성 함수
+def create_access_token(data: dict, expires_in: int):
+    """네이버 API에서 제공하는 expires_in을 활용하여 JWT 만료 시간 설정"""
+    to_encode = data.copy()
+    expire = datetime.utcnow() + timedelta(seconds=expires_in)
+    to_encode.update({"exp": expire})
+    return jwt.encode(to_encode, NAVER_LOGIN_CLIENT_SECRET, algorithm=ALGORITHM)
+
 # 네이버 인증 URL 생성
 def get_naver_auth_url(state: str):
     return (
@@ -71,7 +79,7 @@ async def handle_naver_oauth(code: str, state: str):
     if "access_token" not in token_data:
         raise HTTPException(status_code=400, detail={"error": "토큰 발급 실패", "response": token_data})
 
-    return token_data["access_token"], token_data["refresh_token"]
+    return token_data["access_token"], token_data["refresh_token"], token_data["expires_in"]
 
 # 네이버 사용자 정보 요청
 async def get_naver_user_info(access_token: str):
@@ -107,12 +115,14 @@ async def handle_user_data(db: Session, access_token: str):
 
     return user_id
 
-# refresh token 저장
-async def handle_token_data(db: Session, user_id: str, refresh_token: str):
+# refresh token 저장 및 JWT 발급
+async def handle_token_data(db: Session, user_id: str, refresh_token: str, expires_in: int):
     existing_token = read_token(db, user_id)
 
     if not existing_token:
         create_token(db, {"user_id": user_id, "refresh_token": refresh_token})
+
+    return create_access_token(data={"sub": user_id}, expires_in=expires_in)
 
 @router.get("/login/naver", response_class=RedirectResponse)
 async def login_naver():
@@ -125,24 +135,11 @@ async def naver_callback(code: str, state: str, db: Session = Depends(get_mysql_
     """네이버 OAuth 로그인 처리"""
     
     # 1. 네이버 OAuth 토큰 요청
-    access_token, refresh_token = await handle_naver_oauth(code, state)
+    access_token, refresh_token, expires_in = await handle_naver_oauth(code, state)
     # 2️. 사용자 정보 조회 & DB 저장
     user_id = await handle_user_data(db, access_token)
-    # 3️. refresh Token 저장
-    await handle_token_data(db, user_id, refresh_token)
-
-    # 프론트에 정보 바로 넘기는게 아니라 jwt 토큰 발급
-    # JWT 토큰 생성
-    # access_token = create_access_token(data=디비에서 뽑은데이터)
-    # refresh_token = create_refresh_token(data=디비에서 뽑은데이터)
-    # return {
-    #     "access_token": access_token,
-    #     "refresh_token": refresh_token,
-    #     "token_type": "bearer"
-    # }
-    # 이제 리프래시 토큰과 액세스 토큰을 만들어 프론트 주고 프론트가 토큰 잘 주면 나는 ㅇㅋ 하면서 로그인 그대로 ㅇㅇ 해주고~ 그런 것!
-    
-    # return user_info # 프론트에 사용자 정보만 줌
+    # 3️. refresh token 저장 & JWT 발급
+    jwt_access_token = await handle_token_data(db, user_id, refresh_token, expires_in)
 
     # 프론트는 이제 헤더에 저 jwt 토큰을 넣어서 주고 받아야함
     # 그럼 그걸 여기서 검증해야 함
