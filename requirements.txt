@@ -1,0 +1,8 @@
+torch
+diffusers
+transformers
+peft
+safetensors
+opencv-python
+pillow
+rembg[cli]
