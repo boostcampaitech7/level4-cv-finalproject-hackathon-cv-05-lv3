@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Card, CardContent } from "../../components/ui/card";
 import { Separator } from "../../components/ui/separator";
 import { useNavigate } from "react-router-dom";
-import { Badge, Server2Badge, Server2AudioFile } from "../../api/api"; // ✅ Badge 인터페이스 사용
+import { Badge, GetBadges, GetAudioFile } from "../../api/api"; // ✅ Badge 인터페이스 사용
 
 import NaviBar from "../../components/ui/navigationbar";
 
@@ -41,7 +41,7 @@ export const Challenge = (): JSX.Element => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await Server2Badge(); // ✅ API 호출
+      const data = await GetBadges(); // ✅ API 호출
       setBadges(data);
     };
     fetchData();
@@ -62,7 +62,7 @@ export const Challenge = (): JSX.Element => {
   const openAudio = async (badge: Badge): Promise<void> => {
     setSelectedBadge(badge);
     try{
-      const mp3URL = await Server2AudioFile();
+      const mp3URL = await GetAudioFile();
       if (audioElement) {
         audioElement.pause();
       }

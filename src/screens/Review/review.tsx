@@ -2,20 +2,18 @@ import React, { useState, useEffect, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { ChevronLeft } from "lucide-react";
 import NaviBar from "../../components/ui/navigationbar";
+import { Reviews, GetReviews, UploadReview } from "../../api/api"
 
-interface Review {
-  name: string;
-  text: string;
-}
 
 export const Review = (): JSX.Element => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [reviews, setReviews] = useState<Review[]>([]);
+  const [reviews, setReviews] = useState<Reviews[]>([]);
   const [inputText, setInputText] = useState("");
   const inputRef = useRef<HTMLTextAreaElement>(null);
   
   const book = location.state || {};
+
 
   useEffect(() => {
     if (inputRef.current) {
@@ -24,6 +22,7 @@ export const Review = (): JSX.Element => {
     }
   }, [inputText]);
 
+  {/*더미 데이터 버전*/}
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter" && !e.shiftKey && inputText.trim()) {
       e.preventDefault();
@@ -31,6 +30,17 @@ export const Review = (): JSX.Element => {
       setInputText("");
     }
   };
+  
+  {/*서버 통신 버전*/}
+//   const handleKeyDown = async (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+//     if (e.key === "Enter" && !e.shiftKey && inputText.trim()) {
+//       e.preventDefault();
+//       await UploadReview(book.bookTitle, inputText);
+//       const reviews = await GetReviews(book.bookTitle);
+//       setReviews(reviews);
+//       setInputText("");
+//     }
+//   };
 
   return (
     <div className="bg-white flex flex-row justify-center w-full">

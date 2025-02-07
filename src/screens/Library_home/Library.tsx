@@ -4,7 +4,7 @@ import { Separator } from "../../components/ui/separator";
 import { useNavigate } from "react-router-dom";
 import NaviBar from "../../components/ui/navigationbar";
 import { Search } from "lucide-react";
-import { Book } from "../../api/api"
+import { Book, GetRecommandBooks } from "../../api/api"
 import { dummy_book } from "../../dummy";
 
 const pastelColors = [
@@ -17,11 +17,21 @@ export const Library_home = (): JSX.Element => {
   const [flipped, setFlipped] = useState<{ [key: string]: boolean }>({});
   const [zoomed, setZoomed] = useState<{ [key: string]: boolean }>({});
   
+  {/*더미 데이터 버전*/}
   const dummyBooks = dummy_book;
-
   useEffect(() => {
     setBooks(dummyBooks);
   }, []);
+
+  {/*서버 연동 버전*/}
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const data = await GetRecommandBooks();
+  //     setBooks(data);
+  //   };
+
+  //   fetchData();
+  // }, []);
 
   return (
     <div className="bg-white flex flex-row justify-center w-full min-h-screen overflow-y-auto relative">
@@ -66,11 +76,11 @@ export const Library_home = (): JSX.Element => {
                       </div>
                     </div>
 
-                    {/* 검색 버튼 */}
+                    {/* detail 버튼 */}
                     <button 
                       onClick={(e) => {
                         e.stopPropagation();
-                        navigate("/Library_detail", {replace:true});
+                        navigate("/Library_detail", {replace:true, state:book});
                       }} 
                       className="absolute top-2 right-2 bg-white rounded-full p-2 shadow-lg hover:bg-gray-100 z-50 pointer-events-auto"
                     >

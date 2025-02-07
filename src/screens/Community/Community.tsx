@@ -4,13 +4,12 @@ import { Button } from "../../components/ui/button";
 import { Input } from "../../components/ui/input";
 import { Card } from "../../components/ui/card";
 import NaviBar from "../../components/ui/navigationbar";
-import { Book } from "../../api/api"
+import { Book, GetRecommandBooks, GetBooks } from "../../api/api"
 import { replace, useNavigate } from "react-router-dom";
 import { dummy_book } from "../../dummy";
 
 
 const Page1: React.FC<{ handleBookClick: (book: Book) => void }> = ({ handleBookClick }) => {
-    const [titles, setTitles] = useState(["Title 1", "Title 2"]);
     const [search, setSearch] = useState("");
     const carouselRef = useRef<HTMLDivElement>(null);
     let interval = useRef<NodeJS.Timeout | null>(null);
@@ -20,6 +19,9 @@ const Page1: React.FC<{ handleBookClick: (book: Book) => void }> = ({ handleBook
 
     {/*더미 데이터*/}
     const book_data: Book[] = dummy_book
+
+    {/*서버 통신 데이터*/}
+    // const book_data: Book[] = GetRecommandBooks();
 
     useEffect(() => {
         startAutoScroll();
@@ -118,8 +120,12 @@ const Page1: React.FC<{ handleBookClick: (book: Book) => void }> = ({ handleBook
 const Page2: React.FC<{ handleBookClick: (book: Book) => void }> = ({ handleBookClick }) => {
     const [search, setSearch] = useState("");
     // const [books, setBooks] = useState<Book[]>([]); // 더미 이미지 (3:4 비율)
-
+    
+    {/*더미 데이터*/}
     const books = dummy_book;
+
+    {/*서버 통신 데이터*/}
+    // const books = GetBooks();
 
     return (
         <div className="flex flex-col w-full h-full">

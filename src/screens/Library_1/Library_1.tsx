@@ -3,36 +3,22 @@ import { ChevronLeft } from "lucide-react";
 import { Card, CardContent } from "../../components/ui/card";
 import { Separator } from "../../components/ui/separator";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Badge2Server } from "../../api/api";
+import { Book, PostBadgeMaker } from "../../api/api";
 import NaviBar from "../../components/ui/navigationbar";
 
-export interface Book {
-  date: string;
-  time: string;
-  bookTitle: string;
-  bookimage: string;
-  question: string;
-}
 
 export const Library_1 = (): JSX.Element => {
   const location = useLocation();
   const navigate = useNavigate();
-
-  // const books = location.state || {};
-  const books: Book = {
-    date: "2025-02-04",
-    time: "14:30",
-    bookTitle: "The Art of Thinking Clearly",
-    bookimage: "../../image_data/rectangle-15@2x.png",
-    question: "What is the main takeaway from this book?",
-  };
+  
+  const book = location.state || {};
   
   const [speak, setSpeak] = useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const MakeBadge = async () => {
     console.log(speak);
-    Badge2Server(books.bookTitle, speak);
+    PostBadgeMaker(book.bookTitle, speak);
     navigate("/Challenge", { replace: true });
   };
 
@@ -52,22 +38,22 @@ export const Library_1 = (): JSX.Element => {
         />
 
         <div className="absolute top-[443px] left-3.5 [font-family:'Koulen',Helvetica] font-normal text-black text-xl text-center tracking-[0] leading-[normal]">
-          {books.date}
+          {book.date}
         </div>
 
         <img
           className="absolute w-[230px] h-[308px] top-[122px] left-[82px] object-cover"
           alt="Rectangle"
-          src = {books.bookimage}
+          src = {book.bookimage}
         />
 
         <div className="absolute top-20 left-3.5 [font-family:'Koulen',Helvetica] font-normal text-black text-xl text-center tracking-[0] leading-[normal]">
-          {books.bookTitle}
+          {book.bookTitle}
         </div>
 
         <div className="w-[361px] h-[170px] items-start gap-2.5 p-2.5 top-[476px] left-3.5 flex absolute">
           <div className="relative w-fit mt-[-1.00px] [font-family:'Koulen',Helvetica] font-normal text-black text-base text-left tracking-[0] leading-[normal]">
-            {books.question}
+            {book.question}
           </div>
         </div>
 
@@ -97,17 +83,17 @@ export const Library_1 = (): JSX.Element => {
                 value={speak} // 입력값을 상태로 연결
                 maxLength={50} // 50자 제한
                 onChange={(e) => setSpeak(e.target.value)} // 상태 업데이트
-                onBlur={() => {
-                  if (speak.trim() === "") {
-                    setSpeak(books.bookTitle);
-                  }
-                }}
               />
               
               {/* ✅ 제출 버튼 */}
               <button
                 className="mt-4 px-4 py-2 bg-red-500 text-white rounded-lg"
-                onClick={MakeBadge}
+                onClick={() => {
+                  if (speak.trim() === "") {
+                    setSpeak(book.bookTitle); // 비어있으면 기본 값 설정
+                  }
+                  MakeBadge(); // 비어있지 않으면 제출 함수 실행
+                  }}
               >
                 제출
               </button>

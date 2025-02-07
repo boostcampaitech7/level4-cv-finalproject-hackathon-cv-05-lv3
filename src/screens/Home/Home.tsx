@@ -16,9 +16,9 @@ export const Home = (): JSX.Element => {
         <div className="bg-white absolute w-[285px] top-[294px] left-1/2 -translate-x-1/2">
           <Card className="relative border shadow-[0px_2px_10px_#00000040] rounded-[15px] border-2 border-black">
             <CardContent className="p-5">
-              <Avatar className="w-[61px] h-[61px] absolute -top-8 left-1/2 -translate-x-1/2">
+              <Avatar className="w-[61px] h-[61px] absolute -top-8 left-1/2 -translate-x-1/2 border border-black">
                 <AvatarImage
-                  src="./image_data/ellipse-4@2x.png"
+                  src="./image_data/CLOVA_Symbol.png"
                   alt="Profile"
                 />
               </Avatar>

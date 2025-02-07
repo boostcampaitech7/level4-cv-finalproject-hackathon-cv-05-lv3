@@ -2,14 +2,20 @@
 import { Button } from "../../components/ui/button";
 import { Card, CardContent } from "../../components/ui/card";
 import { BrowserRouter as Router, Route, Routes, useNavigate, useLocation } from "react-router-dom";
-import { Calendar2Server } from "../../api/api";
+import { SaveRecommand } from "../../api/api";
 import NaviBar from "../../components/ui/navigationbar";
+
+import { dummy_single } from "../../dummy";
 
 export const Home4 = (): JSX.Element => {
   const location = useLocation();
   const navigate = useNavigate();
   
-  const data = location.state || {};
+  {/*서버 통신 데이터*/}
+  // const data = location.state || {};
+
+  {/*더미 데이터*/}
+  const data = dummy_single;
 
   return (
     <div className="flex justify-center w-full bg-white">
@@ -55,7 +61,7 @@ export const Home4 = (): JSX.Element => {
               variant="secondary"
               className="flex-1 rounded-[3px_20px_20px_3px] bg-[#d9d9d9] hover:bg-[#c4c4c4]"
               onClick={() => {
-                Calendar2Server(data.question, data.bookimage, data.bookTitle);
+                SaveRecommand(data.question, data.bookimage, data.bookTitle);
                 navigate("/Library", { replace: true })
                 }
               }
