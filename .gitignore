@@ -18,7 +18,6 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
 lib64/
 parts/
 sdist/
@@ -185,4 +184,34 @@ BE_GLOVA/modelll.py
 
 .DS_Store
 *.json
-logs/
+# package.json과 package-lock.json은 제외
+!package.json
+!package-lock.json
+!tsconfig.app.json
+!tsconfig.json
+!tsconfig.node.json
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

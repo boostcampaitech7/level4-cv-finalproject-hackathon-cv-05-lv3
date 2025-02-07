@@ -9,3 +9,5 @@ itsdangerous
 sqlalchemy==2.0.37
 pymysql==1.1.1
 psycopg2-binary==2.9.10
+httpx==0.28.1
+python-jose==3.3.0
