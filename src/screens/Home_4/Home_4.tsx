@@ -12,10 +12,10 @@ export const Home4 = (): JSX.Element => {
   const navigate = useNavigate();
   
   {/*서버 통신 데이터*/}
-  // const data = location.state || {};
+  const data = location.state || {};
 
   {/*더미 데이터*/}
-  const data = dummy_single;
+  // const data = dummy_single;
 
   return (
     <div className="flex justify-center w-full bg-white">
@@ -23,7 +23,7 @@ export const Home4 = (): JSX.Element => {
         {/* Main Content */}
         <div className="flex flex-col items-center px-4">
           <h2 className="mt-[147px] text-lg font-bold text-center font-inter">
-            클로바가 이런 책을 추천해드려요!
+            이런 책은 어떠신가요?
           </h2>
 
           <Card className="mt-12 border-none">

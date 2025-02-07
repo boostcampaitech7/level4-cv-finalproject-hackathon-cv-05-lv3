@@ -82,11 +82,7 @@ export const GetRecommandBooks = async (): Promise<Book[]> => {
         access_token:access_token
       }
     );
-
-    if (response.status !== 200) {
-      throw new Error(`서버 오류: ${response.status}`);
-    }
-
+    
     return response.data; // Axios는 자동으로 JSON 파싱을 수행하므로 response.data를 반환
   } catch (error) {
     console.error("Error fetching books:", error);

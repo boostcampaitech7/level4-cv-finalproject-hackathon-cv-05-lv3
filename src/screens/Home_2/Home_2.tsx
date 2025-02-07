@@ -17,8 +17,8 @@ export const Home2 = (): JSX.Element => {
   return (
     <div className="bg-white flex flex-row justify-center w-full">
       <div className="bg-white w-[393px] h-[852px] relative">
-        <div className="absolute top-[180px] left-[104px] font-bold text-black text-base text-center whitespace-nowrap [font-family:'Inter',Helvetica]">
-          클로바에게 질문해보세요!
+        <div className="absolute top-[180px] left-[55px] font-bold text-black text-base text-center whitespace-nowrap [font-family:'Inter',Helvetica]">
+          답변에 어울리는 책을 추천해 줄 거에요!
         </div>
 
         <div className="inline-flex top-[125px] left-[165px] items-center gap-[15px] absolute">
@@ -44,8 +44,8 @@ export const Home2 = (): JSX.Element => {
 
         <Card className="flex flex-col w-[285px] absolute top-[220px] left-[54px] border-none">
           <CardContent className="flex h-[99px] items-center justify-center p-2.5 bg-neutral-800 rounded-[15px_15px_0px_0px] border-t-2 border-r-2 border-l-2 border-black">
-            <div className="font-bold text-white text-[25px] text-center [font-family:'Inter',Helvetica]">
-              무엇이든 물어보세요!
+            <div className="font-bold text-white text-[24px] text-center [font-family:'Inter',Helvetica]">
+              무엇이든 얘기해보세요!
             </div>
           </CardContent>
           <CardContent className="flex flex-col h-[220px] gap-2.5 p-[11px] bg-white rounded-[0px_0px_15px_15px] border-r-2 border-b-2 border-l-2 border-black">

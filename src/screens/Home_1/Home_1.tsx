@@ -39,7 +39,7 @@ export const Home1 = (): JSX.Element => {
               <div className="flex items-center justify-center gap-2 mb-6">
                 <input
                   type="number"
-                  className="text-[45px] font-bold text-center border-b-2 border-black w-[100px] focus:outline-none"
+                  className="text-[45px] font-bold text-center border-b-2 border-black w-[100px] focus:outline-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
                   placeholder="나이"
                   value={age}
                   onChange={(e) => setAge(e.target.value)}

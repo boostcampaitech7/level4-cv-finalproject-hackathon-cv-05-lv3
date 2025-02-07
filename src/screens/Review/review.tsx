@@ -23,24 +23,24 @@ export const Review = (): JSX.Element => {
   }, [inputText]);
 
   {/*더미 데이터 버전*/}
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+  // const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+  //   if (e.key === "Enter" && !e.shiftKey && inputText.trim()) {
+  //     e.preventDefault();
+  //     setReviews([...reviews, { name: "User", text: inputText }]);
+  //     setInputText("");
+  //   }
+  // };
+  
+  {/*서버 통신 버전*/}
+  const handleKeyDown = async (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter" && !e.shiftKey && inputText.trim()) {
       e.preventDefault();
-      setReviews([...reviews, { name: "User", text: inputText }]);
+      await UploadReview(book.bookTitle, inputText);
+      const reviews = await GetReviews(book.bookTitle);
+      setReviews(reviews);
       setInputText("");
     }
   };
-  
-  {/*서버 통신 버전*/}
-//   const handleKeyDown = async (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-//     if (e.key === "Enter" && !e.shiftKey && inputText.trim()) {
-//       e.preventDefault();
-//       await UploadReview(book.bookTitle, inputText);
-//       const reviews = await GetReviews(book.bookTitle);
-//       setReviews(reviews);
-//       setInputText("");
-//     }
-//   };
 
   return (
     <div className="bg-white flex flex-row justify-center w-full">

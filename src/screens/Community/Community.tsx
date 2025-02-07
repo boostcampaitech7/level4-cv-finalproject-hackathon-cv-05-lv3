@@ -18,10 +18,18 @@ const Page1: React.FC<{ handleBookClick: (book: Book) => void }> = ({ handleBook
     let scrollLeft = useRef(0);
 
     {/*더미 데이터*/}
-    const book_data: Book[] = dummy_book
+    // const book_data: Book[] = dummy_book
 
     {/*서버 통신 데이터*/}
-    // const book_data: Book[] = GetRecommandBooks();
+    const [book_data, setBookData] = useState<Book[]>([]);
+
+    useEffect(() => {
+        const fetchBooks = async () => {
+            const books = await GetRecommandBooks();
+            setBookData(books);
+        };
+        fetchBooks();
+    }, []);
 
     useEffect(() => {
         startAutoScroll();
@@ -122,10 +130,18 @@ const Page2: React.FC<{ handleBookClick: (book: Book) => void }> = ({ handleBook
     // const [books, setBooks] = useState<Book[]>([]); // 더미 이미지 (3:4 비율)
     
     {/*더미 데이터*/}
-    const books = dummy_book;
+    // const books = dummy_book;
 
     {/*서버 통신 데이터*/}
-    // const books = GetBooks();
+    const [books, setBooks] = useState<Book[]>([]);
+
+    useEffect(() => {
+        const fetchBooks = async () => {
+            const books = await GetBooks();
+            setBooks(books);
+        };
+        fetchBooks();
+    }, []);
 
     return (
         <div className="flex flex-col w-full h-full">

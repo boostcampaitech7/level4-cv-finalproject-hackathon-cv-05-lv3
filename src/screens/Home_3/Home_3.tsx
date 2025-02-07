@@ -11,32 +11,32 @@ export const Home3 = (): JSX.Element => {
   const [loading, setLoading] = useState(true);
 
   {/*더미 데이터*/}
-  const fetchAndNavigate = useCallback(async () => {
-    try {   
-      setLoading(true); // 로딩 상태 활성화
-      
-      await new Promise((resolve) => setTimeout(resolve, 5000)); // 5초 대기
-      navigate("/Home_4");
-
-    } catch (error) {
-      console.error("Error while fetching data:", error);
-    } finally {
-      setLoading(false); // 로딩 상태 비활성화
-    }
-  }, [age, gender, question, navigate]);
-
-  {/*서버 통신 데이터*/}
   // const fetchAndNavigate = useCallback(async () => {
-  //   try {
-  //     console.log(age, gender, question);
-  //     const data = await Question2Server(age, gender, question);
-  //     navigate("/Home_4", { state: { ...data } });
+  //   try {   
+  //     setLoading(true); // 로딩 상태 활성화
+      
+  //     await new Promise((resolve) => setTimeout(resolve, 5000)); // 5초 대기
+  //     navigate("/Home_4");
+
   //   } catch (error) {
   //     console.error("Error while fetching data:", error);
   //   } finally {
-  //     setLoading(false);
+  //     setLoading(false); // 로딩 상태 비활성화
   //   }
   // }, [age, gender, question, navigate]);
+
+  {/*서버 통신 데이터*/}
+  const fetchAndNavigate = useCallback(async () => {
+    try {
+      console.log(age, gender, question);
+      const data = await Question2Server(age, gender, question);
+      navigate("/Home_4", { state: { ...data } });
+    } catch (error) {
+      console.error("Error while fetching data:", error);
+    } finally {
+      setLoading(false);
+    }
+  }, [age, gender, question, navigate]);
 
   useEffect(() => {
     fetchAndNavigate();
@@ -46,8 +46,8 @@ export const Home3 = (): JSX.Element => {
     <div className="bg-white flex flex-row justify-center w-full">
       <div className="bg-white w-[393px] h-[852px] relative">
         {/* 로딩 메시지 */}
-        <div className="absolute top-[180px] left-8 font-bold text-black text-base text-center">
-          클로바가 무슨 책을 추천할지 고민 중입니다...
+        <div className="absolute top-[180px] left-16 font-bold text-black text-base text-center">
+          무슨 책을 추천할지 고민 중입니다...
         </div>
 
         {/* 점 애니메이션 */}

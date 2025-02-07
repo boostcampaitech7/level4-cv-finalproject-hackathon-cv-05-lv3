@@ -18,20 +18,20 @@ export const Library_home = (): JSX.Element => {
   const [zoomed, setZoomed] = useState<{ [key: string]: boolean }>({});
   
   {/*더미 데이터 버전*/}
-  const dummyBooks = dummy_book;
-  useEffect(() => {
-    setBooks(dummyBooks);
-  }, []);
+  // const dummyBooks = dummy_book;
+  // useEffect(() => {
+  //   setBooks(dummyBooks);
+  // }, []);
 
   {/*서버 연동 버전*/}
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const data = await GetRecommandBooks();
-  //     setBooks(data);
-  //   };
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await GetRecommandBooks();
+      setBooks(data);
+    };
 
-  //   fetchData();
-  // }, []);
+    fetchData();
+  }, []);
 
   return (
     <div className="bg-white flex flex-row justify-center w-full min-h-screen overflow-y-auto relative">
