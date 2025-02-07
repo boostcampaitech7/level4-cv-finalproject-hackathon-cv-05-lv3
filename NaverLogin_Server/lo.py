@@ -1,40 +1,25 @@
 from fastapi import FastAPI, Request, Depends, HTTPException
 from fastapi.responses import RedirectResponse
+import requests
 from pydantic import BaseModel
 import httpx
 import os
+import urllib.parse
 from dotenv import load_dotenv
 import secrets
-
 from datetime import datetime, timedelta
 from jose import JWTError, jwt
-
-SECRET_KEY = "your_secret_key"
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 60
-
-def create_access_token(data: dict, expires_delta: timedelta = None):
-    to_encode = data.copy()
-    if expires_delta:
-        expire = datetime.utcnow() + expires_delta
-    else:
-        expire = datetime.utcnow() + timedelta(minutes=15)
-    to_encode.update({"exp": expire})
-    return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
-
-def create_refresh_token(data: dict, expires_delta: timedelta = None):
-    to_encode = data.copy()
-    expire = datetime.utcnow() + (expires_delta if expires_delta else timedelta(days=7))
-    to_encode.update({"exp": expire})
-    return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
 
 # 환경 변수 로드
 load_dotenv()
 
 # 환경 변수
-NAVER_CLIENT_ID = os.getenv('NAVER_CLIENT_ID')
-NAVER_CLIENT_SECRET = os.getenv('NAVER_CLIENT_SECRET')
-_state = secrets.token_urlsafe(16)  # CSRF 방지용 랜덤 문자열
+NAVER_LOGIN_CLIENT_ID = os.getenv('NAVER_LOGIN_CLIENT_ID')
+NAVER_LOGIN_CLIENT_SECRET = os.getenv('NAVER_LOGIN_CLIENT_SECRET')
+NAVER_REDIRECT_URI = os.getenv('NAVER_REDIRECT_URI')
+ENCODED_REDIRECT_URI = urllib.parse.quote(NAVER_REDIRECT_URI, safe="")  # URL 인코딩 적용
+ALGORITHM = "HS256"
+
 # 나중에 Redis를 사용하면 분산 서버에서도 안전하게 state를 저장하고 검증할 수 있어.
 app = FastAPI()
 
@@ -43,8 +28,8 @@ def get_naver_auth_url(state: str):
     return (
         "https://nid.naver.com/oauth2.0/authorize"
         "?response_type=code"
-        f"&client_id={NAVER_CLIENT_ID}"
-        "&redirect_uri=http://localhost:8000/callback"
+        f"&client_id={NAVER_LOGIN_CLIENT_ID}"
+        f"&redirect_uri={NAVER_REDIRECT_URI}"
         f"&state={state}"
     )
 
@@ -56,8 +41,8 @@ async def get_naver_token(code: str, state: str):
     }
     params = {
         "grant_type": "authorization_code",
-        "client_id": NAVER_CLIENT_ID,
-        "client_secret": NAVER_CLIENT_SECRET,
+        "client_id": NAVER_LOGIN_CLIENT_ID,
+        "client_secret": NAVER_LOGIN_CLIENT_SECRET,
         "code": code,
         "state": state
     }
@@ -77,61 +62,49 @@ async def get_naver_user_info(access_token: str):
         response.raise_for_status()
         return response.json()
 
+@app.get("/login/naver", response_class=RedirectResponse)
+async def login_naver():
+    state = secrets.token_urlsafe(32)
+    login_url = get_naver_auth_url(state=state)
+    return RedirectResponse(url=login_url)
 
-@app.get("/")
-async def root():
-    # 1. 사용자를 네이버 OAuth 페이지로 리디렉션
+@app.get("/api/login/naverOAuth")
+async def naver_callback(code: str, state: str):
+    """네이버에서 받은 code로 access token 요청"""
+    token_data = await get_naver_token(code, state)
+    print(token_data)
+
+    if "access_token" not in token_data:
+        return {"error": "토큰 발급 실패", "response": token_data}
     
-    auth_url = get_naver_auth_url(_state)
-    # 이걸 프론트에서 호출하면 네이버 로그인 페이지로 이동하는 URL을 받는 것 
-    return RedirectResponse(auth_url)
+    access_token = token_data["access_token"]
+    refresh_token = token_data["refresh_token"]
 
-# 이 담에 사용자가 네이버 로그인 동의하면 네이버는 code랑 state를 벡엔드로 넘김. 서버가 이걸 받아서 네이버한테 액세스 토큰을 요청해야 함 
-@app.get("/callback")
-async def callback(request: Request):
-    # 네이버가 나에게 준 code/state 
-    code = request.query_params.get("code")
-    state = request.query_params.get("state")
+    # 토큰을 사용하여 네이버 사용자 정보 요청
+    user_info = await get_naver_user_info(access_token)
+    print(user_info)
     
-    if state != _state:
-        raise HTTPException(status_code=400, detail="Invalid state parameter")
+    if "response" not in user_info:
+        return {"error": "사용자 정보 조회 실패", "response": user_info}
     
-    # 네이버에서 발급된 액세스 토큰을 요청
-    token_response = await get_naver_token(code, state)
-    access_token = token_response.get("access_token")
-    
-    if not access_token:
-        raise HTTPException(status_code=400, detail="Failed to get access token")
+    user_id = user_info["response"]["id"]  # 네이버 유저 고유 ID
 
-    # 액세스 토큰을 사용하여 사용자 정보를 요청
-    user_info_data = await get_naver_user_info(access_token)
-    print(user_info_data)
-    if "response" not in user_info_data:
-        raise HTTPException(status_code=400, detail="네이버 사용자 정보 조회 실패")
+    # 2️⃣ 우리 DB에서 user_id가 존재하는지 확인 (가정: check_user_in_db 함수 사용)
+    is_new_user = not check_user_in_db(user_id)  # DB에서 검색 후 없으면 신규
 
-    user_info = user_info_data["response"]
-    print(user_info['name'])
-
-    # =======================================================
-    # 디비 저장?
-    # db_user = db.query(User).filter(User.naver_id == user_info["id"]).first()
-
-    # if not db_user:
-    #     new_user = User(naver_id=user_info["id"], email=user_info["email"], nickname=user_info["nickname"])
-    #     db.add(new_user)
-    #     db.commit()
-    #     db.refresh(new_user)
-    #     db_user = new_user
+    if is_new_user:
+        # 신규 유저 - 회원가입 로직 수행 (예: DB 저장)
+        register_user(user_id, user_info)
 
     # 프론트에 정보 바로 넘기는게 아니라 jwt 토큰 발급
     # JWT 토큰 생성
-    access_token = create_access_token(data=디비에서 뽑은데이터)
-    refresh_token = create_refresh_token(data=디비에서 뽑은데이터)
-    return {
-        "access_token": access_token,
-        "refresh_token": refresh_token,
-        "token_type": "bearer"
-    }
+    # access_token = create_access_token(data=디비에서 뽑은데이터)
+    # refresh_token = create_refresh_token(data=디비에서 뽑은데이터)
+    # return {
+    #     "access_token": access_token,
+    #     "refresh_token": refresh_token,
+    #     "token_type": "bearer"
+    # }
     # 이제 리프래시 토큰과 액세스 토큰을 만들어 프론트 주고 프론트가 토큰 잘 주면 나는 ㅇㅋ 하면서 로그인 그대로 ㅇㅇ 해주고~ 그런 것!
     
     # return user_info # 프론트에 사용자 정보만 줌
@@ -171,5 +144,5 @@ async def callback(request: Request):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run("lo:app", host="0.0.0.0", port=8000, reload=True)
     # uvicorn.run("lo:app", host="0.0.0.0", port=8000, reload=True)
