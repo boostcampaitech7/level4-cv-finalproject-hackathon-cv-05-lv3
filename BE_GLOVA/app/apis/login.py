@@ -37,7 +37,7 @@ def get_naver_auth_url(state: str):
         f"&state={state}"
     )
 
-# 네이버 토큰 요청
+# 네이버 OAuth 토큰 요청
 async def get_naver_token(code: str, state: str):
     try:
         token_url = "https://nid.naver.com/oauth2.0/token"
@@ -64,6 +64,14 @@ async def get_naver_token(code: str, state: str):
     except Exception as e:
         print(f"Unexpected error: {str(e)}")
         return {"error": "Unexpected error"}
+    
+# 네이버 OAuth 토큰 요청 처리
+async def handle_naver_oauth(code: str, state: str):
+    token_data = await get_naver_token(code, state)
+    if "access_token" not in token_data:
+        raise HTTPException(status_code=400, detail={"error": "토큰 발급 실패", "response": token_data})
+
+    return token_data["access_token"], token_data["refresh_token"]
 
 # 네이버 사용자 정보 요청
 async def get_naver_user_info(access_token: str):
@@ -76,40 +84,16 @@ async def get_naver_user_info(access_token: str):
         response.raise_for_status()
         return response.json()
 
-@router.get("/login/naver", response_class=RedirectResponse)
-async def login_naver():
-    state = secrets.token_urlsafe(32)
-    login_url = get_naver_auth_url(state=state)
-    return RedirectResponse(url=login_url)
-
-@router.get("/api/login/naverOAuth")
-async def naver_callback(code: str, state: str, db: Session = Depends(get_mysql_db)):
-    """네이버에서 받은 code로 access token 요청"""
-    
-    token_data = await get_naver_token(code, state)
-    print(token_data)
-
-    if "access_token" not in token_data:
-        return {"error": "토큰 발급 실패", "response": token_data}
-    
-    access_token = token_data["access_token"]
-    refresh_token = token_data["refresh_token"]
-
-    # 토큰을 사용하여 네이버 사용자 정보 요청
+# 사용자 정보 처리 및 DB 저장
+async def handle_user_data(db: Session, access_token: str):
     user_info = await get_naver_user_info(access_token)
-    print(user_info)
-    
     if "response" not in user_info:
-        return {"error": "사용자 정보 조회 실패", "response": user_info}
-    
-    user_id = user_info["response"]["id"]  # 네이버 유저 고유 ID
+        raise HTTPException(status_code=400, detail={"error": "사용자 정보 조회 실패", "response": user_info})
 
-    # DB에서 user_id가 존재하는지 확인
+    user_id = user_info["response"]["id"]
     existing_user = read_user(db, user_id)
-    print(f"existing_user : {existing_user}")
 
     if not existing_user:
-        # 신규 유저 등록
         user_data = {
             "user_id": user_id,
             "name": user_info["response"]["name"],
@@ -121,18 +105,31 @@ async def naver_callback(code: str, state: str, db: Session = Depends(get_mysql_
         user_data = {key: value for key, value in user_data.items() if value is not None}
         create_user(db, user_data)
 
+    return user_id
+
+# refresh token 저장
+async def handle_token_data(db: Session, user_id: str, refresh_token: str):
     existing_token = read_token(db, user_id)
-    print(f"existing token : {existing_token}")
 
     if not existing_token:
-        # Tokens 테이블에 refresh_token 저장
-        token_data = {
-            "user_id": user_id,
-            "refresh_token": refresh_token
-        }
-        create_token(db, token_data)
+        create_token(db, {"user_id": user_id, "refresh_token": refresh_token})
+
+@router.get("/login/naver", response_class=RedirectResponse)
+async def login_naver():
+    state = secrets.token_urlsafe(32)
+    login_url = get_naver_auth_url(state=state)
+    return RedirectResponse(url=login_url)
+
+@router.get("/api/login/naverOAuth")
+async def naver_callback(code: str, state: str, db: Session = Depends(get_mysql_db)):
+    """네이버 OAuth 로그인 처리"""
     
-    return {"message": "로그인 성공", "user_id": user_id, "access_token": access_token}
+    # 1. 네이버 OAuth 토큰 요청
+    access_token, refresh_token = await handle_naver_oauth(code, state)
+    # 2️. 사용자 정보 조회 & DB 저장
+    user_id = await handle_user_data(db, access_token)
+    # 3️. refresh Token 저장
+    await handle_token_data(db, user_id, refresh_token)
 
     # 프론트에 정보 바로 넘기는게 아니라 jwt 토큰 발급
     # JWT 토큰 생성
