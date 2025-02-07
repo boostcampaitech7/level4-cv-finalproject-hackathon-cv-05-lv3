@@ -2,8 +2,8 @@
 import os
 import cv2
 from PIL import Image
-from badge_creator.badge_color import extract_dominant_colors, create_central_circle_image
-from badge_creator.badge_generator import SDXLBadgeGenerator
+from badge_color import extract_dominant_colors, create_central_circle_image
+from badge_generator import SDXLBadgeGenerator
 
 def main():
     # 사용자 설정
