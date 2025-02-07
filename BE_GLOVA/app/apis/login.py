@@ -34,21 +34,31 @@ def get_naver_auth_url(state: str):
 
 # 네이버 토큰 요청
 async def get_naver_token(code: str, state: str):
-    token_url = "https://nid.naver.com/oauth2.0/token"
-    headers = {
-        "Content-Type": "application/x-www-form-urlencoded"
-    }
-    params = {
-        "grant_type": "authorization_code",
-        "client_id": NAVER_LOGIN_CLIENT_ID,
-        "client_secret": NAVER_LOGIN_CLIENT_SECRET,
-        "code": code,
-        "state": state
-    }
-    async with httpx.AsyncClient() as client:
-        response = await client.post(token_url, headers=headers, data=params)
-        response.raise_for_status()
-        return response.json()
+    try:
+        token_url = "https://nid.naver.com/oauth2.0/token"
+        headers = {"Content-Type": "application/x-www-form-urlencoded"}
+        params = {
+            "grant_type": "authorization_code",
+            "client_id": NAVER_LOGIN_CLIENT_ID,
+            "client_secret": NAVER_LOGIN_CLIENT_SECRET,
+            "code": code,
+            "state": state
+        }
+        
+        async with httpx.AsyncClient(timeout=10) as client:
+            response = await client.post(token_url, headers=headers, data=params)
+            response.raise_for_status()
+            return response.json()
+
+    except httpx.HTTPStatusError as e:
+        print(f"HTTP error occurred: {e.response.status_code} - {e.response.text}")
+        return {"error": f"HTTP error: {e.response.status_code}"}
+    except httpx.ConnectTimeout:
+        print("Connection timeout error")
+        return {"error": "Connection timeout"}
+    except Exception as e:
+        print(f"Unexpected error: {str(e)}")
+        return {"error": "Unexpected error"}
 
 # 네이버 사용자 정보 요청
 async def get_naver_user_info(access_token: str):
@@ -62,19 +72,14 @@ async def get_naver_user_info(access_token: str):
         return response.json()
 
 @router.get("/login/naver", response_class=RedirectResponse)
-async def login_naver(request: Request):
+async def login_naver():
     state = secrets.token_urlsafe(32)
-    request.session["naver_oauth_state"] = state
     login_url = get_naver_auth_url(state=state)
     return RedirectResponse(url=login_url)
 
 @router.get("/api/login/naverOAuth")
-async def naver_callback(request: Request, code: str, state: str):
+async def naver_callback(code: str, state: str):
     """네이버에서 받은 code로 access token 요청"""
-    
-    saved_state = request.session.get("naver_oauth_state")  # 🔹 세션에서 state 가져오기
-    if not saved_state or saved_state != state:
-        return {"error": "OAuth state mismatch or missing session data"}
     
     token_data = await get_naver_token(code, state)
     print(token_data)
