@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request, Depends, HTTPException
+from fastapi import FastAPI, Request, Depends, HTTPException, APIRouter
 from fastapi.responses import RedirectResponse
 import requests
 from pydantic import BaseModel
@@ -10,6 +10,8 @@ import secrets
 from datetime import datetime, timedelta
 from jose import JWTError, jwt
 
+router = APIRouter()
+
 # 환경 변수 로드
 load_dotenv()
 
@@ -19,9 +21,6 @@ NAVER_LOGIN_CLIENT_SECRET = os.getenv('NAVER_LOGIN_CLIENT_SECRET')
 NAVER_REDIRECT_URI = os.getenv('NAVER_REDIRECT_URI')
 ENCODED_REDIRECT_URI = urllib.parse.quote(NAVER_REDIRECT_URI, safe="")  # URL 인코딩 적용
 ALGORITHM = "HS256"
-
-# 나중에 Redis를 사용하면 분산 서버에서도 안전하게 state를 저장하고 검증할 수 있어.
-app = FastAPI()
 
 # 네이버 인증 URL 생성
 def get_naver_auth_url(state: str):
@@ -62,13 +61,13 @@ async def get_naver_user_info(access_token: str):
         response.raise_for_status()
         return response.json()
 
-@app.get("/login/naver", response_class=RedirectResponse)
+@router.get("/login/naver", response_class=RedirectResponse)
 async def login_naver():
     state = secrets.token_urlsafe(32)
     login_url = get_naver_auth_url(state=state)
     return RedirectResponse(url=login_url)
 
-@app.get("/api/login/naverOAuth")
+@router.get("/api/login/naverOAuth")
 async def naver_callback(code: str, state: str):
     """네이버에서 받은 code로 access token 요청"""
     token_data = await get_naver_token(code, state)
@@ -125,14 +124,14 @@ async def naver_callback(code: str, state: str):
             raise HTTPException(status_code=401, detail="Invalid token")
             
     
-    @app.get("/api/protected")
+    @router.get("/api/protected")
     def protected_route(token_data: dict = Depends(verify_token)):
         return {"message": "인증된 사용자만 접근 가능", "user": token_data}'''
     
 
     # 리프래시 토큰으로 뉴 액세스 토큰 
     '''
-    @app.post("/auth/refresh")
+    @router.post("/auth/refresh")
     def refresh_access_token(refresh_token: str):
         try:
             payload = jwt.decode(refresh_token, SECRET_KEY, algorithms=[ALGORITHM])
@@ -140,9 +139,3 @@ async def naver_callback(code: str, state: str):
             return {"access_token": new_access_token, "token_type": "bearer"}
         except JWTError:
             raise HTTPException(status_code=401, detail="Invalid refresh token")'''
-
-
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run("lo:app", host="0.0.0.0", port=8000, reload=True)
-    # uvicorn.run("lo:app", host="0.0.0.0", port=8000, reload=True)
