@@ -1,13 +1,10 @@
-from fastapi import FastAPI, HTTPException, Request, APIRouter, BackgroundTasks
+from fastapi import HTTPException, APIRouter
 from dotenv import load_dotenv
 import requests
 import os
 import json
-import re
-from schemas import UserQuestion, ClovaResponse, CalendarResponse, BadgeRequest, BadgeResponse
+from ..schemas import UserQuestion, ClovaResponse
 from random import randint
-import datetime
-from typing import List
 
 router = APIRouter() # 모든 엔드포인트를 이 router에 정의하고, main에서 한 번에 추가 
 
@@ -70,7 +67,9 @@ async def save_question(user_question: UserQuestion):
                 f"- 사용자의 나이: {user_question.age}, 성별: {user_question.gender}\n"
                 "- 사용자의 질문에 대해 사용자의 나이, 성별을 분석하여 시중에 있는 책에서 관련 내용을 인용하거나 추천하는 방식으로 답변합니다.\n"
                 "- 사용자의 질의를 분석하고 질의와 상관관계를 보이는 책 제목으로 답해줘\n"
+                "- 절대 없는 책을 만들어서 가져오지 마. 어떻게든 이유를 만들어서 존재하는 책을 추천해야해.\n"
                 "- 1개의 답변이고, 명확하고 간결하며, 독자가 흥미를 느낄 수 있도록 작성하세요.\n\n"
+                "- 책 제목 대답할 땐 책 제목만 말해! 앞뒤로 작가같은 거 붙이지 말고! 그 다음에 엔터치고 책 설명이든 뭐든 붙여. 알겠지?\n"
                 "예시:\n질문: 아픈 건 싫어!\n답변: [아픈 건 싫으니까 방어력에 올인하려고 합니다.]"
             )},
             {"role": "user", "content": user_question.question}
@@ -102,12 +101,15 @@ async def save_question(user_question: UserQuestion):
             # 클로바2 호출 (책 실제 확인) 딕셔너리 
             book_details = fetch_book_details_async(book_title)
             print(book_details)
-            if book_title in book_details['title']:
-                break
+            # if book_title in book_details['title']:
+            #     break
             if book_details == -1: # 책 존재 안함
-                request_data["seed"]+=10
+                request_data["seed"]+=1
                 continue
             else:
+                break
+
+            if book_title in book_details['title']:
                 break
             
         clovaResponse = ClovaResponse(bookimage=book_details['image'], bookTitle=book_details['title'], description=book_details['description'])
@@ -259,29 +261,3 @@ def extract_book_details(response_data):
                 print(f"Error parsing response data: {e}")
                 print(f"Problematic item: {item}")
     return 0
-
-calendar_data = []
-@router.post("/api/save_books")
-async def save_books(calendarResponse: CalendarResponse):
-    try:
-        datetime.datetime.strptime(calendarResponse.date, "%Y-%m-%d")
-        datetime.datetime.strptime(calendarResponse.time, "%H:%M")
-
-        calendar_data.append(calendarResponse.dict())
-
-        return {
-            "statusCode": 200,
-            "message": "Book_data saved Successfully"
-        }
-    except ValueError as e:
-        raise HTTPException(status_code=400, detail=f"Invalid date or time format: {e}")
-    
-@router.get("/api/calendar", response_model=List[CalendarResponse])
-def get_calendar():
-    return calendar_data
-
-# @router.post("/api/badge_create")
-# def badge_create():
-    
-# @router.get("/api/badge")
-# def get_badge():
