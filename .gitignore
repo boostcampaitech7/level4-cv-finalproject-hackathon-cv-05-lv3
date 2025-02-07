@@ -185,6 +185,9 @@ BE_GLOVA/modelll.py
 
 .DS_Store
 *.json
+# package.json과 package-lock.json은 제외
+!package.json
+!package-lock.json
 
 # Logs
 logs
