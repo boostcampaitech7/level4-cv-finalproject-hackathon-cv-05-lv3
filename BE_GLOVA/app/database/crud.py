@@ -16,6 +16,10 @@ def create_user(db: Session, user_data):
     db.refresh(new_user)
     return new_user
 
+# user_id로 Users 테이블에서 조회
+def read_user(db: Session, user_id: str):
+    return db.execute(select(User).where(User.user_id == user_id)).scalar_one_or_none()  # user_id가 있으면 객체 반환, 없으면 None 반환.
+
 # MySQL CRUD - Tokens 테이블
 def get_tokens(db: Session):
     return db.execute(select(Token)).scalars().all()

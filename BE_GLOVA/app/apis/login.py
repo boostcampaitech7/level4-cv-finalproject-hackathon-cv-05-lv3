@@ -9,6 +9,9 @@ from dotenv import load_dotenv
 import secrets
 from datetime import datetime, timedelta
 from jose import JWTError, jwt
+from sqlalchemy.orm import Session
+from database.crud import read_user, create_user
+from database.connections import get_mysql_db
 
 router = APIRouter()
 
@@ -78,7 +81,7 @@ async def login_naver():
     return RedirectResponse(url=login_url)
 
 @router.get("/api/login/naverOAuth")
-async def naver_callback(code: str, state: str):
+async def naver_callback(code: str, state: str, db: Session = Depends(get_mysql_db)):
     """네이버에서 받은 code로 access token 요청"""
     
     token_data = await get_naver_token(code, state)
@@ -99,14 +102,24 @@ async def naver_callback(code: str, state: str):
     
     user_id = user_info["response"]["id"]  # 네이버 유저 고유 ID
 
+    # DB에서 user_id가 존재하는지 확인
+    existing_user = read_user(db, user_id)
+    print(f"existing_user : {existing_user}")
+
+    if not existing_user:
+        # 신규 유저 등록
+        user_data = {
+            "user_id": user_id,
+            "name": user_info["response"]["name"],
+            "birth_year": user_info["response"]["birthyear"],
+            "gender": user_info["response"]["gender"],
+            "phone_number": user_info["response"].get("mobile"),  
+            "email": user_info["response"].get("email")  
+        }
+        user_data = {key: value for key, value in user_data.items() if value is not None}
+        create_user(db, user_data)
+    
     return {"message": "로그인 성공", "user_id": user_id, "access_token": access_token}
-
-    # 2️⃣ 우리 DB에서 user_id가 존재하는지 확인 (가정: check_user_in_db 함수 사용)
-    is_new_user = not check_user_in_db(user_id)  # DB에서 검색 후 없으면 신규
-
-    if is_new_user:
-        # 신규 유저 - 회원가입 로직 수행 (예: DB 저장)
-        register_user(user_id, user_info)
 
     # 프론트에 정보 바로 넘기는게 아니라 jwt 토큰 발급
     # JWT 토큰 생성

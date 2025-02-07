@@ -23,10 +23,10 @@ class User(MySQLBase):
     __table_args__ = (
         # 출생 연도는 4자리 숫자만 허용
         CheckConstraint("LENGTH(birth_year) = 4 AND birth_year REGEXP '^[0-9]{4}$'", name="chk_birth_year_format"),
-        # 전화번호는 010-0000-0000 형식만 허용
-        CheckConstraint("phone_number REGEXP '^[0-9]{3}-[0-9]{4}-[0-9]{4}$'", name="chk_phone_number_format"),
-        # 이메일 유효성 검사 (간단한 형식 체크)
-        CheckConstraint("email REGEXP '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$'", name="chk_email_format"),
+        # phone_number가 NULL이 아닐 때만 유효성 검사 적용
+        CheckConstraint("phone_number IS NULL OR phone_number REGEXP '^[0-9]{3}-[0-9]{4}-[0-9]{4}$'", name="chk_phone_number_format"),
+        # email이 NULL이 아닐 때만 유효성 검사 적용
+        CheckConstraint("email IS NULL OR email REGEXP '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$'", name="chk_email_format"),
     )
 
     # 관계 설정 (MySQL 내 테이블들과만 관계 설정)
