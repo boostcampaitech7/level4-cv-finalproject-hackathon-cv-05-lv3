@@ -23,6 +23,7 @@
     "html2canvas": "^1.4.1",
     "install": "^0.13.0",
     "js-cookie": "^3.0.5",
+    "jwt-decode": "^4.0.0",
     "lucide-react": "^0.453.0",
     "node": "^23.7.0",
     "npm": "^11.0.0",

@@ -1,5 +1,6 @@
 import Cookies from "js-cookie";
 import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 
 // Axios 기본 설정
 const apiClient = axios.create({
@@ -10,13 +11,22 @@ const apiClient = axios.create({
     },
 });
 
+// JWT token 양식
+interface DecodedToken {
+    access_token: string;
+    refresh_token: string;
+    token_type: string;
+    expires_in: number;
+  }
 
 // 쿠키 저장
-export const SaveCookie = (access_token: string, refresh_token: string, token_type: string, expires_in: number) => {
-    const expires = new Date(new Date().getTime() + expires_in * 1000);
-    Cookies.set("access_token", access_token, { expires, secure: true, sameSite: "Strict" });
-    Cookies.set("refresh_token", refresh_token, { expires, secure: true, sameSite: "Strict" });
-    Cookies.set("token_type", token_type, { expires, secure: true, sameSite: "Strict" });
+export const SaveCookie = (jwtToken:string) => {
+    const decodedToken : DecodedToken = jwtDecode(jwtToken);
+    
+    const expires = new Date(new Date().getTime() + decodedToken.expires_in * 1000);
+    Cookies.set("access_token", decodedToken.access_token, { expires, secure: true, sameSite: "Strict" });
+    Cookies.set("refresh_token", decodedToken.refresh_token, { expires, secure: true, sameSite: "Strict" });
+    Cookies.set("token_type", decodedToken.token_type, { expires, secure: true, sameSite: "Strict" });
 
     console.log("🔐 토큰이 쿠키에 저장되었습니다.");
 };
