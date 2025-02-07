@@ -62,14 +62,20 @@ async def get_naver_user_info(access_token: str):
         return response.json()
 
 @router.get("/login/naver", response_class=RedirectResponse)
-async def login_naver():
+async def login_naver(request: Request):
     state = secrets.token_urlsafe(32)
+    request.session["naver_oauth_state"] = state
     login_url = get_naver_auth_url(state=state)
     return RedirectResponse(url=login_url)
 
 @router.get("/api/login/naverOAuth")
-async def naver_callback(code: str, state: str):
+async def naver_callback(request: Request, code: str, state: str):
     """네이버에서 받은 code로 access token 요청"""
+    
+    saved_state = request.session.get("naver_oauth_state")  # 🔹 세션에서 state 가져오기
+    if not saved_state or saved_state != state:
+        return {"error": "OAuth state mismatch or missing session data"}
+    
     token_data = await get_naver_token(code, state)
     print(token_data)
 
@@ -87,6 +93,8 @@ async def naver_callback(code: str, state: str):
         return {"error": "사용자 정보 조회 실패", "response": user_info}
     
     user_id = user_info["response"]["id"]  # 네이버 유저 고유 ID
+
+    return {"message": "로그인 성공", "user_id": user_id, "access_token": access_token}
 
     # 2️⃣ 우리 DB에서 user_id가 존재하는지 확인 (가정: check_user_in_db 함수 사용)
     is_new_user = not check_user_in_db(user_id)  # DB에서 검색 후 없으면 신규

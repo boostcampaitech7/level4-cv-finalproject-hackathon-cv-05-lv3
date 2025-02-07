@@ -21,7 +21,7 @@ app.add_middleware(
 )
 
 # 세션 미들웨어 추가
-app.add_middleware(SessionMiddleware, secret_key=f"Bearer {SESSIONMIDDLEWARE_SECRET_KEY}" ) # openssl rand -hex 32로 임의 생성
+app.add_middleware(SessionMiddleware, secret_key=SESSIONMIDDLEWARE_SECRET_KEY)  # openssl rand -hex 32로 임의 생성
 
 # API 라우트 추가
 app.include_router(login.router)
