@@ -1,4 +1,3 @@
-# badge_creator/badge_generator.py
 import torch
 from diffusers import StableDiffusionXLImg2ImgPipeline, DPMSolverMultistepScheduler
 from PIL import Image
@@ -13,7 +12,6 @@ class SDXLBadgeGenerator:
     ):
         """
         SDXL Img2Img 파이프라인을 초기화합니다.
-        
         :param base_model_id: SDXL 베이스 모델의 HuggingFace 모델 ID
         :param lora_path: LoRA 가중치 파일 경로 (옵션)
         :param device: 실행 디바이스 ("cuda" 또는 "cpu")
@@ -45,14 +43,13 @@ class SDXLBadgeGenerator:
         num_images: int = 1,
     ):
         """
-        초기 이미지를 기반으로 SDXL Img2Img 변환을 수행하여 이미지를 생성합니다.
-        
+        초기 이미지를 기반으로 SDXL Img2Img 변환을 수행하여 뱃지 이미지를 생성합니다.
         :param init_image: 변환할 초기 이미지 (PIL.Image)
         :param prompt: 텍스트 프롬프트
         :param negative_prompt: 네거티브 프롬프트
-        :param strength: 원본 이미지 반영 비율 (기본: 1.0)
-        :param guidance_scale: 프롬프트 강조 강도 (기본: 9.5)
-        :param num_images: 생성할 이미지 수 (기본: 1)
+        :param strength: 원본 이미지 반영 비율 (기본값 1.0)
+        :param guidance_scale: 프롬프트 강조 강도 (기본값 9.5)
+        :param num_images: 생성할 이미지 수 (기본값 1)
         :return: 생성된 이미지 리스트 (PIL.Image)
         """
         result = self.pipe(
