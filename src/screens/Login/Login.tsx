@@ -1,62 +1,37 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
 import { Button } from "../../components/ui/button";
 import { Card, CardContent } from "../../components/ui/card";
 import { SaveCookie } from "../../api/cookies";
 
-const CLIENT_ID = "L8G4GvryZzm9JCEvmrHh";
-const NAVER_AUTH_URL = "https://nid.naver.com/oauth2.0/authorize";
-const CALLBACK_URL = "http://localhost:3000/api/login/naverOAuth"; // 백엔드에서 처리하도록 함
-
 export const Login = (): JSX.Element => {
   const navigate = useNavigate();
-  const [code, setCode] = useState<string | null>(null);
+  const [searchParams] = useSearchParams();
+  const userInfo = searchParams.get("user");
 
   // 네이버 로그인 버튼 클릭 시 OAuth 요청
   const handleNaverLogin = () => {
-    const state = Math.random().toString(36).substring(2, 15);
-    sessionStorage.setItem("naver_state", state);
-    window.location.href = `${NAVER_AUTH_URL}?response_type=code&client_id=${CLIENT_ID}&state=${state}&redirect_uri=${encodeURIComponent(CALLBACK_URL)}`;
+    window.location.href = "http://localhost:8000/login/naver";
   };
 
-  // 로그인 후 콜백 URL에서 인증 코드 추출 및 토큰 요청
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const authCode = params.get("code");
-    const receivedState = params.get("state");
-    const storedState = sessionStorage.getItem("naver_state");
+    // FastAPI에서 리디렉트된 사용자 정보를 저장
+    if (userInfo) {
+      try {
+        const parsedUser = JSON.parse(decodeURIComponent(userInfo));
+        console.log("네이버 사용자 정보:", parsedUser);
 
-    if (authCode && receivedState === storedState) {
-      setCode(authCode);
-      exchangeToken(authCode, receivedState);
+        // ✅ 사용자 정보 쿠키 저장
+        // SaveCookie("naver_user", JSON.stringify(parsedUser), 1);
+
+        // ✅ 로그인 성공 후 홈으로 이동
+        navigate("/");
+      } catch (error) {
+        console.error("사용자 정보 파싱 오류:", error);
+      }
     }
-  }, []);
-
-  // 서버에 인증 코드를 보내고 액세스 토큰 받기
-  const exchangeToken = async (authCode: string, receivedState: string) => {
-    try {
-      const response = await axios.post("http://localhost:8000/api/naver/token", {
-        code: authCode,
-        state: receivedState,
-      });
-
-      SaveCookie(
-        response.data.access_token,
-        response.data.refresh_token,
-        response.data.token_type,
-        response.data.expires_in
-      )
-
-      console.log("🔑 Access Token:", response.data.access_token);
-      console.log("🔑 expires_in:", response.data.expires_in);
-
-      // 로그인 성공 후 Home으로 이동
-      navigate("/Home", { replace: true });
-    } catch (error) {
-      console.error("네이버 로그인 토큰 요청 실패:", error);
-    }
-  };
+  }, [userInfo, navigate]);
 
   return (
     <main className="flex justify-center items-center min-h-screen bg-white">
