@@ -32,6 +32,10 @@ def create_token(db: Session, token_data):
     db.refresh(new_token)
     return new_token
 
+# Tokens 테이블에서 특정 user_id가 있는지 조회
+def read_token(db: Session, user_id: str):
+    return db.execute(select(Token).where(Token.user_id == user_id)).scalar_one_or_none()
+
 # MySQL CRUD - Books 테이블
 def get_books(db: Session):
     return db.execute(select(Book)).scalars().all()

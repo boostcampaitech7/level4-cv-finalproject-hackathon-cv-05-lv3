@@ -10,7 +10,9 @@ import secrets
 from datetime import datetime, timedelta
 from jose import JWTError, jwt
 from sqlalchemy.orm import Session
-from database.crud import read_user, create_user
+from database.crud import (
+    read_user, create_user, read_token, create_token
+)
 from database.connections import get_mysql_db
 
 router = APIRouter()
@@ -118,6 +120,17 @@ async def naver_callback(code: str, state: str, db: Session = Depends(get_mysql_
         }
         user_data = {key: value for key, value in user_data.items() if value is not None}
         create_user(db, user_data)
+
+    existing_token = read_token(db, user_id)
+    print(f"existing token : {existing_token}")
+
+    if not existing_token:
+        # Tokens 테이블에 refresh_token 저장
+        token_data = {
+            "user_id": user_id,
+            "refresh_token": refresh_token
+        }
+        create_token(db, token_data)
     
     return {"message": "로그인 성공", "user_id": user_id, "access_token": access_token}
 
