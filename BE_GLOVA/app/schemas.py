@@ -48,7 +48,7 @@ class UserSchema(BaseModel):
     name: str
     gender: str
     phone_number: str | None
-    email: str
+    email: str | None
 
     class Config:
         from_attributes = True  # ORM 변환 허용
