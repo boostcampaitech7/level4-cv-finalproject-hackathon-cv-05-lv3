@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request, Depends, HTTPException, APIRouter
+from fastapi import FastAPI, Request, Response, Depends, HTTPException, APIRouter
 from fastapi.responses import RedirectResponse
 import requests
 from pydantic import BaseModel
@@ -25,13 +25,14 @@ NAVER_LOGIN_CLIENT_ID = os.getenv('NAVER_LOGIN_CLIENT_ID')
 NAVER_LOGIN_CLIENT_SECRET = os.getenv('NAVER_LOGIN_CLIENT_SECRET')
 NAVER_REDIRECT_URI = os.getenv('NAVER_REDIRECT_URI')
 ENCODED_REDIRECT_URI = urllib.parse.quote(NAVER_REDIRECT_URI, safe="")  # URL 인코딩 적용
+FRONTEND_URL = os.getenv("FRONTEND_URL")
 ALGORITHM = "HS256"
 
 # JWT access_token 생성 함수
 def create_access_token(data: dict, expires_in: int):
     """네이버 API에서 제공하는 expires_in을 활용하여 JWT 만료 시간 설정"""
     to_encode = data.copy()
-    expire = datetime.utcnow() + timedelta(seconds=expires_in)
+    expire = datetime.utcnow() + timedelta(seconds=int(expires_in))
     to_encode.update({"exp": expire})
     return jwt.encode(to_encode, NAVER_LOGIN_CLIENT_SECRET, algorithm=ALGORITHM)
 
@@ -94,6 +95,7 @@ async def get_naver_user_info(access_token: str):
 
 # 사용자 정보 처리 및 DB 저장
 async def handle_user_data(db: Session, access_token: str):
+    print(f"Access token : {access_token}")
     user_info = await get_naver_user_info(access_token)
     if "response" not in user_info:
         raise HTTPException(status_code=400, detail={"error": "사용자 정보 조회 실패", "response": user_info})
@@ -118,6 +120,7 @@ async def handle_user_data(db: Session, access_token: str):
 # refresh token 저장 및 JWT 발급
 async def handle_token_data(db: Session, user_id: str, refresh_token: str, expires_in: int):
     existing_token = read_token(db, user_id)
+    print(f"refresh token : {refresh_token}")
 
     if not existing_token:
         create_token(db, {"user_id": user_id, "refresh_token": refresh_token})
@@ -131,7 +134,7 @@ async def login_naver():
     return RedirectResponse(url=login_url)
 
 @router.get("/api/login/naverOAuth")
-async def naver_callback(code: str, state: str, db: Session = Depends(get_mysql_db)):
+async def naver_callback(response: Response, code: str, state: str, db: Session = Depends(get_mysql_db)):
     """네이버 OAuth 로그인 처리"""
     
     # 1. 네이버 OAuth 토큰 요청
@@ -141,6 +144,23 @@ async def naver_callback(code: str, state: str, db: Session = Depends(get_mysql_
     # 3️. refresh token 저장 & JWT 발급
     jwt_access_token = await handle_token_data(db, user_id, refresh_token, expires_in)
 
+    print("✅ 네이버 OAuth 로그인 완료!")
+    return RedirectResponse(url=f"{FRONTEND_URL}/Home")
+
+    # Set-Cookie 헤더 추가 (쿠키로 토큰 저장)
+    response.set_cookie(
+        key="access_token",
+        value=jwt_access_token,
+        httponly=True,  # JavaScript에서 접근 불가능 (보안 강화)
+        secure=False,  # HTTPS에서만 전송 가능 (로컬 테스트 시 False)
+        samesite="None",  # CSRF 보호 (strict 설정 시 쿠키 차단됨)
+        domain="localhost",  # 브라우저에서 cross-origin 문제 방지
+        path="/",
+        max_age=expires_in  # 네이버 토큰 만료 시간과 동일
+    )
+
+    print("✅ 쿠키 설정 완료!")
+    return RedirectResponse(url=f"{FRONTEND_URL}/Home")
     # 프론트는 이제 헤더에 저 jwt 토큰을 넣어서 주고 받아야함
     # 그럼 그걸 여기서 검증해야 함
     '''from fastapi import Depends, HTTPException, Security
