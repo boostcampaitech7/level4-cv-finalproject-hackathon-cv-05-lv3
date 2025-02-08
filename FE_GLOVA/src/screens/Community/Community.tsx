@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
+import { HelpCircle } from "lucide-react";
 import { Button } from "../../components/ui/button";
 import { Input } from "../../components/ui/input";
 import { Card } from "../../components/ui/card";
@@ -207,6 +208,7 @@ const Page2: React.FC<{ handleBookClick: (book: Book) => void }> = ({ handleBook
 export const Community: React.FC = () => {
     const [page, setPage] = useState(1);
     const navigate = useNavigate(); // ✅ useNavigate()를 컴포넌트 내부에서 선언
+    const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
 
     const handleBookClick = (book: Book) => {
         navigate("/Review", { replace: true, state: book });
@@ -215,6 +217,14 @@ export const Community: React.FC = () => {
     return (
         <div className="bg-white flex flex-row justify-center w-full">
             <div className="bg-white w-[393px] min-h-screen relative flex flex-col">
+                {/* 상단 아이콘 */}
+                <button
+                className="absolute top-[20px] right-[20px] p-2 bg-gray-200 rounded-full hover:bg-gray-300"
+                onClick={() => setIsInfoModalOpen(true)}
+                >
+                <HelpCircle size={24} />
+                </button>
+
                 {/* 페이지 전환 버튼 */}
                 <div className="flex justify-center pt-16 px-2 pb-2 gap-x-16">
                     <Button onClick={() => setPage(1)}
@@ -233,6 +243,25 @@ export const Community: React.FC = () => {
 
                 {/* 페이지 렌더링 */}
                 {page === 1 ? <Page1 handleBookClick={handleBookClick} /> : <Page2 handleBookClick={handleBookClick} />}
+
+                {/* ✅ 정보 모달 */}
+                {isInfoModalOpen && (
+                <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
+                    <div className="bg-white p-5 rounded-lg w-[350px] shadow-lg text-center relative flex flex-col justify-center items-center">
+                    <img
+                        src="../../image_data/Guide/Commu.png" 
+                        alt="도움말 이미지"
+                        className="w-full h-auto rounded-md"
+                    />
+                    <button
+                        className="mt-4 px-4 py-2 bg-gray-500 text-white rounded-lg"
+                        onClick={() => setIsInfoModalOpen(false)}
+                    >
+                        닫기
+                    </button>
+                    </div>
+                </div>
+                )}
 
                 {/* NaviBar (고정 하단) */}
                 <NaviBar activeLabel="Community" />

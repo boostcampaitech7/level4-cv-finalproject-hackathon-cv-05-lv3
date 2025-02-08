@@ -52,7 +52,7 @@ export const Library_home = (): JSX.Element => {
         </button>
 
         <div className="inline-flex items-center justify-center w-full mt-[70px]">
-          <h1 className="text-4xl font-normal text-black text-center">나만의 도서관</h1>
+          <h1 className="text-[40px] font-HSBomR text-black text-center">『 나만의 도서관 』</h1>
         </div>
         <Separator className="mx-5 mt-8" />
   
@@ -84,7 +84,7 @@ export const Library_home = (): JSX.Element => {
                       ${flipped[book.bookTitle] ? "opacity-100" : "opacity-0"} ${randomColor}`}
                     >
                       <div className="w-full h-5 bg-neutral-800 text-white flex items-center justify-center rounded-t-lg text-[7px]">
-                        무엇이든 물어보세요!
+                        무엇이든 얘기해보세요!
                       </div>
                       <div className="w-full flex items-center justify-center bg-white text-black p-1 rounded-b-lg text-center text-[10px]">
                         {book.question}

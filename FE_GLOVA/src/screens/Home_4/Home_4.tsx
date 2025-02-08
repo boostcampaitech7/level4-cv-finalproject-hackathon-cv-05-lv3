@@ -1,25 +1,36 @@
 
 import { Button } from "../../components/ui/button";
+import { useState } from "react";
+import { HelpCircle } from "lucide-react";
 import { Card, CardContent } from "../../components/ui/card";
 import { BrowserRouter as Router, Route, Routes, useNavigate, useLocation } from "react-router-dom";
 import { SaveRecommand } from "../../api/api";
 import NaviBar from "../../components/ui/navigationbar";
 
-import { dummy_single } from "../../dummy";
+import { dummy_Home4 } from "../../dummy";
 
 export const Home4 = (): JSX.Element => {
   const location = useLocation();
   const navigate = useNavigate();
+  const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
   
   {/*서버 통신 데이터*/}
   const data = location.state || {};
 
   {/*더미 데이터*/}
-  // const data = dummy_single;
+  // const data = dummy_Home4;
 
   return (
     <div className="flex justify-center w-full bg-white">
       <div className="relative w-[393px] h-[852px] bg-white">
+        {/* 상단 아이콘 */}
+        <button
+          className="absolute top-[20px] right-[20px] p-2 bg-gray-200 rounded-full hover:bg-gray-300"
+          onClick={() => setIsInfoModalOpen(true)}
+        >
+          <HelpCircle size={24} />
+        </button>
+
         {/* Main Content */}
         <div className="flex flex-col items-center px-4">
           <h2 className="mt-[147px] text-lg font-bold text-center font-inter">
@@ -70,6 +81,25 @@ export const Home4 = (): JSX.Element => {
             </Button>
           </div>
         </div>
+
+        {/* ✅ 정보 모달 */}
+        {isInfoModalOpen && (
+          <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
+            <div className="bg-white p-5 rounded-lg w-[350px] shadow-lg text-center relative flex flex-col justify-center items-center">
+              <img
+                src="../../image_data/Guide/Home4.png" 
+                alt="도움말 이미지"
+                className="w-full h-auto rounded-md"
+              />
+              <button
+                className="mt-4 px-4 py-2 bg-gray-500 text-white rounded-lg"
+                onClick={() => setIsInfoModalOpen(false)}
+              >
+                닫기
+              </button>
+            </div>
+          </div>
+        )}
 
         <NaviBar activeLabel="Home"/>
       </div>
