@@ -52,14 +52,14 @@ export const Home4 = (): JSX.Element => {
           <div className="flex w-[324px] gap-2 mt-4">
             <Button
               variant="secondary"
-              className="flex-1 rounded-[20px_3px_3px_20px] bg-[#d9d9d9] hover:bg-[#c4c4c4]"
+              className="flex-1 rounded-[20px_3px_3px_20px] bg-[#d9d9d9] active:scale-95 transition-transform duration-150 hover:bg-[#c4c4c4]"
               onClick={() => navigate("/Home", { replace: true })}
             >
               처음으로 돌아가기
             </Button>
             <Button
               variant="secondary"
-              className="flex-1 rounded-[3px_20px_20px_3px] bg-[#d9d9d9] hover:bg-[#c4c4c4]"
+              className="flex-1 rounded-[3px_20px_20px_3px] bg-[#d9d9d9] active:scale-95 transition-transform duration-150 hover:bg-[#c4c4c4]"
               onClick={() => {
                 SaveRecommand(data.question, data.bookimage, data.bookTitle);
                 navigate("/Library", { replace: true })

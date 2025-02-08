@@ -28,12 +28,12 @@ export const Home2 = (): JSX.Element => {
         </div>
 
         <div className="flex w-[285px] items-center gap-[9px] absolute top-[549px] left-[54px]">
-          <Button className="flex w-[135px] items-center justify-center bg-[#d9d9d9] rounded-[20px_3px_3px_20px] text-black hover:bg-[#c4c4c4]"
+          <Button className="flex w-[135px] items-center justify-center bg-[#d9d9d9] rounded-[20px_3px_3px_20px] text-black active:scale-95 transition-transform duration-150 hover:bg-[#c4c4c4]"
             onClick={() => navigate("/Home_1", { replace: true })}
           >
             이전
           </Button>
-          <Button className="flex w-[141px] items-center justify-center bg-[#d9d9d9] rounded-[3px_20px_20px_3px] text-black hover:bg-[#c4c4c4]"
+          <Button className="flex w-[141px] items-center justify-center bg-[#d9d9d9] rounded-[3px_20px_20px_3px] text-black active:scale-95 transition-transform duration-150 hover:bg-[#c4c4c4]"
             onClick={() => {
               navigate("/Home_3", { replace: true, state: { age, gender, question } });
             }}

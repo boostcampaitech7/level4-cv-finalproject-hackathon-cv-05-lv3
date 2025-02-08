@@ -6,7 +6,7 @@ import { Card } from "../../components/ui/card";
 import NaviBar from "../../components/ui/navigationbar";
 import { Book, GetRecommandBooks, GetBooks } from "../../api/api"
 import { replace, useNavigate } from "react-router-dom";
-import { dummy_book } from "../../dummy";
+import { dummy_book, Nodata } from "../../dummy";
 
 
 const Page1: React.FC<{ handleBookClick: (book: Book) => void }> = ({ handleBookClick }) => {
@@ -25,8 +25,17 @@ const Page1: React.FC<{ handleBookClick: (book: Book) => void }> = ({ handleBook
 
     useEffect(() => {
         const fetchBooks = async () => {
-            const books = await GetRecommandBooks();
-            setBookData(books);
+            try {
+                const books = await GetRecommandBooks();
+                if (books.length > 0) {
+                    setBookData(books);
+                } else {
+                    setBookData(Nodata); // 데이터가 없으면 더미 데이터 사용
+                }
+            } catch (error) {
+                console.error("서버 통신 실패:", error);
+                setBookData(Nodata); // 오류 발생 시 더미 데이터 사용
+            }
         };
         fetchBooks();
     }, []);
@@ -40,17 +49,21 @@ const Page1: React.FC<{ handleBookClick: (book: Book) => void }> = ({ handleBook
 
     const startAutoScroll = () => {
         if (!carouselRef.current) return;
+    
         interval.current = setInterval(() => {
             if (!isDragging.current && carouselRef.current) {
-                carouselRef.current.scrollLeft += 1;
-                if (carouselRef.current.scrollLeft >= carouselRef.current.scrollWidth / 2) {
-                    carouselRef.current.style.scrollBehavior = "auto";
-                    carouselRef.current.scrollLeft = 0;
-                    carouselRef.current.style.scrollBehavior = "smooth";
+                carouselRef.current.scrollLeft += 1; // 스크롤 이동
+    
+                // 👉 스크롤이 끝에 도달하면 자연스럽게 처음으로 이동
+                if (carouselRef.current.scrollLeft >= carouselRef.current.scrollWidth - carouselRef.current.clientWidth) {
+                    carouselRef.current.style.scrollBehavior = "auto"; // 애니메이션 OFF
+                    carouselRef.current.scrollLeft = 0; // 처음으로 이동
+                    carouselRef.current.style.scrollBehavior = "smooth"; // 다시 애니메이션 ON
                 }
             }
         }, 20);
     };
+    
 
     const handleMouseDown = (e: React.MouseEvent) => {
         isDragging.current = true;
@@ -81,19 +94,25 @@ const Page1: React.FC<{ handleBookClick: (book: Book) => void }> = ({ handleBook
                 onMouseUp={handleMouseUp}
                 onMouseLeave={handleMouseUp}
             >
-                {[...book_data, ...book_data].map((book, index) => (
+                {book_data.map((book, index) => (
                     <motion.div key={index} className="w-[200px] h-[267px] bg-gray-400 flex-shrink-0" whileTap={{ scale: 0.95 }}>
-                        <img src={book.bookimage} alt={book.bookTitle} className="w-full h-full object-cover rounded-lg cursor-pointer" onClick={() => handleBookClick(book)} />
+                        <img
+                            src={book.bookimage}
+                            alt={book.bookTitle}
+                            className="w-full h-full object-cover rounded-lg cursor-pointer"
+                            onClick={() => handleBookClick(book)}
+                        />
                     </motion.div>
                 ))}
             </div>
+
 
             <hr className="border-t border-gray-300 my-4" />
 
             {/* 검색창 */}
             <Input
                 type="text"
-                placeholder="Search"
+                placeholder="도서 검색"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 className="border p-2 w-full"
@@ -150,7 +169,7 @@ const Page2: React.FC<{ handleBookClick: (book: Book) => void }> = ({ handleBook
                 <h2 className="text-lg font-bold text-left mb-2">전체 검색</h2>
                 <Input
                     type="text"
-                    placeholder="Search"
+                    placeholder="도서 검색"
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                     className="border p-2 w-full"
@@ -199,11 +218,13 @@ export const Community: React.FC = () => {
                 {/* 페이지 전환 버튼 */}
                 <div className="flex justify-center pt-16 px-2 pb-2 gap-x-16">
                     <Button onClick={() => setPage(1)}
-                        className={`bg-transparent text-xl font-bold border-none shadow-none ${page === 1 ? "text-black-500" : "text-gray-500"}`}>
+                        className={`text-xl font-bold border-none shadow-none px-4 py-2 rounded-lg bg-white hover:bg-white 
+                            ${page === 1 ? "text-black-500" : "text-gray-500"}`}>
                         My Books
                     </Button>
                     <Button onClick={() => setPage(2)}
-                        className={`bg-transparent text-xl font-bold border-none shadow-none ${page === 2 ? "text-black-500" : "text-gray-500"}`}>
+                        className={`text-xl font-bold border-none shadow-none px-4 py-2 rounded-lg bg-white hover:bg-white 
+                            ${page === 2 ? "text-black-500" : "text-gray-500"}`}>
                         ALL Books
                     </Button>
                 </div>
@@ -217,6 +238,7 @@ export const Community: React.FC = () => {
                 <NaviBar activeLabel="Community" />
             </div>
         </div>
+
     );
 };
 

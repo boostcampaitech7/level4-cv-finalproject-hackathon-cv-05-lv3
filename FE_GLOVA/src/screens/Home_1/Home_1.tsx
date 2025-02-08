@@ -76,7 +76,7 @@ export const Home1 = (): JSX.Element => {
           <div className="flex justify-end mt-4">
             <Button
               variant="secondary"
-              className="w-[141px] rounded-[20px] bg-[#d9d9d9] text-lg active:scale-95 transition-transform duration-150 hover:bg-[#d1d1d1]"
+              className="w-[141px] rounded-[20px] bg-[#d9d9d9] text-lg active:scale-95 transition-transform duration-150 hover:bg-[#c4c4c4]"
               onClick={() => navigate("/Home_2", { replace: true, state: {age, gender}})}
             >
               다음

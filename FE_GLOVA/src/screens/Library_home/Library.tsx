@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
+import { HelpCircle } from "lucide-react";
 import { Card, CardContent } from "../../components/ui/card";
 import { Separator } from "../../components/ui/separator";
 import { useNavigate } from "react-router-dom";
 import NaviBar from "../../components/ui/navigationbar";
 import { Search } from "lucide-react";
 import { Book, GetRecommandBooks } from "../../api/api"
-import { dummy_book } from "../../dummy";
+import { dummy_book , Nodata} from "../../dummy";
 
 const pastelColors = [
   "bg-pink-200", "bg-blue-200", "bg-green-200", "bg-yellow-200", "bg-purple-200", "bg-red-200", "bg-indigo-200"
@@ -13,9 +14,10 @@ const pastelColors = [
 
 export const Library_home = (): JSX.Element => {
   const navigate = useNavigate();
-  const [books, setBooks] = useState<Book[]>([]);
+  const [books, setBooks] = useState<Book[]>(Nodata);
   const [flipped, setFlipped] = useState<{ [key: string]: boolean }>({});
   const [zoomed, setZoomed] = useState<{ [key: string]: boolean }>({});
+  const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
   
   {/*더미 데이터 버전*/}
   // const dummyBooks = dummy_book;
@@ -25,17 +27,30 @@ export const Library_home = (): JSX.Element => {
 
   {/*서버 연동 버전*/}
   useEffect(() => {
-    const fetchData = async () => {
-      const data = await GetRecommandBooks();
-      setBooks(data);
+    const fetchBooks = async () => {
+        try {
+            const books = await GetRecommandBooks();
+            if (books.length > 0) {
+              setBooks(books);
+            } 
+        } catch (error) {
+            console.error("서버 통신 실패:", error);
+        }
     };
-
-    fetchData();
-  }, []);
+    fetchBooks();
+}, []);
 
   return (
     <div className="bg-white flex flex-row justify-center w-full min-h-screen overflow-y-auto relative">
       <div className="bg-white w-[393px] min-h-screen relative pb-16">
+        {/* 상단 아이콘 */}
+        <button
+          className="absolute top-[20px] right-[20px] p-2 bg-gray-200 rounded-full hover:bg-gray-300"
+          onClick={() => setIsInfoModalOpen(true)}
+        >
+          <HelpCircle size={24} />
+        </button>
+
         <div className="inline-flex items-center justify-center w-full mt-[70px]">
           <h1 className="text-4xl font-normal text-black text-center">나만의 도서관</h1>
         </div>
@@ -92,6 +107,25 @@ export const Library_home = (): JSX.Element => {
             );
           })}
         </div>
+
+        {/* ✅ 정보 모달 */}
+        {isInfoModalOpen && (
+          <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
+            <div className="bg-white p-5 rounded-lg w-[350px] shadow-lg text-center relative flex flex-col justify-center items-center">
+              <img
+                src="../../image_data/Guide/Library_home.png" 
+                alt="도움말 이미지"
+                className="w-full h-auto rounded-md"
+              />
+              <button
+                className="mt-4 px-4 py-2 bg-gray-500 text-white rounded-lg"
+                onClick={() => setIsInfoModalOpen(false)}
+              >
+                닫기
+              </button>
+            </div>
+          </div>
+        )}
   
         <div className="fixed bottom-0 left-0 w-full bg-white shadow-md z-50">
           <NaviBar activeLabel="Library" />

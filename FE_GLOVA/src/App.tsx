@@ -8,7 +8,6 @@ import { Home4 } from "./screens/Home_4";
 import { Challenge } from "./screens/Challenge";
 import { Library_home } from "./screens/Library_home";
 import { Library_1 } from "./screens/Library_1";
-import { Timer } from "./screens/Timer";
 import { Community } from "./screens/Community";
 import { Review } from "./screens/Review/review";
 
@@ -30,8 +29,6 @@ function App() {
 
         <Route path="/Library" element={<Library_home />} />
         <Route path="/Library_detail" element={<Library_1 />} />
-
-        <Route path="/Timer" element={<Timer />} />
 
         <Route path="/Commu" element={<Community />} />
         <Route path="/Review" element={<Review />} />
