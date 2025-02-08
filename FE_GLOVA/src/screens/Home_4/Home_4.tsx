@@ -77,7 +77,7 @@ export const Home4 = (): JSX.Element => {
                 }
               }
             >
-              도서관에 저장하기
+              추천도서 저장하기
             </Button>
           </div>
         </div>
