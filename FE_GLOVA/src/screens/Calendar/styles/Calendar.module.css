@@ -1,0 +1,140 @@
+/* 기존 스타일 유지 */
+
+/* 전체 컨테이너 스타일 */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 가로 중앙 정렬 */
+  justify-content: center; /* 세로 중앙 정렬 */
+  padding: 16px;
+  background: #f9f9f9;
+  height: 100vh;
+  overflow-y: auto;
+  box-sizing: border-box; /* padding을 포함한 크기 계산 */
+}
+
+/* customCalendar 클래스 추가 */
+.customCalendar {
+  position: absolute; /* 부모 요소 기준으로 위치 설정 */
+  top: 50%; /* 화면 높이의 50% 위치 */
+  left: 50%; /* 화면 너비의 50% 위치 */
+  transform: translate(100%, -32%); /* X, Y축 기준으로 완전 중앙 정렬 */
+  width: 350px; /* 고정된 너비 설정 */
+  max-width: 100%; /* 화면 너비를 초과하지 않도록 설정 */
+  background: white; /* 캘린더 배경 */
+  border: 1px solid #a0a096; /* 기본 테두리 */
+  font-family: 'Arial', 'Helvetica', sans-serif;
+  line-height: 1.125em;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 추가 */
+  padding: 16px;
+}
+
+/* 캘린더 컨테이너 */
+.calendarWrapper {
+  width: 100%; /* 가로를 부모의 100%로 설정 */
+  max-width: 350px; /* 캘린더의 최대 너비 제한 */
+  margin-top: 130px; /* 화면 상단에서 130px 아래로 배치 */
+  margin-bottom: 16px; /* 아래에 16px 간격 추가 */
+}
+
+/* customCalendar 클래스 추가 */
+.customCalendar {
+  margin: 0 auto; /* 기본적으로 좌우 중앙 정렬 */
+  position: relative; /* 상대 위치 조정 가능 */
+  top: 50px; /* 화면 상단에서 50px 아래로 이동 */
+  left: 0; /* 좌측 이동 초기화 */
+  transform: translateX(-50%); /* 필요시 X축 기준으로 중앙 정렬 */
+  background: white; /* 캘린더 배경 */
+  border-radius: 8px; /* 모서리 둥글게 */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+  padding: 16px;
+}
+
+/* 이미지 그리드 */
+.imageGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 16px;
+  width: calc(100% - 32px); /* 양쪽 여백을 고려한 너비 */
+  max-width: 350px;
+  margin: 0 auto; /* 좌우 중앙 정렬 */
+}
+
+/* 이미지 카드 컨테이너 */
+.imageCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+
+/* 오버레이(팝업) 배경 */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* 오버레이 내용 */
+.overlayContent {
+  background: white;
+  padding: 16px;
+  border-radius: 8px;
+  text-align: center;
+  max-width: calc(100% - 32px); /* 화면 너비에 유동적으로 맞춤 */
+}
+
+
+/* 혹시 오버레이 안될까봐..
+.eventCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 16px;
+  cursor: pointer;
+}
+
+.eventCard img {
+  max-width: 100%;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.overlayContent {
+  background: white;
+  padding: 16px;
+  border-radius: 8px;
+  max-width: 90%;
+  text-align: center;
+}
+
+.overlayImage {
+  max-width: 100%;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+*/

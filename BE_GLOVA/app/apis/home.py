@@ -3,8 +3,8 @@ from dotenv import load_dotenv
 import requests
 import os
 import json
-from ..schemas import UserQuestion, ClovaResponse
 from random import randint
+from schemas import UserQuestion, ClovaResponse
 
 router = APIRouter() # 모든 엔드포인트를 이 router에 정의하고, main에서 한 번에 추가 
 
@@ -112,7 +112,7 @@ async def save_question(user_question: UserQuestion):
             if book_title in book_details['title']:
                 break
             
-        clovaResponse = ClovaResponse(bookimage=book_details['image'], bookTitle=book_details['title'], description=book_details['description'])
+        clovaResponse = ClovaResponse(question=user_question.question,bookimage=book_details['image'], bookTitle=book_details['title'], description=book_details['description'])
         return clovaResponse
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error connecting to Clova API: {e}")
