@@ -1,5 +1,4 @@
-import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { Login } from "./screens/Login";
 import { Home } from "./screens/Home";
 import { Home1 } from "./screens/Home_1";
@@ -12,30 +11,15 @@ import { Library_1 } from "./screens/Library_1";
 import { Timer } from "./screens/Timer";
 import { Community } from "./screens/Community";
 import { Review } from "./screens/Review/review";
-import TokenManager from "./api/tokenmanager";
-import Cookies from "js-cookie";
 
 function App() {
-
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-  useEffect(() => {
-    // 로그인 가능 여부 확인
-    const accessToken = Cookies.get("access_token");
-    if (accessToken) {
-      setIsAuthenticated(true);
-    }
-  }, []);
-
   return (
     <Router>
-      {/*토큰 자동 갱신*/}
-      {isAuthenticated && <TokenManager />}
-
-      <Routes> 
-        {/* 기본 경로를 Login 화면으로 설정 */}
+      <Routes>
+        {/* 기본 로그인 페이지 */}
         <Route path="/" element={<Login />} />
 
+        {/* 네이버 로그인 성공 후 자동으로 Home 페이지 이동 */}
         <Route path="/Home" element={<Home />} />
         <Route path="/Home_1" element={<Home1 />} />
         <Route path="/Home_2" element={<Home2 />} />
@@ -50,11 +34,10 @@ function App() {
         <Route path="/Timer" element={<Timer />} />
 
         <Route path="/Commu" element={<Community />} />
-        <Route path="/Review" element={<Review />}/>
-        {/* 다른 화면 경로 추가 가능 */}
+        <Route path="/Review" element={<Review />} />
       </Routes>
     </Router>
   );
-}``
+}
 
 export default App;
