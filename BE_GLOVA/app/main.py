@@ -8,13 +8,15 @@ from dotenv import load_dotenv
 from apis import home, badge, books, realhome, login
 
 load_dotenv()
+FRONTEND_URL = os.getenv("FRONTEND_URL")
+print(f"FRONTEND_URL : {FRONTEND_URL}")
 SESSIONMIDDLEWARE_SECRET_KEY=os.getenv('SESSIONMIDDLEWARE_SECRET_KEY')
 app = FastAPI()
 
 # CORS 설정
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  
+    allow_origins=[f"{FRONTEND_URL}", "http://localhost:8000"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

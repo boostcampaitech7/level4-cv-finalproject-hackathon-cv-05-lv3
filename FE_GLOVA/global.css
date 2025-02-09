@@ -1,1 +1,22 @@
 @import url("https://fonts.googleapis.com/css?family=Inter:700,400|Koulen:400");
+
+@font-face {
+    font-family: 'HSBombaramR';
+    src: url('/fonts/HSBombaram3.0_Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+  
+@font-face {
+    font-family: 'HSBombaramT';
+    src: url('/fonts/HSBombaram3.0_Thin.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SBAggroB';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroB.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
