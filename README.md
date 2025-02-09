@@ -2,11 +2,12 @@
 
 ![무물 이미지 하나 만들고]
 
-우리 이거 도커로 다운받는거야...? 링크로 띡?
+### 하이북클로바 실행 방법
+```
+git clone https://github.com/boostcampaitech7/level4-cv-finalproject-hackathon-cv-05-lv3.git
 
-### 하이북클로바 실행 방법(링크?)
-
-docker... 하나하나 실행하게하면 너무 아웃인디 습
+docker-compose up --build -d
+```
 
 ## 프로젝트 소개
 
