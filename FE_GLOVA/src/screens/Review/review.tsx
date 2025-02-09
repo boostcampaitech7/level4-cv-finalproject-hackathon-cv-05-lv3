@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { HelpCircle } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { ChevronLeft } from "lucide-react";
 import NaviBar from "../../components/ui/navigationbar";
@@ -10,6 +11,7 @@ export const Review = (): JSX.Element => {
   const location = useLocation();
   const [reviews, setReviews] = useState<Reviews[]>([]);
   const [inputText, setInputText] = useState("");
+  const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   
   const book = location.state || {};
@@ -43,8 +45,16 @@ export const Review = (): JSX.Element => {
   };
 
   return (
-    <div className="bg-white flex flex-row justify-center w-full">
+    <div className="bg-gray-500 flex flex-row justify-center w-full">
       <div className="bg-white w-[393px] min-h-screen relative flex flex-col p-4 pb-[60px]">
+        {/* 상단 아이콘 */}
+        <button
+          className="absolute top-[20px] right-[20px] p-2 bg-gray-200 rounded-full hover:bg-gray-300"
+          onClick={() => setIsInfoModalOpen(true)}
+        >
+          <HelpCircle size={24} />
+        </button>
+
         {/* Title */}
         <h1 className="font-bold text-lg border-b border-black pt-[72px]">{book.bookTitle}</h1>
 
@@ -66,7 +76,7 @@ export const Review = (): JSX.Element => {
         {/* Input Field */}
         <textarea
           ref={inputRef}
-          placeholder="Write a review..."
+          placeholder="리뷰 작성하기..."
           className="border px-2 py-1 w-full rounded-[5px] resize-none overflow-hidden"
           value={inputText}
           onChange={(e) => setInputText(e.target.value)}
@@ -85,6 +95,26 @@ export const Review = (): JSX.Element => {
             </div>
           ))}
         </div>
+
+        {/* ✅ 정보 모달 */}
+        {isInfoModalOpen && (
+          <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
+            <div className="bg-white p-5 rounded-lg w-[350px] shadow-lg text-center relative flex flex-col justify-center items-center">
+              <img
+                src="../../image_data/Guide/Review.png" 
+                alt="도움말 이미지"
+                className="w-full h-auto rounded-md"
+              />
+              <button
+                className="mt-4 px-4 py-2 bg-gray-500 text-white rounded-lg"
+                onClick={() => setIsInfoModalOpen(false)}
+              >
+                닫기
+              </button>
+            </div>
+          </div>
+        )}
+
         <div className="fixed bottom-0 w-full bg-white" >
             <NaviBar activeLabel="Community" />
         </div>

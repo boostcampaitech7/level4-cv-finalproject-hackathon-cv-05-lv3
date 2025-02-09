@@ -7,6 +7,11 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        HSBomR: ["HSBombaramR", "sans-serif"],
+        HSBomL: ["HSBombaramR", "sans-serif"],
+        SBAggroB: ["SBAggroB", "sans-serif"]
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

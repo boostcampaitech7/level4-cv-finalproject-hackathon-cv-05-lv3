@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, useNavigate } from "react-router-dom";
 import { Avatar, AvatarImage } from "../../components/ui/avatar";
 import { Button } from "../../components/ui/button";
 import { Card, CardContent } from "../../components/ui/card";
+import { Separator } from "../../components/ui/separator";
 import { HelpCircle } from "lucide-react";
 import NaviBar from "../../components/ui/navigationbar";
 import { RemoveCookie } from "../../api/cookies"; // ✅ 쿠키 삭제 함수 가져오기
@@ -39,9 +40,9 @@ export const Home = (): JSX.Element => {
   }, [navigate]);
 
   return (
-    <div className="bg-white flex flex-row justify-center w-full">
-      <div className="bg-white w-[393px] h-[852px] relative">
-        {/* 상단 도움말 아이콘 */}
+    <div className="bg-gray-500 flex flex-row justify-center w-full">
+      <div className="bg-white w-[393px] min-h-screen relative flex flex-col">
+        {/* 상단 아이콘 */}
         <button
           className="absolute top-[20px] right-[20px] p-2 bg-gray-200 rounded-full hover:bg-gray-300"
           onClick={() => setIsInfoModalOpen(true)}
@@ -54,7 +55,10 @@ export const Home = (): JSX.Element => {
             <CardContent className="p-5">
               {/* 프로필 아바타 */}
               <Avatar className="w-[61px] h-[61px] absolute -top-8 left-1/2 -translate-x-1/2 border border-black">
-                <AvatarImage src="./image_data/Symbol_clova.jpg" alt="Profile" />
+                <AvatarImage
+                  src="./image_data/Symbol_clova.jpg"
+                  alt="Profile"
+                />
               </Avatar>
 
               <div className="mt-8 text-center">
@@ -72,6 +76,44 @@ export const Home = (): JSX.Element => {
             </CardContent>
           </Card>
         </div>
+
+        {/* ✅ 정보 모달 */}
+        {isInfoModalOpen && (
+          <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
+            <div className="bg-white p-5 rounded-lg w-[350px] shadow-lg text-center relative flex flex-col justify-center items-center">
+              <img
+                src="../../image_data/Guide/Home.png"
+                alt="도움말 이미지"
+                className="w-full h-auto rounded-md"
+              />
+              <button
+                className="mt-4 px-4 py-2 bg-gray-500 text-white rounded-lg"
+                onClick={() => setIsInfoModalOpen(false)}
+              >
+                닫기
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* ✅ 정보 모달 */}
+        {isInfoModalOpen && (
+          <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
+            <div className="bg-white p-5 rounded-lg w-[350px] shadow-lg text-center relative flex flex-col justify-center items-center">
+              <img
+                src="../../image_data/Guide/Home.png"
+                alt="도움말 이미지"
+                className="w-full h-auto rounded-md"
+              />
+              <button
+                className="mt-4 px-4 py-2 bg-gray-500 text-white rounded-lg"
+                onClick={() => setIsInfoModalOpen(false)}
+              >
+                닫기
+              </button>
+            </div>
+          </div>
+        )}
 
         <NaviBar activeLabel="Home" />
       </div>
