@@ -70,12 +70,12 @@ export const Home = (): JSX.Element => {
               </Avatar>
 
               <div className="mt-8 text-center">
-                <p className="font-bold text-xl mb-4">
+                <p className="text-[25px] mb-4 font-Freesentation tracking-wide">
                   클로바에게 <br /> 책을 추천받아 보세요!
                 </p>
                 <Button
                   variant="secondary"
-                  className="w-full bg-[#e1e1e1] rounded-[15px] font-bold text-lg active:scale-95 transition-transform duration-150 hover:bg-[#d1d1d1]"
+                  className="w-full bg-[#e1e1e1] rounded-[15px] font-Freesentation text-xl active:scale-95 transition-transform duration-150 hover:bg-[#d1d1d1]"
                   onClick={() => navigate("/Home_1", { replace: true })}
                 >
                   시작하기!
@@ -95,7 +95,7 @@ export const Home = (): JSX.Element => {
                 className="w-full h-auto rounded-md"
               />
               <button
-                className="mt-4 px-4 py-2 bg-gray-500 text-white rounded-lg"
+                className="mt-4 px-4 py-2 bg-gray-500 text-white rounded-lg font-Freesentation"
                 onClick={() => setIsInfoModalOpen(false)}
               >
                 닫기

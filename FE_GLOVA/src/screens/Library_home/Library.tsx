@@ -52,7 +52,7 @@ export const Library_home = (): JSX.Element => {
         </button>
 
         <div className="inline-flex items-center justify-center w-full mt-[70px]">
-          <h1 className="text-[40px] font-HSBomR text-black text-center">『 나만의 도서관 』</h1>
+          <h1 className="text-[40px] font-SBAggroB text-black text-center">『 나만의 도서관 』</h1>
         </div>
         <hr className="border-t border-2 border-gray-300 mt-8, mx-4 mb-4" />
   
