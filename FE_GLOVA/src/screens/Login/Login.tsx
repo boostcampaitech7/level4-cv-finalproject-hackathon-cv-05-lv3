@@ -1,11 +1,40 @@
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "../../components/ui/button";
 import { Card, CardContent } from "../../components/ui/card";
 
 export const Login = (): JSX.Element => {
-  // 네이버 로그인 버튼 클릭 시 OAuth 요청
+  const navigate = useNavigate();
+
+  // ✅ 네이버 로그인 버튼 클릭 시 OAuth 요청
   const handleNaverLogin = () => {
-    window.location.href = "http://127.0.0.1:8000/login/naver";
+    console.log("🚀 네이버 로그인 시작!");
+    window.open("http://localhost:8000/login/naver", "_self"); // 기존 창에서 이동
   };
+
+  useEffect(() => {
+    // URL에서 code와 state 추출
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get("code");
+    const state = urlParams.get("state");
+
+    if (code && state) {
+      console.log("🔍 OAuth Callback URL 감지됨!", { code, state });
+
+      fetch(`http://localhost:8000/api/login/naverOAuth?code=${code}&state=${state}`, {
+        method: "GET",
+        credentials: "include" // 쿠키 포함
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log("✅ 로그인 성공 응답:", data);
+          if (data.redirect_url) {
+            navigate(data.redirect_url); // 리액트 라우터를 사용하여 리디렉션
+          }
+        })
+        .catch(error => console.error("🚨 네이버 OAuth 로그인 에러:", error));
+    }
+  }, []);
 
   return (
     <main className="flex justify-center items-center min-h-screen bg-white">
