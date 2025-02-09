@@ -89,7 +89,7 @@ export const Challenge = (): JSX.Element => {
           <h1 className="text-[40px] font-HSBomR text-black text-center ">『 독서의 전당 』</h1>
         </div>
 
-        <hr className="border-t border-gray-300 my-8, mx-4" />
+        <hr className="border-t border-2 border-gray-300 my-8, mx-4" />
 
         {/* ✅ Badge List */}
         <div className="grid grid-cols-4 gap-3 px-5 mt-5">

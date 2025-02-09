@@ -54,7 +54,7 @@ export const Library_home = (): JSX.Element => {
         <div className="inline-flex items-center justify-center w-full mt-[70px]">
           <h1 className="text-[40px] font-HSBomR text-black text-center">『 나만의 도서관 』</h1>
         </div>
-        <hr className="border-t border-gray-300 mt-8, mx-4 mb-4" />
+        <hr className="border-t border-2 border-gray-300 mt-8, mx-4 mb-4" />
   
         <div className="grid grid-cols-3 gap-0 px-0 mt-0 w-full relative pb-[45px]">
           {books.map((book) => {
