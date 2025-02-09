@@ -27,7 +27,7 @@ def main():
     init_image = Image.fromarray(badge_bg_rgb).resize((1024, 1024))
     
     # 4. SDXL Img2Img를 이용한 뱃지 이미지 생성
-    prompt = "hexagon, vector, faith, trust, white background, best quality,"
+    prompt = "hexagon with a majestic Cow wearing a crown, vector, logo, badge, best quality"
     negative_prompt = "bad art, low quality, deformed, blurry, watermark, text, realistic photo"
     lora_path = "/home/sh/nvidia/data/badgemkrsdxl.safetensors"  # 환경에 맞게 수정
     badge_generator = SDXLBadgeGenerator(lora_path=lora_path)
@@ -37,7 +37,7 @@ def main():
         negative_prompt=negative_prompt,
         strength=1.0,
         guidance_scale=9.5,
-        num_images=4
+        num_images=1
     )
     for i, img in enumerate(generated_images):
         img_path = os.path.join(output_dir, f"sdxl_badge_result_{i}.png")
