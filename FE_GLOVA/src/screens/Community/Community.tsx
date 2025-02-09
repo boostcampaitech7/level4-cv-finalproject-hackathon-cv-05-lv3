@@ -108,7 +108,7 @@ const Page1: React.FC<{ handleBookClick: (book: Book) => void }> = ({ handleBook
             </div>
 
 
-            <hr className="border-t border-gray-300 my-4" />
+            <hr className="border-t border-2 border-gray-300 my-4" />
 
             {/* 검색창 */}
             <Input
@@ -239,7 +239,7 @@ export const Community: React.FC = () => {
                     </Button>
                 </div>
 
-                <hr className="border-t border-gray-300" />
+                <hr className="border-t border-2 border-gray-300" />
 
                 {/* 페이지 렌더링 */}
                 {page === 1 ? <Page1 handleBookClick={handleBookClick} /> : <Page2 handleBookClick={handleBookClick} />}
