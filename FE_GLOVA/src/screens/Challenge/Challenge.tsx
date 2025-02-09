@@ -84,7 +84,7 @@ export const Challenge = (): JSX.Element => {
 
   return (
     <div className="bg-gray-500 flex flex-row justify-center w-full h-screen overflow-y-auto">
-      <div className="bg-white w-[393px] h-[852px] relative">
+      <div className="bg-white w-[393px] min-h-screen relative flex flex-col">
         <div className="inline-flex items-center justify-center w-full mt-[70px]">
           <h1 className="text-[40px] font-HSBomR text-black text-center ">『 독서의 전당 』</h1>
         </div>
