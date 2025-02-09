@@ -21,8 +21,8 @@ export const Home4 = (): JSX.Element => {
   // const data = dummy_Home4;
 
   return (
-    <div className="flex justify-center w-full bg-white">
-      <div className="relative w-[393px] h-[852px] bg-white">
+    <div className="bg-gray-500 flex flex-row justify-center w-full">
+      <div className="bg-white w-[393px] min-h-screen relative flex flex-col">
         {/* 상단 아이콘 */}
         <button
           className="absolute top-[20px] right-[20px] p-2 bg-gray-200 rounded-full hover:bg-gray-300"

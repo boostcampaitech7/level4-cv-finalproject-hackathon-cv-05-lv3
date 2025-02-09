@@ -18,8 +18,8 @@ export const Home2 = (): JSX.Element => {
   const [question, setQuestion] = React.useState<string>("");
 
   return (
-    <div className="bg-white flex flex-row justify-center w-full">
-      <div className="bg-white w-[393px] h-[852px] relative">
+    <div className="bg-gray-500 flex flex-row justify-center w-full">
+      <div className="bg-white w-[393px] min-h-screen relative flex flex-col">
         {/* 상단 아이콘 */}
         <button
           className="absolute top-[20px] right-[20px] p-2 bg-gray-200 rounded-full hover:bg-gray-300"
@@ -44,10 +44,17 @@ export const Home2 = (): JSX.Element => {
           >
             이전
           </Button>
-          <Button className="flex w-[141px] items-center justify-center bg-[#d9d9d9] rounded-[3px_20px_20px_3px] text-black active:scale-95 transition-transform duration-150 hover:bg-[#c4c4c4]"
+          
+          <Button
+            className={`flex w-[141px] items-center justify-center rounded-[3px_20px_20px_3px] text-black active:scale-95 transition-transform duration-150 ${
+              question ? "bg-[#d9d9d9] hover:bg-[#c4c4c4]" : "bg-gray-300 opacity-50 cursor-not-allowed"
+            }`}
             onClick={() => {
-              navigate("/Home_3", { replace: true, state: { age, gender, question } });
+              if (question) {
+                navigate("/Home_3", { replace: true, state: { age, gender, question } });
+              }
             }}
+            disabled={!question} // 입력값이 없으면 버튼 비활성화
           >
             제출
           </Button>

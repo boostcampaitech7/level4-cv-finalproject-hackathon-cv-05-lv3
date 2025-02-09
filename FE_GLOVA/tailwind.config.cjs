@@ -9,7 +9,8 @@ module.exports = {
     extend: {
       fontFamily: {
         HSBomR: ["HSBombaramR", "sans-serif"],
-        HSBomL: ["HSBombaramR", "sans-serif"]
+        HSBomL: ["HSBombaramR", "sans-serif"],
+        SBAggroB: ["SBAggroB", "sans-serif"]
       },
       colors: {
         border: "hsl(var(--border))",

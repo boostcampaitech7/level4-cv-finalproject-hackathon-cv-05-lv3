@@ -14,8 +14,8 @@ export const Home1 = (): JSX.Element => {
   const [age, setAge] = useState<string>(""); // 나이 입력값
 
   return (
-    <div className="bg-white flex flex-row justify-center w-full">
-      <div className="bg-white w-[393px] h-[852px] relative">
+    <div className="bg-gray-500 flex flex-row justify-center w-full">
+      <div className="bg-white w-[393px] min-h-screen relative flex flex-col">
         {/* 상단 아이콘 */}
         <button
           className="absolute top-[20px] right-[20px] p-2 bg-gray-200 rounded-full hover:bg-gray-300"
@@ -84,13 +84,16 @@ export const Home1 = (): JSX.Element => {
 
           {/* 다음 버튼 */}
           <div className="flex justify-end mt-4">
-            <Button
-              variant="secondary"
-              className="w-[141px] rounded-[20px] bg-[#d9d9d9] text-lg active:scale-95 transition-transform duration-150 hover:bg-[#c4c4c4]"
-              onClick={() => navigate("/Home_2", { replace: true, state: {age, gender}})}
-            >
-              다음
-            </Button>
+          <Button
+            variant="secondary"
+            className={`w-[141px] rounded-[20px] bg-[#d9d9d9] text-lg active:scale-95 transition-transform duration-150 ${
+              age ? "hover:bg-[#c4c4c4]" : "opacity-50 cursor-not-allowed"
+            }`}
+            onClick={() => navigate("/Home_2", { replace: true, state: { age, gender } })}
+            disabled={!age} // 나이가 입력되지 않으면 버튼 비활성화
+          >
+            다음
+          </Button>
           </div>
         </div>
 

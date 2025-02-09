@@ -215,7 +215,7 @@ export const Community: React.FC = () => {
     };
 
     return (
-        <div className="bg-white flex flex-row justify-center w-full">
+        <div className="bg-gray-500 flex flex-row justify-center w-full">
             <div className="bg-white w-[393px] min-h-screen relative flex flex-col">
                 {/* 상단 아이콘 */}
                 <button
