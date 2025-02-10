@@ -96,7 +96,7 @@ async def handle_user_data(db: Session, access_token: str):
     if not existing_user:
         user_data = {
             "user_id": user_id,
-            "name": user_info["response"]["name"],
+            "name": user_info["response"].get("name"),
             "birth_year": user_info["response"].get("birthyear"),
             "gender": user_info["response"].get("gender"),
             "phone_number": user_info["response"].get("mobile"),

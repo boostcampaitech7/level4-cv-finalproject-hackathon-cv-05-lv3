@@ -15,7 +15,7 @@ class User(MySQLBase):
 
     user_id = Column(String(64), primary_key=True)  # BASE64 고유 식별자
     birth_year = Column(String(4), nullable=False)
-    name = Column(String(10), nullable=False)
+    name = Column(String(10))
     gender = Column(Enum("M", "F"), nullable=False)
     phone_number = Column(String(15))
     email = Column(String(255), unique=True)
