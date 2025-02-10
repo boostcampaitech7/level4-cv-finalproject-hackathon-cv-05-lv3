@@ -17,6 +17,37 @@ export const dummy_book: Book[] = [
     question: "국내에서 노벨문학상을 받은 책이 있는거 알아?"
   }
 
+  export const dummy_Commu: Book[] = [
+    {
+      date: "2025-02-04",
+      time: "12:30",
+      bookTitle: "소년이 온다",
+      bookimage: "../../image_data/book.jpg",
+      question: "국내에서 노벨 문학상을 받은 책이 있는거 알아?",
+    },
+    {
+      date: "2025-02-05",
+      time: "12:30",
+      bookTitle: "소년이 온다",
+      bookimage: "../../image_data/book.jpg",
+      question: "국내에서 노벨 문학상을 받은 책이 있는거 알아?",
+    },
+    {
+      date: "2025-02-06",
+      time: "12:30",
+      bookTitle: "소년이 온다",
+      bookimage: "../../image_data/book.jpg",
+      question: "국내에서 노벨 문학상을 받은 책이 있는거 알아?",
+    },
+    {
+      date: "2025-02-07",
+      time: "12:30",
+      bookTitle: "소년이 온다",
+      bookimage: "../../image_data/book.jpg",
+      question: "국내에서 노벨 문학상을 받은 책이 있는거 알아?",
+    },
+  ]
+
 
   export const dummyBadges: Badge[] = [
     {

@@ -46,7 +46,7 @@ export const Home3 = (): JSX.Element => {
     <div className="bg-gray-500 flex flex-row justify-center w-full">
       <div className="bg-white w-[393px] min-h-screen relative flex flex-col">
         {/* 로딩 메시지 */}
-        <div className="absolute top-[180px] left-16 font-bold text-black text-base text-center">
+        <div className="absolute top-[180px] left-[78px] font-bold text-black text-xl text-center font-Freesentation">
           무슨 책을 추천할지 고민 중입니다...
         </div>
 

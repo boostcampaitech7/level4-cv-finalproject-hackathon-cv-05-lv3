@@ -15,10 +15,10 @@ export const Home4 = (): JSX.Element => {
   const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
   
   {/*서버 통신 데이터*/}
-  const data = location.state || {};
+  // const data = location.state || {};
 
   {/*더미 데이터*/}
-  // const data = dummy_Home4;
+  const data = dummy_Home4;
 
   return (
     <div className="bg-gray-500 flex flex-row justify-center w-full">
@@ -33,11 +33,11 @@ export const Home4 = (): JSX.Element => {
 
         {/* Main Content */}
         <div className="flex flex-col items-center px-4">
-          <h2 className="mt-[147px] text-lg font-bold text-center font-inter">
+          <h2 className="mt-[147px] text-xl font-bold text-center text-gray-800 font-Freesentation">
             이런 책은 어떠신가요?
           </h2>
 
-          <Card className="mt-12 border-none">
+          <Card className="mt-4 border-none">
             <CardContent className="flex flex-col items-center p-0">
               <img
                 className="w-[137px] h-[183px] object-cover"
@@ -49,7 +49,7 @@ export const Home4 = (): JSX.Element => {
           </Card>
 
           <div className="w-[299px] mt-4">
-            <h1 className="text-3xl font-bold text-center">{data.bookTitle}</h1>
+            <h1 className="text-4xl font-bold text-center text-black font-Freesentation">{data.bookTitle}</h1>
           </div>
 
           <div

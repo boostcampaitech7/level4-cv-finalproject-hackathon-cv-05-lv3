@@ -90,10 +90,11 @@ export const GetBooks = async (): Promise<Book[]> => {
 
 
 // 뱃지 생성 요청
-export const PostBadgeMaker = async (bookTitle: string, speak: string) => {
+export const PostBadgeMaker = async (gender:string, bookTitle: string, speak: string) => {
   try {
     const response = await apiClient.post("/api/badge_create",
       {
+        gender:gender,
         bookTitle: bookTitle,
         speak: speak,
       }

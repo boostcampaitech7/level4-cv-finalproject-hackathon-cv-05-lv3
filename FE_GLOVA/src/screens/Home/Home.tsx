@@ -70,12 +70,12 @@ export const Home = (): JSX.Element => {
               </Avatar>
 
               <div className="mt-8 text-center">
-                <p className="text-[25px] mb-4 font-Freesentation tracking-wide">
+                <p className="text-[20px] mb-4 font-extrabold tracking-wide style={{ fontFamily: 'Freesentation'}}">
                   클로바에게 <br /> 책을 추천받아 보세요!
                 </p>
                 <Button
                   variant="secondary"
-                  className="w-full bg-[#e1e1e1] rounded-[15px] font-Freesentation text-xl active:scale-95 transition-transform duration-150 hover:bg-[#d1d1d1]"
+                  className="w-full bg-[#e1e1e1] rounded-[15px] style={{ fontFamily: 'Freesentation'}} font-black text-xl active:scale-95 transition-transform duration-150 hover:bg-[#d1d1d1]"
                   onClick={() => navigate("/Home_1", { replace: true })}
                 >
                   시작하기!
