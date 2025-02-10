@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { DuplicateCheck, SaveUserdata } from "../../api/api"; // API 호출 함수 가져오기
+import { useNavigate } from "react-router-dom";
 
-const Input = ({ type, value, onChange, required }) => (
+const Input = ({ type, value, onChange, required}) => (
   <input
     type={type}
     value={value}
     onChange={onChange}
     required={required}
-    className="w-full p-2 border border-gray-300 rounded"
+    className="w-full p-2 border border-gray-300 rounded focus:outline-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
   />
 );
 
@@ -26,6 +27,7 @@ const Select = ({ value, onChange, options }) => (
 );
 
 export const SignupForm = () => {
+  const navigate = useNavigate();
   const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
   const [gender, setGender] = useState("male");
@@ -67,6 +69,7 @@ export const SignupForm = () => {
         setPassword("");
         setGender("male");
         setBirthYear(0);
+        navigate("/", {replace: true});
       } else {
         setError("회원가입에 실패했습니다. 다시 시도해주세요.");
       }
@@ -93,7 +96,10 @@ export const SignupForm = () => {
             <Input type="text" value={userId} onChange={(e) => setUserId(e.target.value)} required />
           </div>
           <div>
-            <Label>비밀번호</Label>
+            <Label>
+              <span className="text-base text-black text-center ">비밀번호 </span>
+              <span className="text-[12px] text-gray-600 text-center ">(8글자 이상의 영문+숫자 조합)</span>
+            </Label>
             <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
           </div>
           <div>

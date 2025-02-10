@@ -58,6 +58,10 @@ export const Login = (): JSX.Element => {
             </Button>
           </CardContent>
         </Card>
+
+        <Button onClick={() => navigate("/Regi", {replace: true})} className="px-2 py-3 h-[10px] bg-green-500 text-white rounded active:scale-95 transition-transform duration-150 hover:bg-green-600">
+          회원가입
+        </Button>
       </div>
     </main>
   );
