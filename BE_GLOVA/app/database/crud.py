@@ -88,6 +88,14 @@ def get_badges(db: Session):
     return db.execute(select(Badge)).scalars().all()
     # return db.query(Badge).all()
 
+def get_user_badges(db: Session, user_id):
+    # 한 유저의 모든 뱃지 조회
+    return db.execute(select(Badge).where(Badge.user_id==user_id)).scalars().all()
+
+def get_user_badge(db: Session, user_id, book_id):
+    # 한 유저의 한 책에 대한 뱃지 조회
+    return db.execute(select(Badge).where(Badge.user_id==user_id, Badge.book_id==book_id)).scalars().all()
+
 def create_badge(db: Session, badge_data):
     new_badge = Badge(**badge_data)
     db.add(new_badge)
