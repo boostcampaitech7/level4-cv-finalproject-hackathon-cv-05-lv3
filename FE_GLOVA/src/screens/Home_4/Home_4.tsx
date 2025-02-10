@@ -15,10 +15,10 @@ export const Home4 = (): JSX.Element => {
   const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
   
   {/*서버 통신 데이터*/}
-  // const data = location.state || {};
+  const data = location.state || {};
 
   {/*더미 데이터*/}
-  const data = dummy_Home4;
+  // const data = dummy_Home4;
 
   return (
     <div className="bg-gray-500 flex flex-row justify-center w-full">

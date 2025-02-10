@@ -29,14 +29,31 @@ export const Home3 = (): JSX.Element => {
   const fetchAndNavigate = useCallback(async () => {
     try {
       console.log(age, gender, question);
+      
+      // 서버 요청
       const data = await Question2Server(age, gender, question);
+  
+      // 정상적으로 응답을 받으면 페이지 이동
       navigate("/Home_4", { state: { ...data } });
+  
     } catch (error) {
       console.error("Error while fetching data:", error);
+  
+      // 403 Forbidden 오류 처리
+      if ((error as any).response && (error as any).response.status === 403) {
+        alert("부적절한 문장이 감지되어 접근이 거부되었습니다. 초기 단계로 돌아갑니다.");
+        navigate("/Home", { replace: true });
+      } else {
+        console.error("Error while fetching data:", error);
+        alert("서버와의 통신이 실패하였습니다.");
+        navigate("/Home_1", { replace: true });
+      }
+  
     } finally {
       setLoading(false);
     }
   }, [age, gender, question, navigate]);
+  
 
   useEffect(() => {
     fetchAndNavigate();
