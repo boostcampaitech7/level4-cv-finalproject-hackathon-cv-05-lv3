@@ -1,4 +1,4 @@
-import apiClient from "./cookies";
+import apiClient, { cookies_saver, cookie_loader, cookie_remover} from "./cookies";
 
 export interface Reviews {
   name: string;
@@ -19,6 +19,62 @@ export interface Badge {
   bookTitle: string;
 }
 
+
+
+// *회원가입 중복검사
+export const DuplicateCheck = async (id: string) => {
+  try {
+    const response = await apiClient.post("/api/dupli_check", {
+      id: id
+    });
+
+    return response;
+  }
+  catch (error) {
+    console.error("Error duplication data: ", error);
+    throw error;
+  }
+};
+
+
+// *회원가입 데이터 저장
+export const SaveUserdata = async (id: string, password:string, birth:number, gender:string) => {
+  try {
+    const response = await apiClient.post("/api/regiseter", {
+      id: id,
+      password: password,
+      birth: birth,
+      gender: gender
+    });
+
+    cookies_saver(id);
+
+    return response;
+  }
+  catch (error) {
+    console.error("Error register data: ", error);
+    throw error;
+  }
+};
+
+
+//로그인하기
+export const Local_login = async (id: string, password: string) => {
+  try {
+    const response = await apiClient.post("/api/local_login", {
+      id: id,
+      password: password
+    });
+
+    return response;
+  }
+  catch (error) {
+    console.error("Error login data: ", error);
+    throw error;
+  }
+}
+
+
 // 서버와 묻고 답하기
 export const Question2Server = async (age: string, gender: string, question: string) => {
   try {
@@ -35,13 +91,15 @@ export const Question2Server = async (age: string, gender: string, question: str
   }
 };
 
-// 서버한테 데이터 저장하라고 하기
+// *서버한테 데이터 저장하라고 하기
 export const SaveRecommand = async (question: string, bookimage: string, bookTitle: string) => {
   const now = new Date();
   try {
+    const id = cookie_loader();
 
     // 서버에 데이터를 전송합니다.
     const response = await apiClient.post("/api/save_books", {
+      // id: id, // 개인 사용자 구별
       date: now.toISOString().split("T")[0], // YYYY-MM-DD 형식의 날짜
       time: now.toTimeString().split(" ")[0], // HH:mm:ss 형식의 시간
       question: question,
@@ -59,9 +117,13 @@ export const SaveRecommand = async (question: string, bookimage: string, bookTit
 };
 
 
-// 추천받은 책 정보 전부 가져오기
+// *추천받은 책 정보 전부 가져오기
 export const GetRecommandBooks = async (): Promise<Book[]> => {
   try {
+    // 개인 사용자 구별
+    // const id = cookie_loader();
+    // const response = await apiClient.post("/api/recommand_books", {id: id});
+
     const response = await apiClient.post("/api/recommand_books");
 
     return response.data; // Axios는 자동으로 JSON 파싱을 수행하므로 response.data를 반환
@@ -72,7 +134,7 @@ export const GetRecommandBooks = async (): Promise<Book[]> => {
 };
 
 
-// 책 정보 전부 가져오기
+// *책 정보 전부 가져오기
 export const GetBooks = async (): Promise<Book[]> => {
   try {
     const response = await apiClient.get("/api/get_books");
@@ -89,11 +151,15 @@ export const GetBooks = async (): Promise<Book[]> => {
 };
 
 
-// 뱃지 생성 요청
+// *뱃지 생성 요청
 export const PostBadgeMaker = async (bookTitle: string) => {
   try {
+    // 개인 사용자 구별
+    // const id = cookie_loader();
+
     const response = await apiClient.post("/api/badge_create",
       {
+        // id: id,
         bookTitle: bookTitle,
       }
     );
@@ -106,9 +172,13 @@ export const PostBadgeMaker = async (bookTitle: string) => {
   }
 };
 
-// 뱃지 가져오기
+// *뱃지 가져오기
 export const GetBadges = async (): Promise<Badge[]> => {
   try {
+    // 개인 사용자 구별
+    // const id = cookie_loader();
+    // const response = await apiClient.post("/api/badge", { id: id });
+
     const response = await apiClient.post("/api/badge");
 
     if (response.status !== 200) {
@@ -123,42 +193,15 @@ export const GetBadges = async (): Promise<Badge[]> => {
 };
 
 
-//뱃지 mp3 가져오기
-export const GetAudioFile = async () => {
-  try {
-    const response = await fetch("http://localhost:8000/api/get_audio");
-    if (!response.ok) {
-      throw new Error("Failed to fetch audio");
-    }
-    const arrayBuffer = await response.arrayBuffer();
-    const blob = new Blob([arrayBuffer], { type: "audio/mp3" });
-    return URL.createObjectURL(blob);
-  } catch (error) {
-    console.error("Error fetching audio:", error);
-    throw error;
-  }
-};
-
-// export const GetAudioFile = async () => {
-//   try {
-//     const response = await apiClient.get('/api/get_audio', {
-//       responseType: 'blob', // MP3 파일을 Blob으로 받기
-//     });
-
-//     const blob = new Blob([response.data], { type: 'audio/mp3' });
-//     return URL.createObjectURL(blob); // Blob을 URL로 변환하여 반환
-//   } catch (error) {
-//     console.error('Error fetching audio:', error);
-//     throw error;
-//   }
-// };
-
-
-// 후기 받아오기
+// *후기 받아오기
 export const GetReviews = async (bookTitle: string) => {
   try {
+    // 개인 사용자 구별
+    // const id = cookie_loader();
+
     const response = await apiClient.post("/api/get_reviews",
       {
+        // id: id,
         bookTitle: bookTitle,
       }
     );
@@ -170,11 +213,14 @@ export const GetReviews = async (bookTitle: string) => {
   }
 };
 
-// 후기 업로드 하기
+// *후기 업로드 하기
 export const UploadReview = async (bookTitle: string, review: string) => {
   try {
+    // 개인 사용자 구별
+    // const id = cookie_loader();
     const response = await apiClient.post("/api/upload_review",
       {
+        // id: id,
         bookTitle: bookTitle,
         review: review
       }

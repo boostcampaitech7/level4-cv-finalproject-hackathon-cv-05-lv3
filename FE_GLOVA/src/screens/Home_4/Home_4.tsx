@@ -33,7 +33,7 @@ export const Home4 = (): JSX.Element => {
 
         {/* Main Content */}
         <div className="flex flex-col items-center px-4">
-          <h2 className="mt-[147px] text-xl font-bold text-center text-gray-800 font-Freesentation">
+          <h2 className="mt-[125px] text-xl font-bold text-center text-gray-800 font-Freesentation">
             이런 책은 어떠신가요?
           </h2>
 
