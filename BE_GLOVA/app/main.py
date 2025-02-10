@@ -5,7 +5,7 @@ from database.connections import init_db
 from database.config import get_db_status  # ✅ DB 상태 조회 함수 추가
 import os
 from dotenv import load_dotenv
-from apis import home, badge, books, realhome, login
+from apis import badge, books, login, home
 
 load_dotenv()
 FRONTEND_URL = os.getenv("FRONTEND_URL")
@@ -27,10 +27,9 @@ app.add_middleware(SessionMiddleware, secret_key=SESSIONMIDDLEWARE_SECRET_KEY)  
 
 # API 라우트 추가
 app.include_router(login.router)
-app.include_router(home.router)
 app.include_router(books.router)
 app.include_router(badge.router)
-app.include_router(realhome.router)
+app.include_router(home.router)
 
 @app.on_event("startup")  # FastAPI 실행 시 DB 초기화 실행
 def startup_event():

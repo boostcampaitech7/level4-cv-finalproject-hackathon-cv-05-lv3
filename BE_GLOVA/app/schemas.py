@@ -5,7 +5,6 @@ from typing import Any
 from typing import Optional
 
 class UserQuestion(BaseModel):
-    # name: str
     gender: str
     age: int
     question: str

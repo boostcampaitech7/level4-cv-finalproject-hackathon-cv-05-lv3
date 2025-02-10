@@ -1,263 +1,183 @@
-from fastapi import HTTPException, APIRouter
+from fastapi import Request, HTTPException, APIRouter, Depends
 from dotenv import load_dotenv
+import faiss
+import numpy as np
+import pandas as pd
+import http.client
 import requests
-import os
 import json
-from random import randint
-from schemas import UserQuestion, ClovaResponse
+import time
+import re
+from typing import Dict
+from pydantic import BaseModel
+import os
+from datetime import datetime, timezone, timedelta
+from sqlalchemy.orm import Session
+from database.connections import get_mysql_db, get_postgresql_db
+from database.crud import (
+    get_users, create_user, read_user, get_tokens, create_token, get_books, get_book_with_title, create_book,
+    get_sessions, create_session, get_recommended_books, create_recommended_book,
+    get_badges, create_badge, get_reviews, create_review, 
+    get_user_questions, create_user_question, get_clova_answers, create_clova_answer
+)
+from apis.realhome import (
+    api_get_users, api_create_user, api_get_tokens, api_create_token, api_get_books, api_create_book, api_get_sessions, api_create_session, 
+    api_get_recommended_books, api_create_recommended_book, api_get_badges, api_create_badge, api_get_reviews,api_create_review,  api_get_user_questions, api_create_user_question, 
+    api_get_clova_answers, api_create_clova_answer 
+)
+from schemas import (
+    UserQuestion, ClovaResponse, CalendarResponse,
+    UserSchema, TokenSchema, BookSchema, SessionSchema, RecommendedBookSchema, 
+    BadgeSchema, ReviewSchema, UserQuestionSchema, ClovaAnswerSchema
+)
+import logging
+from models.everyQ import book_question
+from jose import JWTError, jwt
+import secrets
 
-router = APIRouter() # 모든 엔드포인트를 이 router에 정의하고, main에서 한 번에 추가 
+# 환경 변수에서 Secret Key 가져오기
+NAVER_LOGIN_CLIENT_SECRET = os.getenv('NAVER_LOGIN_CLIENT_SECRET')
+ALGORITHM = "HS256"
 
 load_dotenv()
 
-# 임시 테스트 앱 CLOVA_REQUEST_ID, 실제 서비스와 연동 시 변경되므로 .env에서 변경!
-# CLOVA API1 설정정
-CLOVA_API_URL = os.getenv('CLOVA_API_URL')
-CLOVA_API_KEY = os.getenv('CLOVA_Authorization')
-CLOVA_REQUEST_ID = os.getenv('CLOVA_REQUEST_ID') 
-# Clova API2 설정
-CLOVA_API2_URL = os.getenv('CLOVA_API2_URL')
-CLOVA_REQUEST_ID2 = os.getenv('CLOVA_REQUEST_ID2')
-# 환경변수 확인
-if not (CLOVA_API_KEY or CLOVA_API_URL or CLOVA_REQUEST_ID or CLOVA_API2_URL or CLOVA_REQUEST_ID2):
-    raise ValueError("CLOVA 환경 변수가 설정되지 않았습니다.")
+router = APIRouter()
 
+def get_user_id(request: Request, db: Session = Depends(get_mysql_db)) -> str:
+    """
+    - 쿠키에서 JWT access_token을 가져와 디코딩하여 user_id를 추출
+    - 추출한 user_id가 DB에 존재하는지 검증 후 반환
+    """
+    # ✅ 1. 쿠키에서 access_token 가져오기
+    access_token = request.cookies.get("access_token")
+    if not access_token:
+        raise HTTPException(status_code=401, detail="Access token is missing")  # ❌ 토큰 없음
 
-# 클로바 api1 호출
-# 서버에 정보를 보내고, 결과를 받아옴 
+    try:
+        # ✅ 2. JWT 토큰 디코딩하여 user_id 추출
+        payload = jwt.decode(access_token, NAVER_LOGIN_CLIENT_SECRET, algorithms=[ALGORITHM])
+        user_id = payload.get("sub")
+
+        if not user_id:
+            raise HTTPException(status_code=401, detail="Invalid token payload")  # ❌ 토큰에서 user_id 없음
+
+        # ✅ 3. DB에서 user_id 확인
+        user = read_user(db, user_id)
+        if not user:
+            raise HTTPException(status_code=401, detail="User does not exist")  # ❌ 유저 없음
+
+        return user_id  # ✅ 유효한 user_id 반환
+
+    except JWTError:
+        raise HTTPException(status_code=401, detail="Invalid access token")  # ❌ JWT 인증 실패
+
+def current_age(birth_year: str) -> int:
+    try:
+        KST = timezone(timedelta(hours=9))
+        current_year = datetime.now(KST).year
+        return current_year - int(birth_year)  # 한국 나이란 뭘까... 
+    except (TypeError, ValueError):
+        raise HTTPException(status_code=400, detail="Invalid birth year format")
+
 @router.post("/api/home")
-async def save_question(user_question: UserQuestion):
-    class CompletionExecutor:
-        def __init__(self, api_url, api_key, request_id):
-            self._api_url = api_url
-            self._api_key = api_key
-            self._request_id = request_id
-
-        def execute(self, completion_request):
-            headers = {
-                'Authorization': self._api_key,
-                'X-NCP-CLOVASTUDIO-REQUEST-ID': self._request_id,
-                'Content-Type': 'application/json; charset=utf-8',
-                'Accept': 'text/event-stream'
-            }
-            try:
-                with requests.post(self._api_url,
-                                headers=headers, json=completion_request, stream=True) as r:
-                    r.raise_for_status()  # HTTP 에러 발생 시 예외 처리
-                    response_data = []
-                    for line in r.iter_lines():
-                        if line:
-                            response_data.append(line.decode("utf-8"))
-                    return response_data
-            except requests.RequestException as e:
-                raise HTTPException(status_code=500, detail=f"Error during Clova API call: {str(e)}")
-
-
+async def every_Q(
+    request: UserQuestion,  # ✅ 클라이언트에서 `body`로 전달된 데이터 받기
+    db: Session = Depends(get_mysql_db),
+    user_id: str = Depends(get_user_id)  # ✅ JWT 토큰에서 `user_id` 가져오기
+) -> Dict:
+    """
+    유저 나이, 성별을 기반으로 책 추천 질문을 처리하는 엔드포인트
+    """
     try:
-        # Clova API 설정
-        completion_executor = CompletionExecutor(
-            api_url=f"{CLOVA_API_URL}",
-            api_key=f"Bearer {CLOVA_API_KEY}",
-            request_id=CLOVA_REQUEST_ID
+        # 질문을 기반으로 도서 추천 처리
+        response = book_question(
+            question=request.question,
+            age=request.age,
+            gender=request.gender
         )
-    
-        preset_text = [
-            {"role": "system", "content": (
-                "- 당신은 재치있는 도서 큐레이터입니다.\n"
-                f"- 사용자의 나이: {user_question.age}, 성별: {user_question.gender}\n"
-                "- 사용자의 질문에 대해 사용자의 나이, 성별을 분석하여 시중에 있는 책에서 관련 내용을 인용하거나 추천하는 방식으로 답변합니다.\n"
-                "- 사용자의 질의를 분석하고 질의와 상관관계를 보이는 책 제목으로 답해줘\n"
-                "- 절대 없는 책을 만들어서 가져오지 마. 어떻게든 이유를 만들어서 존재하는 책을 추천해야해.\n"
-                "- 1개의 답변이고, 명확하고 간결하며, 독자가 흥미를 느낄 수 있도록 작성하세요.\n\n"
-                "- 책 제목 대답할 땐 책 제목만 말해! 앞뒤로 작가같은 거 붙이지 말고! 그 다음에 엔터치고 책 설명이든 뭐든 붙여. 알겠지?\n"
-                "예시:\n질문: 아픈 건 싫어!\n답변: [아픈 건 싫으니까 방어력에 올인하려고 합니다.]"
-            )},
-            {"role": "user", "content": user_question.question}
-        ]
-    
-        request_data = {
-            "messages": preset_text,
-            "topP": 0.8,
-            "topK": 0,
-            "maxTokens": 256,
-            "temperature": 0.5,
-            "repeatPenalty": 5.0,
-            "stopBefore": [],
-            "includeAiFilters": True,
-            "seed": randint(0,10000)
-        }
+        if not response:
+            raise HTTPException(status_code=500, detail="추천 결과를 가져올 수 없습니다.")
 
-        while True:
-            # Clova API 실행
-            response_data = completion_executor.execute(request_data)
-            # API 응답 확인 및 처리
-            if not response_data:
-                raise HTTPException(status_code=500, detail="Clova API returned an empty response.")
-
-            book_title, book_description = extract_book_info(response_data)
-            print(f"Book Title: {book_title}")
-            print(f"Book Description: {book_description}")
-
-            # 클로바2 호출 (책 실제 확인) 딕셔너리 
-            book_details = fetch_book_details_async(book_title)
-            print(book_details)
-            # if book_title in book_details['title']:
-            #     break
-            if book_details == -1: # 책 존재 안함
-                request_data["seed"]+=1
-                continue
-            else:
-                break
-
-            if book_title in book_details['title']:
-                break
-            
-        clovaResponse = ClovaResponse(question=user_question.question,bookimage=book_details['image'], bookTitle=book_details['title'], description=book_details['description'])
-        return clovaResponse
+        return {"status": "success", "data": response}  # ✅ JSON 형식으로 응답
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error connecting to Clova API: {e}")
-
-
-# response_data에서 책 제목과 설명 추출
-def extract_book_info(response_data):
-    book_title = None
-    book_description = None
-    result_found = False  # 'event:result'가 발견되었는지 추적
-
-    for index, item in enumerate(response_data):
-        # 'event:result'가 포함된 항목을 찾음
-        if "event:result" in item:
-            result_found = True  # 'event:result' 발견
-            continue  # 다음 항목으로 이동
-
-        # 'event:result' 바로 다음 항목에서 'data:' 처리
-        if result_found and "data:" in item:
-            try:
-                json_data = item.split('data:', 1)[1].strip()
-                result_data = json.loads(json_data)  
-                content = result_data["message"]["content"]
-                
-                # 책 제목과 설명 분리
-                if content.startswith("[") and "]" in content:
-                    book_title = content.split("]", 1)[0][1:].strip()  # 대괄호 내부 텍스트
-                    book_description = content.split("]", 1)[1].strip()  # 대괄호 이후 텍스트
-                break  
-            except (json.JSONDecodeError, IndexError, KeyError) as e:
-                print(f"Error parsing response data: {e}")
-                print(f"Problematic item: {item}")
-
-    return book_title, book_description
-
-# Clova API2 호출 함수
-def fetch_book_details_async(book_title: str):
-    class SkillSetFinalAnswerExecutor:
-        def __init__(self, api_url, api_key, request_id):
-            self._api_url = api_url
-            self._api_key = api_key
-            self._request_id = request_id
-
-        def execute(self, skill_set_cot_request):
-            headers = {
-                'Authorization': self._api_key,
-                'X-NCP-CLOVASTUDIO-REQUEST-ID': self._request_id,
-                'Content-Type': 'application/json; charset=utf-8',
-                'Accept': 'text/event-stream',
-            }
-            
-            try:
-                with requests.post(self._api_url, headers=headers, json=skill_set_cot_request, stream=True) as response:
-                    response.raise_for_status()
-                    response_data=[]
-                    for line in response.iter_lines():
-                        if line:
-                            response_data.append(line.decode("utf-8"))
-                            # print(line.decode("utf-8"))
-                    return response_data
-                            
-            except requests.RequestException as e:
-                raise HTTPException(status_code=500, detail=f"Error during Clova API call: {str(e)}")
+        logging.error(f"서버 오류: {e}")
+        raise HTTPException(status_code=500, detail="Internal server error")
     
-    final_answer_executor = SkillSetFinalAnswerExecutor(
-        api_url=f'{CLOVA_API2_URL}',
-        api_key=f"Bearer {CLOVA_API_KEY}",
-        request_id=CLOVA_REQUEST_ID2
-    )
-    request_data = {
-        "query": "책",
-        "tokenStream": False,
-        "requestOverride": {
-            "baseOperation": {
-                "header": {
-                    "Authorization": f"Bearer {CLOVA_API_KEY}"
-                },
-                "query": {
-                    "appid": "appid-12345678"
-                },
-                "requestBody": {
-                    "taskId": "book-search-task-0001"
-                }
-            },
-            "operations": [  
-                {
-                    "operationId": "bookSearch",
-                    "header": {
-                        "X-Naver-Client-Id": os.getenv("NAVER_CLIENT_ID"),
-                        "X-Naver-Client-Secret": os.getenv("NAVER_CLIENT_SECRET"),
-                    },
-                    "query": {
-                        "sort": "sim",
-                        "query": book_title,
-                        "start": 1,
-                        "display": 1,
-                    },
-                    "requestBody": None,
-                }
-            ]
-        }
-    }
+def generate_session_id():
+    """ 랜덤한 세션 ID 생성 (32자리) """
+    return secrets.token_hex(16)
 
+def parse_datetime(date_str: str, time_str: str) -> datetime:
+    """ ✅ 클라이언트에서 받은 날짜와 시간을 조합하여 datetime 객체로 변환 """
+    return datetime.strptime(f"{date_str} {time_str}", "%Y-%m-%d %H:%M:%S")
+
+# 사용자가 이 답변을 저장하고자 할 때
+@router.post("/api/save_books")
+async def save_books(
+    request: Dict[str, str],  # ✅ 클라이언트에서 JSON 데이터를 받음
+    postgresql_db: Session = Depends(get_postgresql_db),
+    mysql_db: Session = Depends(get_mysql_db),
+    user_id: str = Depends(get_user_id)
+):
     try:
-        response_data = final_answer_executor.execute(request_data)
-        if not response_data:
-            raise HTTPException(status_code=500, detail="Clova API returned an empty response.")
-        book_details = extract_book_details(response_data)
-        return book_details
+        # ✅ 1️⃣ 클라이언트에서 받은 date & time을 이용해 timestamp 생성
+        timestamp = parse_datetime(request["date"], request["time"])
+
+        # ✅ 2. 새로운 세션 ID 생성
+        session_id = generate_session_id()
+
+        # ✅ 3️⃣ 질문 테이블에 데이터 저장 (PostgreSQL)
+        question_data = UserQuestionSchema(
+            user_id=user_id,
+            session_id=session_id,
+            question_text={"질문": request["question"]},
+            created_at=timestamp
+        )
+        question_response = await create_user_question(question_data, db=postgresql_db)
+
+        # book_id, book_title은 미리 저장된 books 테이블에서 조회
+        book_id = await get_book_with_title(request["title"], db=mysql_db)
+
+        # ✅ 4️⃣ 클로바 답변 테이블에 데이터 저장 (PostgreSQL)
+        answer_data = ClovaAnswerSchema(
+            user_id=user_id,
+            session_id=session_id,
+            answer_text={"책 제목": request["title"], "추천 이유": request["description"]},
+            created_at=timestamp
+        )
+        answer_response = await create_clova_answer(answer_data, db=postgresql_db)
+
+
+        # ✅ 6️⃣ 추천 도서 테이블에 데이터 저장 (MySQL)
+        recommended_book_data = RecommendedBookSchema(
+            user_id=user_id,
+            book_id=book_id,
+            session_id=session_id,
+            recommended_at=timestamp,
+            finished_at=None
+        )
+        recommended_book_response = await create_recommended_book(recommended_book_data, db=mysql_db)
+
+        # ✅ 7️⃣ 세션 테이블에 데이터 저장 (MySQL)
+        session_data = SessionSchema(
+            session_id=session_id,
+            question_id=question_response.question_id,
+            answer_id=answer_response.answer_id
+        )
+        session_response = await create_session(session_data, db=mysql_db)
+
+        return {
+            "status": "success",
+            "message": "Book data saved successfully",
+            "session_id": session_id,
+            "stored_data": {
+                "question": question_response,
+                "answer": answer_response,
+                "book": request["title"],
+                "recommended_book": recommended_book_response,
+                "session": session_response
+            }
+        }
+
     except Exception as e:
-        print(f"Error fetching book details: {e}")
-
-
-# response_data에서 각종 책 정보 추출출
-def extract_book_details(response_data):
-    event_found = False # 'event:final_answer'가 발견되었느지 추적
-
-    for index, item in enumerate(response_data):
-        if "event:final_answer" in item:
-            event_found = True
-            continue
-
-        if event_found and "data:" in item:
-            try:
-                json_data = item.split('data:', 1)[1].strip()
-                result_data = json.loads(json_data)
-
-                if "apiResult" in result_data:
-                        response_body = json.loads(result_data["apiResult"][0]["responseBody"])
-                        items = response_body.get("items", [])
-
-                        if not items:
-                                return -1
-                        for item in items:
-                            book_detail = {
-                                "title": item.get("title", "N/A"),
-                                "author": item.get("author", "N/A"),
-                                "publisher": item.get("publisher", "N/A"),
-                                "pubdate": item.get("pubdate", "N/A"),
-                                "isbn": item.get("isbn", "N/A"),
-                                "description": item.get("description", "N/A"),
-                                "image": item.get("image", "N/A"),
-                            }
-                            return book_detail 
-            except (json.JSONDecodeError, IndexError, KeyError) as e:
-                print(f"Error parsing response data: {e}")
-                print(f"Problematic item: {item}")
-    return 0
+        raise HTTPException(status_code=500, detail=f"Batch Process 중 오류 발생: {str(e)}")

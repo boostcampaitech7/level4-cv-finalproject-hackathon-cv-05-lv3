@@ -8,11 +8,41 @@ import time
 import re
 from datetime import datetime
 from collections import defaultdict
-from dotenv import load_dotenv
-load_dotenv()
+import sys
 
+def transform_response(response):
+    """
+    서버 응답을 book_info와 answer_text 형식으로 변환하는 함수
+    """
+    question_text = response.get("user_question")
+    book_info = response.get("recommended_book", "").split("\n")
+    book_details = {item.split(" : ")[0].strip(): item.split(" : ")[1].strip() for item in book_info if " : " in item}
 
-# 무엇이든 물어보세요 함수
+    # 추천 이유 추출 (앞의 '추천하는 책 :' 부분 제거)
+    recommendation_reason = response.get("recommendation_reason", "")
+    match = re.search(r"추천이유\s*:\s*(.*)", recommendation_reason, re.DOTALL)
+    recommended_text = match.group(1).strip() if match else recommendation_reason  # 찾았으면 추천 이유만 사용
+
+    transformed_response = {
+        "question_text": {  # ✅ JSONB 타입에 맞춰서 딕셔너리로 저장
+            "text": question_text
+        },
+        "book_info": {
+            "title": book_details.get("책 제목", ""),
+            "author": book_details.get("저자", ""),
+            "publisher": book_details.get("출판사", ""),
+            "pubdate": book_details.get("출판일", ""),
+            "isbn": book_details.get("ISBN", ""),
+            "descriptions": book_details.get("설명", ""),
+            "image": book_details.get("섬네일 링크", ""),
+        },
+        "answer_text": {
+            "title": book_details.get("책 제목", ""),  # ✅ {} 제거하여 문자열로 저장
+            "text": recommended_text,
+        }
+    }
+
+    return transformed_response
 
 def deduplicate_recommendations(all_results, data):
     doc_counts = defaultdict(int)
@@ -36,7 +66,7 @@ def deduplicate_recommendations(all_results, data):
             content_hashes.add(content_hash)
             unique_docs.append(doc_id)
     
-    return unique_docs[:5]  # 상위 5개 반환
+    return unique_docs[:1000]  # 상위 5개 반환
 
 # 로깅 설정 (기존 코드 유지)
 def log_message(message, status="info"):
@@ -55,23 +85,21 @@ def log_message(message, status="info"):
 # 1. 계층별 키워드 파싱 클래스
 class KeywordProcessor:
     def __init__(self):
-        self.keyword_pattern = re.compile(r'(\d차):\s*\[([^\]]+)\]')  # 계층 정보 추출
+        self.keyword_pattern = re.compile(r'(\d차)\s*:\s*\[([^\]]+)\]') 
 
     def parse_keywords(self, content):
         extracted = {}
         for level, key_str in self.keyword_pattern.findall(content):
-            # 콤마 기준 분할 후 양쪽 공백/따옴표 제거
             keywords = [
                 k.strip().strip('"') 
                 for k in key_str.split(',')
-                if k.strip().strip('"')  # 빈 값 필터링
+                if k.strip().strip('"')
             ]
             extracted[level] = keywords
 
-        # 가중치 적용 로직
         weighted_keys = []
         for idx, level in enumerate(['1차', '2차', '3차'], 1):
-            weight = 4 - idx  # 1차=3점, 2차=2점, 3차=1점
+            weight = 4 - idx
             weighted_keys.extend([(k, weight) for k in extracted.get(level, [])])
         
         return weighted_keys
@@ -165,13 +193,14 @@ class ChatCompletionExecutor:
                         'messages': messages,
                         'temperature': 0.9,
                         'topP': 0.8,
-                        'maxTokens': 4096
+                        'maxTokens': 4096,
                     },
                     timeout=10,
                     stream=False
                 )
-                response.raise_for_status()  # 4xx/5xx 오류 검출
-
+                print(f"response {response}, messages {messages}")
+                response.raise_for_status() 
+                
                 log_message("스트리밍 응답 수신 시작", "info")
                 for line in response.iter_lines():
                     if line:
@@ -180,31 +209,37 @@ class ChatCompletionExecutor:
                 duration = time.time() - start_time
                 log_message(f"응답 생성 완료 ({duration:.2f}s)", "success")
                 return response
-
             except (requests.exceptions.RequestException, TimeoutError) as e:
+                if e.response.status_code==400:
+                    log_message("400 오류: 추천 리스트 크기 조정 시도", "warning")
+                    return response
                 log_message(f"채팅 요청 실패: {str(e)}", "error")
                 if attempt == max_retries - 1:
                     raise
-                delay = 1  # 지수 백오프 + 지터
+                delay = 1 
                 time.sleep(delay)
 
-# 메인 함수
-def book_question(question: str, age: int, gender: str):
+def book_question(age: int, gender: str, question: str):
     total_start = time.time()
     log_message("FAISS 인덱스 로드 시작")
-    # FAISS 초기화
-    #index = faiss.read_index("vector_store_100005차.index")
-    #data = pd.read_csv("updated_book_info5.csv")
-    index = faiss.read_index("vector_store_최종.index")
-    data = pd.read_csv("updated_book_info_total_no_duplicates.csv")
-    final_answers = data["Final Answer"].tolist()
+    index = faiss.read_index("/data/ephemeral/home/suhyun/level4-cv-finalproject-hackathon-cv-05-lv3/data/vector_store_최종_plz_no_error.index") # 경로
+
+    data = pd.read_csv("/data/ephemeral/home/suhyun/level4-cv-finalproject-hackathon-cv-05-lv3/data/sorted.csv") # 경로
+    descriptions = data["Description"].tolist()
+    titles = data["Book Title"].tolist()
+    combined=[]
+    for i in range(len(titles)):
+        combined_entry = f"{{{titles[i]}}},{{{descriptions[i]}}}" 
+        combined.append(combined_entry)
+
+    #final_answers = list(zip(final_title, final_answer))
+    final_answers = combined
+    data2 = pd.read_csv("/data/ephemeral/home/suhyun/level4-cv-finalproject-hackathon-cv-05-lv3/data/book_data_final진짜마지막임.csv") # 경로
+    final_answers2 = data2["Final Answer"].tolist()
     log_message("FAISS 인덱스 로드 완료", "success")
-    ######################################
-    input_text = question
-    ######################################
     log_message("\n" + "="*50)
     log_message("도서 추천 프로세스 시작")
-    log_message(f"사용자 입력: {input_text}")
+    log_message(f"사용자 입력: {question}")
     log_message("="*50)
 
     # 각 단계 시간 측정
@@ -220,45 +255,42 @@ def book_question(question: str, age: int, gender: str):
         {
             "role": "system",
             "content": f"""**사용자 질문 분석 요청**
-1. 질문: "{input_text}" 
+1. 질문: "{question}" 
 
 2. 분석 지침:
-- 3계층 키워드 추출 체계 적용
-- 계층별 최소 2개~최대 5개 키워드 생성
-- 동의어 통합 및 불필요한 조사 제거
+   - 3계층 키워드 추출 체계 적용
+   - 계층별 최소 2개~최대 5개 키워드 생성
+   - 동의어 통합 및 불필요한 조사 제거
 
 3. 계층적 분석 구조:
-[1차] 표면적 키워드:
-- 질문 표면에 명시적으로 나타난 핵심 명사
-- 예시: "요리", "레시피", "식문화"
+   [1차] 표면적 키워드:
+   - 질문 표면에 명시적으로 나타난 핵심 명사
+   - 예시: "요리", "레시피", "식문화"
 
-[2차] 맥락적 키워드: 
-- 문맥 분석을 통해 도출되는 관련 개념
-- 예시: "식단 계획", "영양 균형", "계절 음식"
+   [2차] 맥락적 키워드: 
+   - 문맥 분석을 통해 도출되는 관련 개념
+   - 예시: "식단 계획", "영양 균형", "계절 음식"
 
-[3차] 잠재적 키워드:
-- 사용자의 숨은 의도 추정을 통한 확장 개념
-- 예시: "식습관 개선", "음식 철학", "지속가능한 식생활"
+   [3차] 잠재적 키워드:
+   - 사용자의 숨은 의도 추정을 통한 확장 개념
+   - 예시: "식습관 개선", "음식 철학", "지속가능한 식생활"
 
 4. 출력 형식:
-• 1차: [키워드1, 키워드2, ...] 
-• 2차: [키워드A, 키워드B, ...]
-• 3차: [키워드α, 키워드β, ...]"""
-        },{"role":"user","content":"{input_text}"}
+   • 1차: [키워드1, 키워드2, ...] 
+   • 2차: [키워드A, 키워드B, ...]
+   • 3차: [키워드α, 키워드β, ...]"""
+        },{"role":"user","content":"{question}"}
     ]
     key_word= chat_api.send_request(preset_text)
     key_word=key_word.json()
     key_word_content=key_word['result']['message']['content']
-    ######################################
-    # 전체 프로세스 단계 표시
     processor = KeywordProcessor()
     weighted_keywords = processor.parse_keywords(key_word_content)
-    #print(len(weighted_keywords),"키워드 잘 뽑혔는 지 확인")
-    
     repeat=0
-    while(len(weighted_keywords)<2):
+    while(len(weighted_keywords)<1):
         repeat=repeat+1
         key_word= chat_api.send_request(preset_text)
+        print(key_word)
         key_word=key_word.json()
         key_word_content=key_word['result']['message']['content']
         processor = KeywordProcessor()
@@ -266,21 +298,15 @@ def book_question(question: str, age: int, gender: str):
         if (len(weighted_keywords)>1):
             break
         if repeat>5:
-            break
+            print("프롬프트 이상이 검출 되었습니다. ") #소윤쓰나 수현쓰가 이거 건우쓰에게 특정값 보내게 해주세요. 프롬프트 이상하다고 그리고 더 이상 이 코드 실행안되게 하셔야해요
+            sys.exit(1)
     only_keywords=[i for i,answer in weighted_keywords]
-    #print(weighted_keywords[0],"aaaaaaaaaa")
-    # 가중치 적용 검색 쿼리 생성
-    
-    # 1단계: 임베딩 생성
     embedding_api = EmbeddingExecutor(
         host='clovastudio.stream.ntruss.com',
         api_key='Bearer nv-44a80a0ffa34405385b390de6b56eafb91jr',
         request_id='acfe9c0298b741949a9636bddad56514'
     )
     
-    #query_vector = embedding_api.get_embedding(key_word_content)
-    #query_vector = query_vector.reshape(1, -1)
-    #faiss.normalize_L2(query_vector)
     log_message(f"[1/4] 완료 ({time.time()-phase_start:.2f}s)", "success")
     phase_start = time.time()
     log_message("[2/4] 키워드별 임베딩 생성 및 faiss 탐색 단계 시작")
@@ -309,6 +335,7 @@ def book_question(question: str, age: int, gender: str):
     # 중복 제거 및 최종 추천 생성
     final_docs = deduplicate_recommendations(all_results, final_answers)
     recommendations = [final_answers[doc_id] for doc_id in final_docs]
+    #print(len(recommendations))
     log_message(f"[3/4] 완료 ({time.time()-phase_start:.2f}s)", "success")
     phase_start = time.time()
     log_message("[4/4] 응답 생성 단계 시작")
@@ -318,7 +345,7 @@ def book_question(question: str, age: int, gender: str):
         api_key='Bearer nv-44a80a0ffa34405385b390de6b56eafb91jr',
         request_id='a53490fd9f0f4a1f805ff105fd5d55b8'
     )
-
+    
     preset_text = [
         {
             "role": "system",
@@ -331,6 +358,7 @@ def book_question(question: str, age: int, gender: str):
 - 오타가 발생하지 않게 생성하고 나서 검토를 해주세요.
 - 사용자의 질문과 추천 도서 목록을 기반으로 가장 적합한 책 1권으로 사용자의 질문과 연관된 추천이유를 답변 합니다.
 - 답변할 때 제시된 키워드를 생각하고, 자연스러운 문장으로 추천이유를 답변해주세요.
+- 사용자가 비슷한 책을 추천해달라고 할 때 절대 사용자의 질문과 동일한 책을 추천하지 않습니다.
 - 제시된 키워드 : "{only_keywords}"
 - 답변형식 : {{
 추천하는 책 : []
@@ -338,10 +366,34 @@ def book_question(question: str, age: int, gender: str):
         },
         {
             "role": "user",
-            "content": f"질문: {input_text}\n추천도서: {', '.join(recommendations)}"
+            "content": f"질문: {question}\n추천도서: {', '.join(recommendations)}"
         }
     ]
-    response = chat_api.send_request(preset_text)
+    #response = chat_api.send_request(preset_text)
+    
+    max_recommend = 1000  # 최초 추천 개수
+    
+    max_recommend = len(recommendations)  # 초기 추천 개수
+    content = f"질문: {question}\n추천도서: {', '.join(recommendations[:max_recommend])}"
+
+    while len(content.encode('utf-8')) >= 4050 and max_recommend > 1:
+        max_recommend -= 1
+        content = f"질문: {question}\n추천도서: {', '.join(recommendations[:max_recommend])}"
+    
+    print(max_recommend)
+    
+    for retry in range(30): 
+    #try:
+        preset_text[1]['content'] = f"질문: {question}\n추천도서: {', '.join(recommendations[:max_recommend])}"
+        #print(preset_text)
+        response = chat_api.send_request(preset_text)
+        if response.status_code == 200:
+            break
+    #except requests.exceptions.HTTPError as e:
+        #if e.response.status_code == 400:
+        max_recommend = max(1, max_recommend-1)  # 1개까지 축소
+        log_message(f"추천 개수 조정: {max_recommend}개로 재시도", "warning")
+    
     log_message(f"[4/4] 완료 ({time.time()-phase_start:.2f}s)", "success")
     
     phase_start = time.time()
@@ -349,11 +401,10 @@ def book_question(question: str, age: int, gender: str):
     response=response.json()
     content = response['result']['message']['content']
     book_match = re.search(r'추천하는 책\s*:\s*(.*?)\n', content)
-    reason_match = re.search(r'추천이유\s*:\s*(.*?)\n', content)
     
     if book_match:
         book_title = book_match.group(1).strip()
-        #print(f"추천 도서: {book_title}")
+        print(f"추천 도서: {book_title}")
     else:
         print("책 제목을 찾을 수 없습니다")
     
@@ -364,13 +415,21 @@ def book_question(question: str, age: int, gender: str):
     # 개별 키워드 검색
     distances, indices = index.search(book_embedding, 1)
     log_message(f"[5/5] 완료 ({time.time()-phase_start:.2f}s)", "success")
-    print(final_answers[indices[0][0]])
-    if reason_match:
-        print(reason_match)
-    else:
-        print("추천이유 생성x")
+    print(final_answers2[indices[0][0]])
     
     # 총 실행 시간
     total_time = time.time() - total_start
     log_message(f"\n전체 프로세스 완료 (총 {total_time:.2f}초 소요)", "success")
     log_message("="*50)
+
+    print({
+        "recommended_book": final_answers2[indices[0][0]],  # 추천 도서 정보
+        "recommendation_reason": content,  # 최종 추천 이유
+    })
+    
+    return transform_response({
+        "user_question": question,
+        "recommended_book": final_answers2[indices[0][0]],  # 추천 도서 정보
+        "recommendation_reason": content,  # 최종 추천 이유
+    })
+
