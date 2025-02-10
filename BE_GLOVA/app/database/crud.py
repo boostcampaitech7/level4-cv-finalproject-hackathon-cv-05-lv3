@@ -40,6 +40,10 @@ def read_token(db: Session, user_id: str):
 def get_books(db: Session):
     return db.execute(select(Book)).scalars().all()
 
+def get_book(db: Session, book_id: str):
+    # 북 1개 리턴
+    return db.execute(select(Book).where(Book.book_id==book_id)).scalars().all()
+
 def create_book(db: Session, book_data):
     new_book = Book(**book_data)
     db.add(new_book)
@@ -63,6 +67,15 @@ def get_recommended_books(db: Session):
     return db.execute(select(RecommendedBook)).scalars().all()
     # return db.query(RecommendedBook).all()
 
+def get_recommended_books_by_user_and_session(db: Session, user_id: str, session_id: str):
+    query = (
+        select(RecommendedBook)
+        .where(
+            RecommendedBook.session_id == session_id,
+            RecommendedBook.user_id == user_id
+        )
+    )
+    return db.execute(query).scalars().all()
 def create_recommended_book(db: Session, book_data):
     new_book = RecommendedBook(**book_data)
     db.add(new_book)
@@ -86,6 +99,10 @@ def create_badge(db: Session, badge_data):
 def get_reviews(db: Session):
     return db.execute(select(Review)).scalars().all()
 
+def get_book_reviews(db: Session, book_id):
+    # 해당 책에 대한 리뷰 전체
+    return db.execute(select(Review).where(Review.book_id == book_id)).scalars().all()
+
 def create_review(db: Session, review_data):
     new_review = Review(**review_data)
     db.add(new_review)
@@ -103,6 +120,9 @@ def create_user_question(db: Session, question_data):
     db.commit()
     db.refresh(new_question)
     return new_question
+
+def get_user1_questions(db: Session, user_id: str):
+    return db.execute(select(UserQuestionORMModel).where(UserQuestionORMModel.user_id == user_id)).scalars().all()
 
 # PostgreSQL CRUD - ClovaAnswers 테이블
 def get_clova_answers(db: Session):

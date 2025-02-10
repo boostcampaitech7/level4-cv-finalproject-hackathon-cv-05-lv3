@@ -14,12 +14,12 @@ CLOVA_VOICE_CLIENT_ID = os.getenv('CLOVA_VOICE_CLIENT_ID')
 CLOVA_VOICE_CLIENT_SECRET = os.getenv('CLOVA_VOICE_CLIENT_SECRET')
 
 # 뱃지 이미지 저장 폴더
-BADGE_DIR = Path("/data/ephemeral/home/whth/level4-cv-finalproject-hackathon-cv-05-lv3/BE_GLOVA/badge")
+# VOICE_DIR = Path("/data/ephemeral/home/whth/level4-cv-finalproject-hackathon-cv-05-lv3/BE_GLOVA/app/models/badge_creator/badge_voice")
 # BADGE_DIR = Path(__file__).parent / "badge"
-METADATA_FILE = Path("/data/ephemeral/home/whth/level4-cv-finalproject-hackathon-cv-05-lv3/BE_GLOVA/badge/badge_metadata.json")
+# METADATA_FILE = Path("/data/ephemeral/home/whth/level4-cv-finalproject-hackathon-cv-05-lv3/BE_GLOVA/badge/badge_metadata.json")
 # METADATA_FILE = Path(BADGE_DIR) / "badge_metadata.json"
 
-def clova_voice(speak: str, dir_name: str):
+def clova_voice(speak: str, VOICE_DIR: str, speaker: str):
     class VoiceExecutor:
         def __init__(self, client_id, client_secret):
             self.client_id = client_id
@@ -52,7 +52,7 @@ def clova_voice(speak: str, dir_name: str):
     )
     
     text = speak
-    speaker = "dara-danna" 
+    speaker = speaker 
     speed = "0"
     volume = "0"
     pitch = "0"
@@ -67,13 +67,22 @@ def clova_voice(speak: str, dir_name: str):
     }
     try:
         # 저장 위치 : 뱃지/뱃지 이름/
-        VOICE_DIR = Path(BADGE_DIR) / dir_name
-        if not os.path.exists(VOICE_DIR):
-            os.makedirs(VOICE_DIR)
-        voice_execute.execute(val, "female.mp3", VOICE_DIR)
-        val["speaker"] = "dsinu-matt"
-        voice_execute.execute(val, "male.mp3", VOICE_DIR)
+        # VOICE_DIR = Path(BADGE_DIR) / dir_name
+        # if not os.path.exists(VOICE_DIR):
+        #     os.makedirs(VOICE_DIR)
+        voice_execute.execute(val, "voice.mp3", VOICE_DIR)
 
     except Exception as e:
         print(f"Error fetching book details: {e}")
 
+def create_voice(gender, speak):
+    VOICE_DIR = Path("/data/ephemeral/home/whth/level4-cv-finalproject-hackathon-cv-05-lv3/BE_GLOVA/app/models/badge_creator/badge_voice")
+    os.makedirs(VOICE_DIR, exist_ok=True)
+    
+    # 디렉토리 삭제
+    if gender == "female":
+        speaker = "dara-danna" 
+    else:
+        speaker = "dsinu-matt"
+        
+    clova_voice(speak=speak, )

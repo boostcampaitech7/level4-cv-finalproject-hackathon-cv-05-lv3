@@ -181,7 +181,9 @@ chromedriver/
 BE_GLOVA/badge
 BE_GLOVA/calendar
 BE_GLOVA/modelll.py
-
+BE_GLOVA/app/models/badge_creator/badge_img
+BE_GLOVA/app/models/badge_creator/badge_voice
+BE_GLOVA/app/models/badge_creator/badgemkrsdxl.safetensors
 .DS_Store
 *.json
 # package.json과 package-lock.json은 제외
