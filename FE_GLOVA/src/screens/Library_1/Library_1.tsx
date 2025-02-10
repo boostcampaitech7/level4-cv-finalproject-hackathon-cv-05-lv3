@@ -13,15 +13,10 @@ export const Library_1 = (): JSX.Element => {
   const navigate = useNavigate();
   
   const book = location.state || {};
-  
-  const [gender, setGender] = useState<string>("남자");
-  const [speak, setSpeak] = useState<string>("");
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
 
   const MakeBadge = async () => {
-    console.log(speak);
-    PostBadgeMaker(gender, book.bookTitle, speak);
+    PostBadgeMaker(book.bookTitle);
     navigate("/Challenge", { replace: true });
   };
 
@@ -78,59 +73,12 @@ export const Library_1 = (): JSX.Element => {
         {Nodata[0].bookTitle !== book.bookTitle ? ( 
           <button
             className="w-[361px] flex items-center justify-center p-2.5 bg-[#d9d9d9] rounded-[20px] absolute top-[693px] left-3.5 text-black text-lg active:scale-95 transition-transform duration-150 hover:bg-[#d1d1d1]"
-            onClick={() => setIsModalOpen(true)}
+            onClick={() => MakeBadge()}
           >
             완독!!
           </button>
         ): null} 
         
-        {/* ✅ 완독 모달 */}
-        {isModalOpen && (
-          <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
-            <div className="bg-white p-5 rounded-lg w-[300px] shadow-lg text-center relative">
-              <h2 className="text-lg font-bold mb-2">인상 깊었던 내용을 적어주세요!</h2>
-              <textarea
-                className="w-full h-[177px] p-2 border border-gray-300 mb-2 rounded-md focus:outline-none resize-none text-black"
-                placeholder="TEXT INPUT"
-                value={speak}
-                maxLength={50}
-                onChange={(e) => setSpeak(e.target.value)}
-              />
-              {/* 성별 선택 */}
-              <div className="flex justify-center gap-3">
-                <Button
-                  variant={gender === "남자" ? "default" : "outline"}
-                  className={`w-[125px] h-[35px] rounded-md ${
-                    gender === "남자" ? "bg-black text-white" : "bg-[#e1e1e1]"
-                  }`}
-                  onClick={() => setGender("남자")}
-                >
-                  남자
-                </Button>
-                <Button
-                  variant={gender === "여자" ? "default" : "outline"}
-                  className={`w-[125px] h-[35px] rounded-md ${
-                    gender === "여자" ? "bg-black text-white" : "bg-[#e1e1e1]"
-                  }`}
-                  onClick={() => setGender("여자")}
-                >
-                  여자
-                </Button>
-              </div>
-              <button
-                className="mt-2 px-4 py-2 bg-red-500 text-white rounded-lg"
-                onClick={() => {
-                  if (speak.trim() === "") {
-                    setSpeak(book.bookTitle);
-                  }
-                  MakeBadge();
-                }}
-              >
-                제출
-              </button>
-            </div>
-          </div>
-        )}
 
         {/* ✅ 정보 모달 */}
         {isInfoModalOpen && (

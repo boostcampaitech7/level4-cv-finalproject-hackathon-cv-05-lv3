@@ -40,7 +40,6 @@ export const Challenge = (): JSX.Element => {
   const [badges, setBadges] = useState<Badge[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedBadge, setSelectedBadge] = useState<Badge | null>(null);
-  const [audioElement, setAudioElement] = useState<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     setBadges(dummyBadges);
@@ -67,21 +66,6 @@ export const Challenge = (): JSX.Element => {
     setIsModalOpen(false);
   };
 
-  const openAudio = async (badge: Badge): Promise<void> => {
-    setSelectedBadge(badge);
-    try{
-      const mp3URL = await GetAudioFile();
-      if (audioElement) {
-        audioElement.pause();
-      }
-      const newAudioElement = new Audio(mp3URL);
-      setAudioElement(newAudioElement);
-      newAudioElement.play();
-    } catch (error) {
-      console.error("Error fetching audio:", error);
-    }
-  };
-
   return (
     <div className="bg-gray-500 flex flex-row justify-center w-full h-screen overflow-y-auto">
       <div className="bg-white w-[393px] min-h-screen relative flex flex-col">
@@ -104,7 +88,7 @@ export const Challenge = (): JSX.Element => {
                   alt="badge image"
                   // src={base64ToImageUrl(badge.badgeImage)}
                   src = {badge.badgeImage}
-                  onClick={() => {openModal(badge), openAudio(badge)}} // ✅ 클릭 시 모달 오픈
+                  onClick={() => {openModal(badge)}} // ✅ 클릭 시 모달 오픈
                   // onClick = {() => openAudio(badge)}
                   whileTap={{ scale: 0.85 }} // 클릭 시 0.85배 크기로 줄어듦
                   transition={{ type: "spring", stiffness: 400, damping: 10 }} // 부드러운 반응
