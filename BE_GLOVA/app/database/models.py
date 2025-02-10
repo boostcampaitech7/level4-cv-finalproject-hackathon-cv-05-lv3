@@ -15,18 +15,11 @@ class User(MySQLBase):
 
     user_id = Column(String(64), primary_key=True)  # BASE64 고유 식별자
     birth_year = Column(String(4), nullable=False)
-    name = Column(String(10))
     gender = Column(Enum("M", "F"), nullable=False)
-    phone_number = Column(String(15))
-    email = Column(String(255), unique=True)
 
     __table_args__ = (
         # 출생 연도는 4자리 숫자만 허용
         CheckConstraint("LENGTH(birth_year) = 4 AND birth_year REGEXP '^[0-9]{4}$'", name="chk_birth_year_format"),
-        # phone_number가 NULL이 아닐 때만 유효성 검사 적용
-        CheckConstraint("phone_number IS NULL OR phone_number REGEXP '^[0-9]{3}-[0-9]{4}-[0-9]{4}$'", name="chk_phone_number_format"),
-        # email이 NULL이 아닐 때만 유효성 검사 적용
-        CheckConstraint("email IS NULL OR email REGEXP '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$'", name="chk_email_format"),
     )
 
     # 관계 설정 (MySQL 내 테이블들과만 관계 설정)
@@ -51,12 +44,12 @@ class Book(MySQLBase):
 
     book_id = Column(BigInteger, primary_key=True, autoincrement=True)
     title = Column(String(255), nullable=False)
-    author = Column(String(255), nullable=False)
+    author = Column(String(255))
     publisher = Column(String(255))
     pubdate = Column(Date)
-    isbn = Column(String(20), unique=True, nullable=False)
-    description = Column(Text, nullable=False)
-    image = Column(String(2048), nullable=False)
+    isbn = Column(String(20))
+    description = Column(Text)
+    image = Column(String(2048))
 
 # 세션 테이블 (sessions)
 class Session(MySQLBase):
@@ -88,7 +81,6 @@ class Badge(MySQLBase):
     user_id = Column(String(64), ForeignKey("users.user_id"), nullable=False)
     book_id = Column(BigInteger, ForeignKey("books.book_id"), nullable=False)
     badge_image = Column(String(2048), nullable=False)
-    badge_audio_url = Column(String(2048), nullable=False)
     created_at = Column(TIMESTAMP, server_default=func.current_timestamp(), nullable=False)
 
     # 관계 설정

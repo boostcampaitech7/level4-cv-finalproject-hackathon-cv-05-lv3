@@ -44,10 +44,7 @@ class VoiceRequest(BaseModel):
 class UserSchema(BaseModel):
     user_id: str
     birth_year: str
-    name: str
     gender: str
-    phone_number: str | None
-    email: str | None
 
     class Config:
         from_attributes = True  # ORM 변환 허용
@@ -64,12 +61,12 @@ class TokenSchema(BaseModel):
 class BookSchema(BaseModel):
     book_id: int
     title: str
-    author: str
+    author: str | None
     publisher: str | None
     pubdate: datetime | None
-    isbn: str
-    description: str
-    image: str
+    isbn: str | None
+    description: str | None
+    image: str | None
 
     class Config:
         from_attributes = True
@@ -101,7 +98,6 @@ class BadgeSchema(BaseModel):
     user_id: str
     book_id: int
     badge_image: str
-    badge_audio_url: str
     created_at: datetime
     
     class Config:
