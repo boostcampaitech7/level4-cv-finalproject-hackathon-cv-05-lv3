@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { BookImage, HelpCircle, Search } from "lucide-react";
+import { HelpCircle, Search } from "lucide-react";
 import { Card, CardContent } from "../../components/ui/card";
 import { useNavigate } from "react-router-dom";
 import NaviBar from "../../components/ui/navigationbar";
@@ -10,12 +10,6 @@ const pastelColors = [
   "bg-pink-200", "bg-blue-200", "bg-green-200",
   "bg-yellow-200", "bg-purple-200", "bg-red-200", "bg-indigo-200"
 ];
-
-interface Book {
-  bookTitle: string;
-  bookImage: string;
-  questionText: string;
-}
 
 export const Library_home = (): JSX.Element => {
   const navigate = useNavigate();
