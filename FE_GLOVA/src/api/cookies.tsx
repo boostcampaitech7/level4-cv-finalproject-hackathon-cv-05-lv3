@@ -4,7 +4,7 @@ import axios from "axios";
 // ✅ Axios 기본 설정 (쿠키 포함)
 const apiClient = axios.create({
     baseURL: "http://localhost:8000",
-    // withCredentials: true, // ✅ 쿠키 자동 포함
+    withCredentials: true, // ✅ 쿠키 자동 포함
     headers: {
         "Content-Type": "application/json",
     },

@@ -63,9 +63,10 @@ export const Library_1 = (): JSX.Element => {
           src={book.bookImage}
         />
 
-        <div className="absolute top-20 left-3.5 font-Freesentation text-black text-[20px] text-center">
+        <div className="absolute top-20 left-3.5 font-Freesentation text-black text-[20px] text-center truncate overflow-hidden text-ellipsis max-w-[350px]">
           {book.bookTitle}
         </div>
+
 
         <div className="w-[361px] h-[170px] p-2.5 top-[476px] left-3.5 flex absolute">
           <div className="relative text-black text-base">

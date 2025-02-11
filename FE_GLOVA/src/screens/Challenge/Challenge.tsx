@@ -100,8 +100,8 @@ export const Challenge = (): JSX.Element => {
                 <motion.img
                   className="w-[100px] h-[100px] object-cover cursor-pointer"
                   alt="badge image"
-                  src={base64ToImageUrl(badge.badgeImage)}
-                  // src = {badge.badgeImage}
+                  // src={base64ToImageUrl(badge.badge_image)}
+                  src = {badge.badge_image}
                   onClick={() => { openModal(badge) }} // ✅ 클릭 시 모달 오픈
                   whileTap={{ scale: 0.85 }} // 클릭 시 0.85배 크기로 줄어듦
                   transition={{ type: "spring", stiffness: 400, damping: 10 }} // 부드러운 반응
@@ -115,17 +115,17 @@ export const Challenge = (): JSX.Element => {
         {isModalOpen && selectedBadge && (
           <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
             <div className="bg-white p-5 rounded-lg w-[300px] shadow-lg text-center">
-              <h2 className="text-lg font-bold font-Freesentation text-[23px]">{selectedBadge.bookTitle}</h2>
+              <h2 className="text-lg font-bold font-Freesentation text-[23px]">{selectedBadge.book_title}</h2>
               <img
                 className="w-[150px] h-[150px] object-cover mx-auto mt-3"
                 // src={base64ToImageUrl(selectedBadge.badgeImage)} // ✅ Base64 이미지 URL로 변환
-                src={selectedBadge.badgeImage}
+                src={selectedBadge.badge_image}
                 // src={base64ToImageUrl(selectedBadge.badgeImage)} // ✅ Base64 이미지 URL로 변환
                 // src = {selectedBadge.badgeImage}
                 alt="badge image"
               />
               <p className="text-sm text-gray-500 mt-2 font-Freesentation">
-                획득 날짜: {new Date(selectedBadge.createdAt).toLocaleDateString()}
+                획득 날짜: {new Date(selectedBadge.created_at).toLocaleDateString()}
               </p>
               <button
                 className="mt-4 px-4 py-2 bg-red-500 text-white rounded-lg active:scale-95 transition-transform duration-150"

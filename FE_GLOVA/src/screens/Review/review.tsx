@@ -3,18 +3,43 @@ import { HelpCircle } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { ChevronLeft } from "lucide-react";
 import NaviBar from "../../components/ui/navigationbar";
-import { Reviews, GetReviews, UploadReview } from "../../api/api"
+import { GetTitle2Book, GetReviews, UploadReview, BookSchema } from "../../api/api"
 
+
+interface ReviewBadge {
+  review_id: number,
+  user_id: string,
+  book_id: number,
+  review_text: string,
+  created_at: string
+}
 
 export const Review = (): JSX.Element => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [reviews, setReviews] = useState<Reviews[]>([]);
+  const [book, setBook] = useState<BookSchema>();
+  const [reviews, setReviews] = useState<ReviewBadge[]>([]);
   const [inputText, setInputText] = useState("");
   const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
-  const book = location.state || {};
+  const book_title = location.state || {};
+
+  useEffect(() => {
+      const fetchBook = async () => {
+        const response_book = await GetTitle2Book(book_title);
+        const response_reviews = await GetReviews(response_book.book_id);
+
+        // ✅ review_badge의 구조 변환 후 저장
+        const formattedReviews = response_reviews["review_badge"].map(([review, _]) => review);
+
+        setReviews(formattedReviews);
+        setBook(response_book);
+        console.log("📌 리뷰 목록 업데이트:", formattedReviews);
+      };
+
+      fetchBook();
+    }, []);
 
 
   useEffect(() => {
@@ -37,9 +62,13 @@ export const Review = (): JSX.Element => {
   const handleKeyDown = async (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter" && !e.shiftKey && inputText.trim()) {
       e.preventDefault();
-      await UploadReview(book.bookId, inputText);
-      const reviews = await GetReviews(book.bookId);
-      setReviews(reviews);
+      if (book) {
+        await UploadReview(book.book_id, inputText);
+        const response_reviews = await GetReviews(book.book_id);
+        // ✅ review_badge의 구조 변환 후 저장
+        const formattedReviews = response_reviews["review_badge"].map(([review, _]) => review);
+        setReviews(formattedReviews);
+      }
       setInputText("");
     }
   };
@@ -56,11 +85,11 @@ export const Review = (): JSX.Element => {
         </button>
 
         {/* Title */}
-        <h1 className="font-bold text-[20px] border-b border-black font-Freesentation pt-[72px]">{book.bookTitle}</h1>
+        <h1 className="font-bold text-[20px] border-b border-black font-Freesentation pt-[72px]">{book?.title}</h1>
 
         {/* Image */}
         <div className="w-full flex justify-center my-2">
-          <img src={book.bookimage} alt="Book Cover" className="w-[180px] h-[240px] object-cover border" />
+          <img src={book?.image} alt="Book Cover" className="w-[180px] h-[240px] object-cover border" />
         </div>
 
         <hr className="border-t border-black mb-4" />
@@ -91,7 +120,7 @@ export const Review = (): JSX.Element => {
                 <div className="w-6 h-6 bg-gray-400 rounded" />
                 <span className="font-bold">{review.user_id}</span>
               </div>
-              <p className="mt-1 text-sm break-words">{review.text}</p>
+              <p className="mt-1 text-sm break-words">{review.review_text}</p>
             </div>
           ))}
         </div>

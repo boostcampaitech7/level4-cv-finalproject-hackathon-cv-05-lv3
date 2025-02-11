@@ -5,13 +5,13 @@ import { Button } from "../../components/ui/button";
 import { Input } from "../../components/ui/input";
 import { Card } from "../../components/ui/card";
 import NaviBar from "../../components/ui/navigationbar";
-import { Book, GetRecommandBooks, GetBooks } from "../../api/api"
+import { Book, BookSchema, GetRecommandBooks, GetBooks } from "../../api/api"
 import { replace, useNavigate } from "react-router-dom";
 import { dummy_book, Nodata } from "../../dummy";
 import { cookie_loader, cookie_remover } from "../../api/cookies";
 
 
-const Page1: React.FC<{ handleBookClick: (book: Book) => void }> = ({ handleBookClick }) => {
+const Page1: React.FC<{ handleBookClick: (book_title: string) => void }> = ({ handleBookClick }) => {
     const [search, setSearch] = useState("");
     const carouselRef = useRef<HTMLDivElement>(null);
     let interval = useRef<NodeJS.Timeout | null>(null);
@@ -29,6 +29,7 @@ const Page1: React.FC<{ handleBookClick: (book: Book) => void }> = ({ handleBook
         const fetchBooks = async () => {
             try {
                 const books = await GetRecommandBooks();
+                console.log(books)
 
                 if (books && Array.isArray(books)) {  // ✅ response가 배열인지 체크
                     const transformedBooks = books.map((item: any) => ({
@@ -118,7 +119,7 @@ const Page1: React.FC<{ handleBookClick: (book: Book) => void }> = ({ handleBook
                             src={book.bookImage}
                             alt={book.bookTitle}
                             className="w-full h-full object-cover rounded-lg cursor-pointer "
-                            onClick={() => handleBookClick(book)}
+                            onClick={() => handleBookClick(book.bookTitle)}
                         />
                     </motion.div>
                 ))}
@@ -145,7 +146,7 @@ const Page1: React.FC<{ handleBookClick: (book: Book) => void }> = ({ handleBook
             <div className="flex-1 overflow-y-auto p-4 space-y-2 pb-24">
                 {book_data.map((book, index) =>
                     (book.bookTitle.toLowerCase().includes(search.toLowerCase()) || search === "") && (
-                        <Card key={index} className="flex justify-between items-end p-2 bg-gray-200 cursor-pointer gap-x-2 relative" onClick={() => handleBookClick(book)}>
+                        <Card key={index} className="flex justify-between items-end p-2 bg-gray-200 cursor-pointer gap-x-2 relative" onClick={() => handleBookClick(book.bookTitle)}>
                             {/* 왼쪽: 이미지 & 제목 */}
                             <div className="flex items-center gap-x-4">
                                 <img className="w-8 h-8 bg-gray-300" src={book.bookImage} alt={book.bookTitle} />
@@ -162,7 +163,7 @@ const Page1: React.FC<{ handleBookClick: (book: Book) => void }> = ({ handleBook
     );
 };
 
-const Page2: React.FC<{ handleBookClick: (book: Book) => void }> = ({ handleBookClick }) => {
+const Page2: React.FC<{ handleBookClick: (book_title: string) => void }> = ({ handleBookClick }) => {
     const [search, setSearch] = useState("");
     // const [books, setBooks] = useState<Book[]>([]); // 더미 이미지 (3:4 비율)
 
@@ -170,13 +171,36 @@ const Page2: React.FC<{ handleBookClick: (book: Book) => void }> = ({ handleBook
     // const books = dummy_book;
 
     {/*서버 통신 데이터*/ }
-    const [books, setBooks] = useState<Book[]>([]);
+    const [books, setBooks] = useState<BookSchema[]>([]);
 
     useEffect(() => {
         const fetchBooks = async () => {
-            const books = await GetBooks();
-            setBooks(books);
+            try {
+                const books = await GetBooks();
+                console.log(books)
+
+                if (books && Array.isArray(books)) {  // ✅ response가 배열인지 체크
+                    const transformedBooks = books.map((item: any) => ({
+                        book_id: item?.book_id || 0,
+                        title: item?.title || "TITLE",
+                        time: item?.time || "00:00:00",
+                        author: item?.author || "책 저자를 알 수 없습니다", // ✅ undefined 방지
+                        publisher: item?.publisher || "책 출판사를 찾을 수 없습니다",
+                        pubdate: item?.pubdate || "책 출판일을 찾을 수 없습니다",
+                        isbn: item?.isbn || "책 출판을 찾을 수 없습니다",
+                        description: item?.description || "책 내용을 알 수 없습니다",
+                        image: item?.image || "../../image_data/Library_sample.png",
+                    }));
+
+                    if (transformedBooks.length > 0) {
+                        setBooks(transformedBooks); // ✅ 올바른 변환된 데이터 사용
+                    }
+                }
+            } catch (error) {
+                console.error("❌ 서버 통신 실패:", error);
+            }
         };
+
         fetchBooks();
     }, []);
 
@@ -198,18 +222,18 @@ const Page2: React.FC<{ handleBookClick: (book: Book) => void }> = ({ handleBook
             <div className="flex-1 overflow-y-auto px-4 pb-[108px]">
                 <div className="grid grid-cols-3 gap-2">
                     {books.map((book, index) =>
-                        (book.bookTitle.toLowerCase().includes(search.toLowerCase()) || search === "") && (
+                        (book.title.toLowerCase().includes(search.toLowerCase()) || search === "") && (
                             <div
                                 key={index}
                                 className="relative w-full aspect-[3/4] bg-gray-300 flex items-center justify-center text-xs cursor-pointer rounded-lg overflow-hidden"
-                                onClick={() => handleBookClick(book)}
+                                onClick={() => handleBookClick(book.title)}
                             >
                                 {/* 책 이미지 */}
-                                <img src={book.bookImage} alt="book image" className="w-full h-full object-cover rounded-lg" />
+                                <img src={book.image} alt="book image" className="w-full h-full object-cover rounded-lg" />
 
                                 {/* 책 제목 - 최하단 중앙 정렬 */}
                                 <p className="absolute bottom-0 w-full bg-black/45 text-white text-center text-sm py-1">
-                                    {book.bookTitle}
+                                    {book.title}
                                 </p>
                             </div>
                         )
@@ -240,8 +264,8 @@ export const Community: React.FC = () => {
 
     }, [navigate]);
 
-    const handleBookClick = (book: Book) => {
-        navigate("/Review", { replace: true, state: book });
+    const handleBookClick = (book_title: string) => {
+        navigate("/Review", { replace: true, state: book_title });
     };
 
     return (

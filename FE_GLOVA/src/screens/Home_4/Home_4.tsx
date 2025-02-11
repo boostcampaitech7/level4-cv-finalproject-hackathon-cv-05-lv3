@@ -28,7 +28,7 @@ export const Home4 = (): JSX.Element => {
 
         {/* 추천 결과 */}
         <div className="flex flex-col items-center px-4">
-          <h2 className="mt-[125px] text-xl font-bold text-center text-gray-800 font-Freesentation">
+          <h2 className="mt-[125px] text-lg font-bold text-center text-gray-800 font-Freesentation">
             이런 책은 어떠신가요?
           </h2>
 
@@ -44,13 +44,12 @@ export const Home4 = (): JSX.Element => {
 
           {/* 책 제목 */}
           <div className="w-[299px] mt-4">
-            <h1 className="text-3xl font-bold text-center">{data.book_info?.title || "제목 없음"}</h1>
+            <h1 className="text-2xl font-Freesentation text-center">{data.book_info?.title || "제목 없음"}</h1>
           </div>
 
           {/* 추천 이유 */}
           <div className="w-[325px] mt-4 bg-[#e1e1e1] rounded-md p-4 text-base font-normal overflow-auto max-h-[200px]">
             <p>
-              <strong>📌 추천 이유:</strong><br />
               {data.answer_text?.text || "추천 이유가 없습니다."}
             </p>
           </div>
