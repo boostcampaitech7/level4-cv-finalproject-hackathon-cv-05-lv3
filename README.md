@@ -49,14 +49,39 @@ AI가 질문을 분석하고, 관련된 책을 찾아 추천해 줍니다.
 
 ## 🍀 시연영상
 
+## 🛠 Tech Stack
 
-## 🛠 사용 기술
-- **Frontend**: React.js, 
-- **Backend**: RestAPI
-- **AI & Machine Learning**: Pytorch
-- **Deployment**: Docker,
-- **Collaborative Tool** : Git, GitHub, Notion, 
+### **Frontend**
+- React.js
+- Node.js
+- npm
 
+### **Backend**
+- FastAPI
+- Apache
+
+### **Database**
+- MySQL
+- PostgreSQL
+
+### **AI & Machine Learning**
+- PyTorch
+- HyperCLOVA X
+- Diffusers
+- BGE-M3 Embedding
+
+### **Vector Search & Retrieval**
+- FAISS
+- NAVER OpenAPI
+- 문화 빅데이터 플랫폼 (KOBIC, 한국도서출판정보센터)
+
+### **Infrastructure & Deployment**
+- Docker
+- Airflow (데이터 파이프라인)
+
+### **Collaboration & DevOps**
+- Git / GitHub
+- Notion
 
 ## 🏛️ 전체 서비스 아키텍처
 #### 1. 서비스 요청 흐름도
