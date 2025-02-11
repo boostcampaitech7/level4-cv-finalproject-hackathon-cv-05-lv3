@@ -184,8 +184,8 @@ def get_user_badge(db: Session, user_id, book_id):
     # 한 유저의 한 책에 대한 뱃지 조회
     return db.execute(select(Badge).where(Badge.user_id==user_id, Badge.book_id==book_id)).scalars().all()
 
-def create_badge(db: Session, badge_data):
-    new_badge = Badge(**badge_data)
+def save_badge_to_db(db: Session, badge_data):
+    new_badge = Badge(**badge_data.dict())
     db.add(new_badge)
     db.commit()
     db.refresh(new_badge)

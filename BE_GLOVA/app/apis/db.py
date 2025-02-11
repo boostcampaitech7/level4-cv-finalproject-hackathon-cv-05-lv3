@@ -4,7 +4,7 @@ from database.connections import get_mysql_db, get_postgresql_db
 from database.crud import (
     get_users, create_user, get_tokens, create_token, get_books, get_book_with_title, create_book,
     get_sessions, create_session, get_recommended_books, create_recommended_book,
-    get_badges, create_badge, get_reviews, create_review, 
+    get_badges, save_badge_to_db, get_reviews, create_review, 
     get_user_questions, create_user_question, get_clova_answers, create_clova_answer
 )
 from schemas import (

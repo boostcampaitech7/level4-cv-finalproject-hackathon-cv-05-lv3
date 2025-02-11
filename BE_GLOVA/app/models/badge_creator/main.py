@@ -49,7 +49,7 @@ def main(output_dir, img, lora_path):
     output_removal_path = os.path.join(output_dir, "sdxl_badge_result_0_no_bg.png")
     png_data = remove_background_from_image(input_removal_path, output_removal_path)
     print("배경 제거된 이미지 저장:", output_removal_path)
-    return png_data
+    return output_removal_path
 
 # if __name__ == '__main__':
 #     main()

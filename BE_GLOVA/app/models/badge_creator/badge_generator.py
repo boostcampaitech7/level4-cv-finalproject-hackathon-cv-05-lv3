@@ -1,5 +1,6 @@
 import torch
 from diffusers import StableDiffusionXLImg2ImgPipeline, DPMSolverMultistepScheduler
+from safetensors.torch import load_file  # ✅ safetensors 로드
 from PIL import Image
 
 class SDXLBadgeGenerator:
@@ -29,9 +30,23 @@ class SDXLBadgeGenerator:
             torch_dtype=self.torch_dtype
         )
         self.pipe.scheduler = DPMSolverMultistepScheduler.from_config(self.pipe.scheduler.config)
+
         if self.lora_path:
-            self.pipe.load_lora_weights(self.lora_path)
+            self._load_lora_weights()
+
         self.pipe.to(self.device)
+
+    def _load_lora_weights(self):
+        """
+        LoRA 가중치를 로드하는 함수.
+        - `.safetensors` 파일이면 `load_file()`을 사용하여 로컬에서 로드.
+        - Hugging Face Hub 모델 ID면 `load_lora_weights()`를 사용하여 불러옴.
+        """
+        if self.lora_path.endswith(".safetensors"):  # ✅ 로컬 LoRA 파일 처리
+            state_dict = load_file(self.lora_path)
+            self.pipe.load_lora_weights(state_dict)
+        else:  # Hugging Face Hub 모델 ID인 경우
+            self.pipe.load_lora_weights(self.lora_path)
 
     def generate_images(
         self,
