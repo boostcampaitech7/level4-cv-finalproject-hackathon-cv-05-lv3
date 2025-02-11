@@ -51,7 +51,7 @@ export const Login = (): JSX.Element => {
     try {
       const response = await Local_login(userId, password);
   
-      if (response.status === 200) {
+      if (response.status === "success") {
         cookies_saver(userId);
         navigate("/Home", { replace: true });
       } else {

@@ -64,7 +64,7 @@ export const Local_login = async (id: string, password: string) => {
       user_pw: password
     });
 
-    return response;
+    return response.data;
   }
   catch (error) {
     console.error("Error login data: ", error);
