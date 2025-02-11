@@ -127,7 +127,7 @@ async def api_create_badge(badge: BadgeSchema, db: Session = Depends(get_mysql_d
     Badges 테이블에 새로운 배지 추가
     """
     try:
-        return create_badge(db, badge.model_dump())
+        return save_badge_to_db(db, badge.model_dump())
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Badge 추가 중 오류 발생: {str(e)}")
 
