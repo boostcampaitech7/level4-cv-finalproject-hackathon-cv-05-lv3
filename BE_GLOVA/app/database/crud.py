@@ -87,7 +87,16 @@ def update_session(db: Session, session: SessionTable, question_id: int, answer_
 # MySQL CRUD - RecommendedBooks 테이블
 def get_recommended_books(db: Session):
     return db.execute(select(RecommendedBook)).scalars().all()
-    # return db.query(RecommendedBook).all()
+
+def get_recommended_books_by_user_and_session(db: Session, user_id: str, session_id: str):
+    query = (
+        select(RecommendedBook)
+        .where(
+            RecommendedBook.session_id == session_id,
+            RecommendedBook.user_id == user_id
+        )
+    )
+    return db.execute(query).scalars().all()
 
 def create_recommended_book(db: Session, book_data: RecommendedBookSchema):
     new_book = RecommendedBook(**book_data.dict())
@@ -101,6 +110,14 @@ def get_badges(db: Session):
     return db.execute(select(Badge)).scalars().all()
     # return db.query(Badge).all()
 
+def get_user_badges(db: Session, user_id):
+    # 한 유저의 모든 뱃지 조회
+    return db.execute(select(Badge).where(Badge.user_id==user_id)).scalars().all()
+
+def get_user_badge(db: Session, user_id, book_id):
+    # 한 유저의 한 책에 대한 뱃지 조회
+    return db.execute(select(Badge).where(Badge.user_id==user_id, Badge.book_id==book_id)).scalars().all()
+
 def create_badge(db: Session, badge_data):
     new_badge = Badge(**badge_data)
     db.add(new_badge)
@@ -111,6 +128,10 @@ def create_badge(db: Session, badge_data):
 # MySQL CRUD - Reviews 테이블
 def get_reviews(db: Session):
     return db.execute(select(Review)).scalars().all()
+
+def get_book_reviews(db: Session, book_id):
+    # 해당 책에 대한 리뷰 전체
+    return db.execute(select(Review).where(Review.book_id == book_id)).scalars().all()
 
 def create_review(db: Session, review_data):
     new_review = Review(**review_data)
@@ -129,6 +150,9 @@ def create_user_question(db: Session, question_data: UserQuestionSchema):
     db.commit()
     db.refresh(new_question)
     return new_question
+
+def get_user1_questions(db: Session, user_id: str):
+    return db.execute(select(UserQuestionORMModel).where(UserQuestionORMModel.user_id == user_id)).scalars().all()
 
 # PostgreSQL CRUD - ClovaAnswers 테이블
 def get_clova_answers(db: Session):
