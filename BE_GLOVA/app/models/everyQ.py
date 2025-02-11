@@ -1,3 +1,4 @@
+import os
 import faiss
 import numpy as np
 import pandas as pd
@@ -9,6 +10,15 @@ import re
 from datetime import datetime
 from collections import defaultdict
 import sys
+from dotenv import load_dotenv
+
+load_dotenv()
+
+VECTOR_STORE_INDEX_FILE = os.getenv("VECTOR_STORE_INDEX_FILE")
+VECTOR_STORE_INDEX_FILE_ONLY_TITLE = os.getenv("VECTOR_STORE_INDEX_FILE_ONLY_TITLE")
+DATA = os.getenv("DATA")
+DATA2 = os.getenv("DATA2")
+
 
 def transform_response(response):
     """
@@ -222,19 +232,19 @@ class ChatCompletionExecutor:
 def book_question(age: int, gender: str, question: str):
     total_start = time.time()
     log_message("FAISS 인덱스 로드 시작")
-    index = faiss.read_index("/data/ephemeral/home/suhyun/level4-cv-finalproject-hackathon-cv-05-lv3/data/vector_store_최종_plz_no_error.index") # 경로
-
-    data = pd.read_csv("/data/ephemeral/home/suhyun/level4-cv-finalproject-hackathon-cv-05-lv3/data/sorted.csv") # 경로
+    index = faiss.read_index(f"{VECTOR_STORE_INDEX_FILE}") # 경로
+    index_title = faiss.read_index(f"{VECTOR_STORE_INDEX_FILE_ONLY_TITLE}")
+    data = pd.read_csv(f"{DATA}") # 경로
     descriptions = data["Description"].tolist()
     titles = data["Book Title"].tolist()
     combined=[]
     for i in range(len(titles)):
         combined_entry = f"{{{titles[i]}}},{{{descriptions[i]}}}" 
         combined.append(combined_entry)
-
+    
     #final_answers = list(zip(final_title, final_answer))
     final_answers = combined
-    data2 = pd.read_csv("/data/ephemeral/home/suhyun/level4-cv-finalproject-hackathon-cv-05-lv3/data/book_data_final진짜마지막임.csv") # 경로
+    data2 = pd.read_csv(f"{DATA2}") # 경로
     final_answers2 = data2["Final Answer"].tolist()
     log_message("FAISS 인덱스 로드 완료", "success")
     log_message("\n" + "="*50)
@@ -413,7 +423,7 @@ def book_question(age: int, gender: str, question: str):
     faiss.normalize_L2(book_embedding)
     
     # 개별 키워드 검색
-    distances, indices = index.search(book_embedding, 1)
+    distances, indices = index_title.search(book_embedding, 1)
     log_message(f"[5/5] 완료 ({time.time()-phase_start:.2f}s)", "success")
     print(final_answers2[indices[0][0]])
     
