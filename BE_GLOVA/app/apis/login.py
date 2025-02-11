@@ -8,8 +8,8 @@ from datetime import datetime, timedelta
 from jose import JWTError, jwt
 from sqlalchemy.orm import Session
 from dotenv import load_dotenv
-from database.crud import read_user, create_user, read_token, create_token
-from database.connections import get_mysql_db
+from ..database.crud import read_user, create_user, read_token, create_token
+from ..database.connections import get_mysql_db
 
 router = APIRouter()
 

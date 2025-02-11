@@ -1,11 +1,11 @@
 from fastapi import Request, APIRouter, Depends, HTTPException
 from typing import Dict, Any
 from sqlalchemy.orm import Session
-from database.connections import get_mysql_db
-from database.crud import save_badge_to_db, get_book_by_id, get_badges_by_id, get_book_title_by_id
-from schemas import BadgeSchema, BadgeWithTitleSchema
-from apis.save_books import get_user_id, parse_datetime
-from models.createBadge import generate_badge
+from ..database.connections import get_mysql_db
+from ..database.crud import save_badge_to_db, get_book_by_id, get_badges_by_id, get_book_title_by_id
+from ..schemas import BadgeSchema, BadgeWithTitleSchema
+from .save_books import get_user_id, parse_datetime
+from ..models.createBadge import generate_badge
 
 import os
 from urllib.parse import urljoin

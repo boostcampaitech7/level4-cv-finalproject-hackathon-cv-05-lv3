@@ -1,7 +1,7 @@
 import os
 # 추론코드 그대로
 # 책 표지, 프롬프트 넣을 것만 생각
-from models.badge_creator.main import main
+from .badge_creator.main import main
 
 def generate_badge(book_img: str):
     try:

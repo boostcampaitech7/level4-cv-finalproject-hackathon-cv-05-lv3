@@ -6,11 +6,11 @@ import secrets
 from dotenv import load_dotenv
 from jose import JWTError, jwt
 from sqlalchemy.orm import Session
-from database.connections import get_mysql_db, get_postgresql_db
-from database.crud import (
+from ..database.connections import get_mysql_db, get_postgresql_db
+from ..database.crud import (
     read_user, create_book,create_session, create_recommended_book, create_user_question, create_clova_answer
 )
-from schemas import (
+from ..schemas import (
     SaveBookRequest, BookSchema, SessionSchema, RecommendedBookSchema, 
     UserQuestionSchema, ClovaAnswerSchema
 )

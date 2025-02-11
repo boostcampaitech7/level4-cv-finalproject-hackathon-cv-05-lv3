@@ -6,7 +6,7 @@ from .models import (
     User, Token, Book, Session as SessionTable,
     RecommendedBook, Badge, Review, UserQuestionORMModel, ClovaAnswer
 )
-from schemas import (
+from ..schemas import (
     UserSchema, TokenSchema, BookSchema, RecommendedBookSchema, UserQuestionSchema, ClovaAnswerSchema, SessionSchema
 )
 
