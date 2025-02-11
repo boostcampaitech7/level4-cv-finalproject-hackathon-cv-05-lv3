@@ -16,6 +16,14 @@ def get_user(db: Session, user_id):
     # 유저 id가 존재하는지 조회
     return db.execute(select(User).where(User.user_id==user_id)).scalars().all()
 
+def get_user_by_login(db: Session, user_id, user_pw):
+    # 유저 id/pw 존재하는지 조회
+    return db.execute(select(User).where(
+        (User.user_id == user_id) |
+        (User.user_pw == user_pw)
+        )).scalars().all()
+
+
 def create_user(db: Session, user_data: UserSchema):
     new_user = User(**user_data.dict())
     db.add(new_user)

@@ -8,7 +8,7 @@ from models.everyQ import book_question
 from jose import JWTError, jwt
 from sqlalchemy.orm import Session
 from database.connections import get_mysql_db
-from database.crud import read_user, get_user
+from database.crud import read_user, get_user, get_user_by_login
 from schemas import UserQuestion
 
 router = APIRouter()
@@ -50,12 +50,28 @@ async def dupli_check(id: str, mysql_db: Session = Depends(get_mysql_db)):
     id 중복 확인하는 엔드포인트
     """
     try:
-        # 질문을 기반으로 도서 추천 처리
         get_user(mysql_db, user_id=id)
         if get_user(mysql_db, user_id=id):
             return { "exists": "true" }
         else:
             return { "exists": "false"}
+        
+    except Exception as e:
+        raise e
+    
+@router.post("/api/local_login")
+async def login_check(request: Dict[str, str],mysql_db: Session = Depends(get_mysql_db)):
+    """
+    로그인하는 엔드포인트
+    """
+    try:
+        user_id = request["id"]
+        user_pw = request["password"]
+    
+        if get_user_by_login(mysql_db, user_id, user_pw):
+            return { "status": "success" }
+        else:
+            return { "status": "failed" }
         
     except Exception as e:
         raise e
