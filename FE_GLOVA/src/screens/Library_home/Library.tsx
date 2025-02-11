@@ -102,7 +102,7 @@ export const Library_home = (): JSX.Element => {
                       <div className="w-full h-5 bg-neutral-800 text-white flex items-center justify-center rounded-t-lg text-[7px]">
                         무엇이든 얘기해보세요!
                       </div>
-                      <div className="w-full flex items-center justify-center bg-white text-black p-1 rounded-b-lg text-center text-[10px]">
+                      <div className="w-full flex items-center justify-center bg-white text-black p-1 rounded-b-lg text-center text-[8px]">
                         {book.question}
                       </div>
                     </div>

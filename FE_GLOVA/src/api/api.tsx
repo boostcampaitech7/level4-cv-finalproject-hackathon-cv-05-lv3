@@ -162,7 +162,7 @@ export const PostBadgeMaker = async (bookTitle: string) => {
       }
     );
 
-    return response.data; // 서버에서 받은 데이터를 반환
+    return response; // 서버에서 받은 데이터를 반환
 
   } catch (error) {
     console.error("Error fetching data:", error);
