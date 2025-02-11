@@ -33,7 +33,7 @@ def transform_response(response):
             "publisher": book_details.get("출판사", ""),
             "pubdate": book_details.get("출판일", ""),
             "isbn": book_details.get("ISBN", ""),
-            "descriptions": book_details.get("설명", ""),
+            "description": book_details.get("설명", ""),
             "image": book_details.get("섬네일 링크", ""),
         },
         "answer_text": {
