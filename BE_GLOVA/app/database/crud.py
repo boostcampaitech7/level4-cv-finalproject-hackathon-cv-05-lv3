@@ -12,6 +12,10 @@ from schemas import (
 def get_users(db: Session):
     return db.execute(select(User)).scalars().all()
 
+def get_user(db: Session, user_id):
+    # 유저 id가 존재하는지 조회
+    return db.execute(select(User).where(User.user_id==user_id)).scalars().all()
+
 def create_user(db: Session, user_data: UserSchema):
     new_user = User(**user_data.dict())
     db.add(new_user)
