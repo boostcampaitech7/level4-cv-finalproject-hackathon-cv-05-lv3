@@ -1,9 +1,9 @@
 import os
 import cv2
 from PIL import Image
-from badge_color import extract_dominant_colors, create_central_circle_image
-from badge_generator import SDXLBadgeGenerator
-from badge_remover import remove_background_from_image
+from .badge_color import extract_dominant_colors, create_central_circle_image
+from .badge_generator import SDXLBadgeGenerator
+from .badge_remover import remove_background_from_image
 
 def main(output_dir, img, lora_path):
     # 1. 파일 경로 설정

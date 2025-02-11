@@ -1,5 +1,7 @@
+from fastapi import HTTPException
+import datetime
 from sqlalchemy.orm import Session
-from sqlalchemy import select
+from sqlalchemy import select, update
 from .models import (
     User, Token, Book, Session as SessionTable,
     RecommendedBook, Badge, Review, UserQuestionORMModel, ClovaAnswer
@@ -115,6 +117,7 @@ def get_recommended_books_by_user(db: Session, user_id: str):
     # ✅ 객체를 JSON으로 변환
     return [
         {
+            "recommendation_id": book.recommendation_id,
             "book_id": book.book_id,
             "session_id": book.session_id,
             "recommended_at": book.recommended_at
@@ -122,6 +125,31 @@ def get_recommended_books_by_user(db: Session, user_id: str):
         for book in books
     ]
 
+def update_recommended_books_finished_at(db: Session, user_id: str, recommendation_id: int):
+    """
+    ✅ 사용자의 추천 도서에 대해 'finished_at'을 현재 시간으로 업데이트하는 함수
+    """
+    # ✅ 1️⃣ 현재 시간 설정
+    current_time = datetime.utcnow()
+
+    # ✅ 2️⃣ 업데이트 실행
+    query = (
+        update(RecommendedBook)
+        .where(
+            RecommendedBook.recommendation_id == recommendation_id,
+            RecommendedBook.user_id == user_id
+        )
+        .values(finished_at=current_time)
+    )
+
+    result = db.execute(query)
+
+    # ✅ 3️⃣ 업데이트된 행이 없으면 에러 발생
+    if result.rowcount == 0:
+        raise HTTPException(status_code=404, detail="해당 recommendation_id가 존재하지 않거나 수정 권한이 없습니다.")
+
+    db.commit()
+    return current_time
 
 def get_recommended_books_by_user_and_session(db: Session, user_id: str, session_id: str):
     query = (

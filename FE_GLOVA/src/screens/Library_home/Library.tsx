@@ -27,8 +27,10 @@ export const Library_home = (): JSX.Element => {
 
         if (response && Array.isArray(response)) {  // ✅ response가 배열인지 체크
           const transformedBooks = response.map((item: any) => ({
+            recommendationId: item.recommendation_id,
             date: item.date,
             time: item.time,
+            bookId: item.book.book_id,
             bookTitle: item.book?.title || "책을 추천받아 보세요!",
             bookImage: item.book?.image || "../../image_data/Library_sample.png",
             questionText: item.question?.text || "추천 받은 책에 대한 후기를 다른 사람들과 공유할 수 있어요!",

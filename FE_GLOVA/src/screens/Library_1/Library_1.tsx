@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { ChevronLeft, HelpCircle } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { PostBadgeMaker } from "../../api/api";
+import { PostReadFinished, PostBadgeMaker } from "../../api/api";
 import NaviBar from "../../components/ui/navigationbar";
 import { Nodata } from "../../dummy";
 
@@ -15,9 +15,10 @@ export const Library_1 = (): JSX.Element => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
 
-  const MakeBadge = async () => {
+  const MakeBadge = async (recommendationId: number, bookId: number) => {
     console.log(speak);
-    PostBadgeMaker(book.bookTitle, speak);
+    PostReadFinished(recommendationId, speak);
+    PostBadgeMaker(bookId, speak);
     navigate("/Challenge", { replace: true });
   };
 
@@ -98,7 +99,7 @@ export const Library_1 = (): JSX.Element => {
                   if (speak.trim() === "") {
                     setSpeak(book.bookTitle);
                   }
-                  MakeBadge();
+                  MakeBadge(book.recommendationId, book.bookId);
                 }}
               >
                 제출

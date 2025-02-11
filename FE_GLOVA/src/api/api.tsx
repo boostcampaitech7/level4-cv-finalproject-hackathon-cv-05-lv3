@@ -1,3 +1,4 @@
+import { time } from "framer-motion";
 import apiClient from "./cookies";
 
 export interface Reviews {
@@ -6,8 +7,10 @@ export interface Reviews {
 }
 
 export interface Book {
+  recommendationId: number;
   date: string;
   time: string;
+  bookId: number;
   bookTitle: string;
   bookImage: string;
   questionText: string;
@@ -89,13 +92,29 @@ export const GetBooks = async (): Promise<Book[]> => {
   }
 };
 
+export const PostReadFinished = async (recommendationId: number, speak: string) => {
+  try {
+    const response = await apiClient.post("/api/notify_read_finished", recommendationId);
+
+    console.log(speak, response.data);
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    throw error; // 호출한 측에서 에러를 처리할 수 있도록 던짐
+  }
+};
 
 // 뱃지 생성 요청
-export const PostBadgeMaker = async (bookTitle: string, speak: string) => {
+export const PostBadgeMaker = async (bookId: number, speak: string) => {
+  const now = new Date();
+  // 날짜를 KST(한국 표준시)로 변환
+  const date = now.toLocaleDateString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit' })
+    .replace(/. /g, '-').replace('.', ''); // YYYY-MM-DD 포맷
   try {
     const response = await apiClient.post("/api/badge_create",
       {
-        bookTitle: bookTitle,
+        date: date,
+        time: now.toTimeString().split(" ")[0], // HH:mm:ss
+        bookId: bookId,
         speak: speak,
       }
     );
