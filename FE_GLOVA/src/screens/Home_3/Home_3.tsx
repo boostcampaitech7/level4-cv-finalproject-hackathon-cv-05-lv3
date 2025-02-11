@@ -32,6 +32,7 @@ export const Home3 = (): JSX.Element => {
       
       // 서버 요청
       const data = await Question2Server(age, gender, question);
+      console.log(data)
   
       // 정상적으로 응답을 받으면 페이지 이동
       navigate("/Home_4", { state: { ...data } });
@@ -40,8 +41,8 @@ export const Home3 = (): JSX.Element => {
       console.error("Error while fetching data:", error);
   
       // 403 Forbidden 오류 처리
-      if ((error as any).response && (error as any).response.status === 500) {
-        alert("부적절한 문장이 감지되어 접근이 거부되었습니다. 초기 단계로 돌아갑니다.");
+      if ((error as any).response) {
+        alert("부적절한 접근이 감지되어 거부되었습니다. 초기 단계로 돌아갑니다.");
         navigate("/Home", { replace: true });
       } else {
         console.error("Error while fetching data:", error);
