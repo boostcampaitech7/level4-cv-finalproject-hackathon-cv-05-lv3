@@ -27,12 +27,11 @@ async def create_badge(
         data = await request.json()  
         print("📌 Received request data:", data)
 
-        if "date" not in data or "time" not in data or "bookId" not in data or "speak" not in data:
+        if "date" not in data or "time" not in data or "book_id" not in data:
             raise HTTPException(status_code=400, detail="Missing required fields in request")
 
         timestamp = parse_datetime(data["date"], data["time"])
-        book_id = data["bookId"]
-        user_text = data["speak"]
+        book_id = data["book_id"]
 
         book_detail = get_book_by_id(mysql_db, book_id)
         if not book_detail:

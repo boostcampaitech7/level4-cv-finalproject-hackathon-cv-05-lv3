@@ -66,8 +66,8 @@ class BookSchema(BaseModel):
     description: Optional[str] = None
     image: Optional[str] = None
 
-    class Config:
-        from_attributes = True  # ✅ ORM 모델 변환 허용
+class Config:
+    from_attributes = True  # ✅ ORM 모델 변환 허용
 
 # Session 테이블 Pydantic Schema
 class SessionSchema(BaseModel):

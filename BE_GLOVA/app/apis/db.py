@@ -12,6 +12,11 @@ from schemas import (
     BadgeSchema, ReviewSchema, UserQuestionSchema, ClovaAnswerSchema
 )
 
+import json # 김건우 추가
+from fastapi import Request # 김건우 추가
+from fastapi import Body # 김건우 추가
+from apis.save_books import get_user_id # 김건우 추가
+
 router = APIRouter()
 
 # Users API (MySQL)
@@ -58,8 +63,8 @@ async def api_get_books(db: Session = Depends(get_mysql_db)):
     """
     return get_books(db)
 
-@router.get("/db/books/get_book_with_title", response_model=BookSchema, tags=["MySQL"])
-async def api_get_book_with_title(title: str, db: Session = Depends(get_mysql_db)):
+@router.post("/db/books/get_book_with_title", response_model=BookSchema, tags=["MySQL"])
+async def api_get_book_with_title(title: str = Body(..., embed=True), db: Session = Depends(get_mysql_db)):
     """
     책 제목을 이용하여 Books 테이블 조회
     """
@@ -139,15 +144,31 @@ async def api_get_reviews(db: Session = Depends(get_mysql_db)):
     """
     return get_reviews(db)
 
+
 @router.post("/db/reviews", response_model=ReviewSchema, tags=["MySQL"])
-async def api_create_review(review: ReviewSchema, db: Session = Depends(get_mysql_db)):
+async def api_create_review(
+    request: Request,
+    db: Session = Depends(get_mysql_db),
+    user_id: str = Depends(get_user_id)  # ✅ JWT에서 가져옴
+):
     """
     Reviews 테이블에 새로운 리뷰 추가
     """
     try:
-        return create_review(db, review.model_dump())
+        body = await request.body()
+        print("📌 Received Request Body:", json.loads(body.decode("utf-8")))  # 클라이언트 요청 확인
+        print("📌 Extracted User ID:", user_id)  # ✅ user_id 로그 추가
+        
+        review_data = await request.json()
+        review_data["user_id"] = user_id  # ✅ JWT에서 받은 user_id 추가
+        
+        return create_review(db, review_data)
     except Exception as e:
+        print(f"🚨 Review 추가 중 오류 발생: {e}")  # ✅ 로그 추가
         raise HTTPException(status_code=500, detail=f"Review 추가 중 오류 발생: {str(e)}")
+
+
+
 
 # UserQuestions API (PostgreSQL)
 @router.get("/db/user_questions", response_model=list[UserQuestionSchema], tags=["PostgreSQL"])
