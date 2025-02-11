@@ -28,11 +28,11 @@ export const Home4 = (): JSX.Element => {
 
         {/* 추천 결과 */}
         <div className="flex flex-col items-center px-4">
-          <h2 className="mt-[147px] text-lg font-bold text-center font-inter">
+          <h2 className="mt-[125px] text-xl font-bold text-center text-gray-800 font-Freesentation">
             이런 책은 어떠신가요?
           </h2>
 
-          <Card className="mt-12 border-none">
+          <Card className="mt-4 border-none">
             <CardContent className="flex flex-col items-center p-0">
               <img
                 className="w-[137px] h-[183px] object-cover"

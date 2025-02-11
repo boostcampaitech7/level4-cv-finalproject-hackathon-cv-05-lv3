@@ -28,7 +28,7 @@ export const Home2 = (): JSX.Element => {
           <HelpCircle size={24} />
         </button>
 
-        <div className="absolute top-[180px] left-[55px] font-bold text-black text-base text-center whitespace-nowrap [font-family:'Inter',Helvetica]">
+        <div className="absolute top-[180px] left-[58px] font-Freesentation font-bold text-black text-xl text-center whitespace-nowrap">
           답변에 어울리는 책을 추천해 줄 거에요!
         </div>
 
@@ -71,6 +71,7 @@ export const Home2 = (): JSX.Element => {
               <textarea
                 className="absolute w-[240px] top-[11px] left-[9px] font-bold text-black text-[15px] bg-transparent border-none focus:outline-none resize-none overflow-auto h-[177px] max-h-[177px]"
                 placeholder="TEXT INPUT"
+                maxLength={500}
                 value={question} // 입력값을 상태로 연결
                 onChange={(e) => setQuestion(e.target.value)} // 상태 업데이트
                 onInput={(e) => {

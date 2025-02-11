@@ -3,8 +3,9 @@ import { HelpCircle, Search } from "lucide-react";
 import { Card, CardContent } from "../../components/ui/card";
 import { useNavigate } from "react-router-dom";
 import NaviBar from "../../components/ui/navigationbar";
-import { GetRecommandBooks } from "../../api/api";
-import { Nodata } from "../../dummy";
+import { Book, GetRecommandBooks } from "../../api/api"
+import { dummy_book, Nodata } from "../../dummy";
+import { cookie_loader, cookie_remover } from "../../api/cookies";
 
 const pastelColors = [
   "bg-pink-200", "bg-blue-200", "bg-green-200",
@@ -17,6 +18,25 @@ export const Library_home = (): JSX.Element => {
   const [flipped, setFlipped] = useState<{ [key: string]: boolean }>({});
   const [zoomed, setZoomed] = useState<{ [key: string]: boolean }>({});
   const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
+
+  useEffect(() => {
+    // ✅ 1. 쿠키에서 id 가져오기
+    const userIdFromCookie = cookie_loader();
+
+    if (!userIdFromCookie) {
+      console.warn("⚠️ 인증 실패! 쿠키가 없음. 로그인 페이지로 이동 (쿠키 생성 실패 또는 쿠키 유효시간 만료)");
+      cookie_remover();
+      navigate("/", { replace: true });
+      return; // 함수 종료
+    }
+
+  }, [navigate]);
+
+  {/*더미 데이터 버전*/ }
+  // const dummyBooks = dummy_book;
+  // useEffect(() => {
+  //   setBooks(dummyBooks);
+  // }, []);
 
   useEffect(() => {
     const fetchBooks = async () => {
@@ -61,7 +81,9 @@ export const Library_home = (): JSX.Element => {
 
         {/* 타이틀 */}
         <div className="inline-flex items-center justify-center w-full mt-[70px]">
-          <h1 className="text-[40px] font-SBAggroB text-black text-center">『 나만의 도서관 』</h1>
+          <span className="text-[40px] font-SBAggroB text-black text-center ">나만의 </span>
+          <span className="mx-2"> </span>
+          <span className="text-[40px] font-SBAggroB text-green-700 text-center ">도서관</span>
         </div>
         <hr className="border-t border-2 border-gray-300 mt-8 mx-4 mb-4" />
 

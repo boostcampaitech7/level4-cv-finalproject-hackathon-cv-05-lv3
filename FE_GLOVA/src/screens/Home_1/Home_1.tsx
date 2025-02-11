@@ -32,7 +32,7 @@ export const Home1 = (): JSX.Element => {
         </div>
 
         {/* 제목 */}
-        <h1 className="absolute top-[180px] left-1/2 transform -translate-x-1/2 font-bold text-black text-base text-center">
+        <h1 className="absolute top-[180px] left-1/2 transform -translate-x-1/2 font-Freesentation font-bold text-black text-xl text-center">
           나이와 성별을 알려주세요!
         </h1>
 

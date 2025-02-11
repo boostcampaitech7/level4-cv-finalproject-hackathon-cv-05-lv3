@@ -56,7 +56,7 @@ export const Review = (): JSX.Element => {
         </button>
 
         {/* Title */}
-        <h1 className="font-bold text-lg border-b border-black pt-[72px]">{book.bookTitle}</h1>
+        <h1 className="font-bold text-[20px] border-b border-black font-Freesentation pt-[72px]">{book.bookTitle}</h1>
 
         {/* Image */}
         <div className="w-full flex justify-center my-2">
@@ -64,7 +64,7 @@ export const Review = (): JSX.Element => {
         </div>
 
         <hr className="border-t border-black mb-4" />
-        <p className="font-bold text-sm pb-1">리뷰를 달아보세요!</p>
+        <p className="text-base font-Freesentation pb-1">리뷰를 달아보세요!</p>
 
         <button
           className="w-[48px] h-[30px] bg-gray-300 flex items-center justify-left gap-2.5 p-2.5 rounded-[20px] absolute top-[20px] left text-black text-lg font-normal"
@@ -89,7 +89,7 @@ export const Review = (): JSX.Element => {
             <div key={index} className="bg-gray-300 p-2 rounded w-full break-words">
               <div className="flex items-center gap-2">
                 <div className="w-6 h-6 bg-gray-400 rounded" />
-                <span className="font-bold">{review.name}</span>
+                <span className="font-bold">{review.user_id}</span>
               </div>
               <p className="mt-1 text-sm break-words">{review.text}</p>
             </div>

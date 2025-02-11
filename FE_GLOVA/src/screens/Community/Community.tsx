@@ -8,6 +8,7 @@ import NaviBar from "../../components/ui/navigationbar";
 import { Book, GetRecommandBooks, GetBooks } from "../../api/api"
 import { replace, useNavigate } from "react-router-dom";
 import { dummy_book, Nodata } from "../../dummy";
+import { cookie_loader, cookie_remover } from "../../api/cookies";
 
 
 const Page1: React.FC<{ handleBookClick: (book: Book) => void }> = ({ handleBookClick }) => {
@@ -116,7 +117,7 @@ const Page1: React.FC<{ handleBookClick: (book: Book) => void }> = ({ handleBook
                         <img
                             src={book.bookImage}
                             alt={book.bookTitle}
-                            className="w-full h-full object-cover rounded-lg cursor-pointer"
+                            className="w-full h-full object-cover rounded-lg cursor-pointer "
                             onClick={() => handleBookClick(book)}
                         />
                     </motion.div>
@@ -132,10 +133,10 @@ const Page1: React.FC<{ handleBookClick: (book: Book) => void }> = ({ handleBook
                 placeholder="도서 검색"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="border p-2 w-full"
+                className="border p-2 w-full "
             />
 
-            <div className="pt-2 w-full text-left text-base font-bold text-gray-800">
+            <div className="pt-2 w-full text-left font-Freesentation text-xl text-gray-800">
                 보유 추천 도서
             </div>
 
@@ -148,7 +149,7 @@ const Page1: React.FC<{ handleBookClick: (book: Book) => void }> = ({ handleBook
                             {/* 왼쪽: 이미지 & 제목 */}
                             <div className="flex items-center gap-x-4">
                                 <img className="w-8 h-8 bg-gray-300" src={book.bookImage} alt={book.bookTitle} />
-                                <p className="text-[15px] font-bold text-gray-800">{book.bookTitle}</p>
+                                <p className="text-[18px] text-gray-600 font-light font-Freesentation" style={{ fontWeight: 300 }}>{book.bookTitle}</p>
                             </div>
 
                             {/* 오른쪽 하단: 날짜 */}
@@ -183,7 +184,7 @@ const Page2: React.FC<{ handleBookClick: (book: Book) => void }> = ({ handleBook
         <div className="flex flex-col w-full h-full">
             {/* 검색창 & 전체 검색 문구 */}
             <div className="p-4">
-                <h2 className="text-lg font-bold text-left mb-2">전체 검색</h2>
+                <h2 className="text-xl font-bold text-left mb-2 font-Freesentation">전체 검색</h2>
                 <Input
                     type="text"
                     placeholder="도서 검색"
@@ -226,6 +227,19 @@ export const Community: React.FC = () => {
     const navigate = useNavigate(); // ✅ useNavigate()를 컴포넌트 내부에서 선언
     const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
 
+    useEffect(() => {
+        // ✅ 1. 쿠키에서 id 가져오기
+        const userIdFromCookie = cookie_loader();
+
+        if (!userIdFromCookie) {
+            console.warn("⚠️ 인증 실패! 쿠키가 없음. 로그인 페이지로 이동 (쿠키 생성 실패 또는 쿠키 유효시간 만료)");
+            cookie_remover();
+            navigate("/", { replace: true });
+            return; // 함수 종료
+        }
+
+    }, [navigate]);
+
     const handleBookClick = (book: Book) => {
         navigate("/Review", { replace: true, state: book });
     };
@@ -244,13 +258,13 @@ export const Community: React.FC = () => {
                 {/* 페이지 전환 버튼 */}
                 <div className="flex justify-center pt-16 px-2 pb-2 gap-x-16">
                     <Button onClick={() => setPage(1)}
-                        className={`text-xl font-bold border-none shadow-none px-4 py-2 rounded-lg bg-white hover:bg-white 
-                            ${page === 1 ? "text-black-500" : "text-gray-500"}`}>
+                        className={`text-xl font-bold font-Freesentation border-none shadow-none px-4 py-2 rounded-lg bg-white hover:bg-white 
+                            ${page === 1 ? "text-green-600" : "text-green-900"}`}>
                         My Books
                     </Button>
                     <Button onClick={() => setPage(2)}
-                        className={`text-xl font-bold border-none shadow-none px-4 py-2 rounded-lg bg-white hover:bg-white 
-                            ${page === 2 ? "text-black-500" : "text-gray-500"}`}>
+                        className={`text-xl font-bold font-Freesentation border-none shadow-none px-4 py-2 rounded-lg bg-white hover:bg-white 
+                            ${page === 2 ? "text-green-600" : "text-green-900"}`}>
                         ALL Books
                     </Button>
                 </div>

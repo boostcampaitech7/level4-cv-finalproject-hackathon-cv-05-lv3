@@ -10,6 +10,7 @@ import { Library_home } from "./screens/Library_home";
 import { Library_1 } from "./screens/Library_1";
 import { Community } from "./screens/Community";
 import { Review } from "./screens/Review/review";
+import {SignupForm} from "./screens/Register/register"
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <Routes>
         {/* 기본 로그인 페이지 */}
         <Route path="/" element={<Login />} />
+        <Route path="/Regi" element={<SignupForm />} />
 
         {/* 네이버 로그인 성공 후 자동으로 Home 페이지 이동 */}
         <Route path="/Home" element={<Home />} />
