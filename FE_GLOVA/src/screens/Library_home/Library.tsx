@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { BookImage, HelpCircle, Search } from "lucide-react";
+import { HelpCircle, Search } from "lucide-react";
 import { Card, CardContent } from "../../components/ui/card";
 import { useNavigate } from "react-router-dom";
 import NaviBar from "../../components/ui/navigationbar";

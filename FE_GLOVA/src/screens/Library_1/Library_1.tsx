@@ -1,18 +1,16 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ChevronLeft, HelpCircle } from "lucide-react";
-import { Card, CardContent } from "../../components/ui/card";
-import { Separator } from "../../components/ui/separator";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Book, PostBadgeMaker } from "../../api/api";
+import { PostBadgeMaker } from "../../api/api";
 import NaviBar from "../../components/ui/navigationbar";
 import { Nodata } from "../../dummy";
 
 export const Library_1 = (): JSX.Element => {
   const location = useLocation();
   const navigate = useNavigate();
-  
+
   const book = location.state || {};
-  
+
   const [speak, setSpeak] = useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
@@ -53,7 +51,7 @@ export const Library_1 = (): JSX.Element => {
         <img
           className="absolute w-[230px] h-[308px] top-[122px] left-[82px] object-cover"
           alt="Rectangle"
-          src={book.bookimage}
+          src={book.bookImage}
         />
 
         <div className="absolute top-20 left-3.5 font-normal text-black text-xl text-center">
@@ -62,26 +60,26 @@ export const Library_1 = (): JSX.Element => {
 
         <div className="w-[361px] h-[170px] p-2.5 top-[476px] left-3.5 flex absolute">
           <div className="relative text-black text-base">
-            {book.question}
+            {book.questionText}
           </div>
         </div>
 
         <button
           className="w-[48px] h-[30px] bg-gray-300 flex items-center justify-left gap-2.5 p-2.5 rounded-[20px] absolute top-[20px] left text-black text-lg"
-          onClick={() => navigate('/Library', {replace:true})}
+          onClick={() => navigate('/Library', { replace: true })}
         >
-          <ChevronLeft size={48}/>
+          <ChevronLeft size={48} />
         </button>
 
-        {Nodata[0].bookTitle !== book.bookTitle ? ( 
+        {Nodata[0].bookTitle !== book.bookTitle ? (
           <button
             className="w-[361px] flex items-center justify-center p-2.5 bg-[#d9d9d9] rounded-[20px] absolute top-[693px] left-3.5 text-black text-lg active:scale-95 transition-transform duration-150 hover:bg-[#d1d1d1]"
             onClick={() => setIsModalOpen(true)}
           >
             완독!!
           </button>
-        ): null} 
-        
+        ) : null}
+
         {/* ✅ 완독 모달 */}
         {isModalOpen && (
           <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
@@ -114,7 +112,7 @@ export const Library_1 = (): JSX.Element => {
           <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
             <div className="bg-white p-5 rounded-lg w-[350px] shadow-lg text-center relative">
               <img
-                src="../../image_data/Guide/Library.png" 
+                src="../../image_data/Guide/Library.png"
                 alt="도움말 이미지"
                 className="w-full h-auto rounded-md"
               />
@@ -128,7 +126,7 @@ export const Library_1 = (): JSX.Element => {
           </div>
         )}
 
-        <NaviBar activeLabel="Library"/>
+        <NaviBar activeLabel="Library" />
       </div>
     </div>
   );
