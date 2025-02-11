@@ -8,7 +8,6 @@ from database.crud import (
     get_user_questions, create_user_question, get_clova_answers, create_clova_answer
 )
 from schemas import (
-    UserQuestion, ClovaResponse, 
     UserSchema, TokenSchema, BookSchema, SessionSchema, RecommendedBookSchema, 
     BadgeSchema, ReviewSchema, UserQuestionSchema, ClovaAnswerSchema
 )
