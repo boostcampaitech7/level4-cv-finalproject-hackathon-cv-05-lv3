@@ -68,11 +68,11 @@ class RecommendedBook(MySQLBase):
     user_id = Column(String(64), ForeignKey("users.user_id"), nullable=False)
     session_id = Column(String(255), ForeignKey("sessions.session_id"), nullable=False)
     recommended_at = Column(TIMESTAMP, server_default=func.current_timestamp(), nullable=False)
-    finished_at = Column(TIMESTAMP, server_default=func.current_timestamp(), nullable=False)
+    finished_at = Column(TIMESTAMP, nullable=True, default=None)  # NULL 허용으로 변경
 
     # 관계 설정
     user = relationship("User", back_populates="recommended_books")
-
+    
 # 배지 테이블 (badges)
 class Badge(MySQLBase):
     __tablename__ = "badges"
