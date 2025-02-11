@@ -10,10 +10,22 @@ export const Home4 = (): JSX.Element => {
   const location = useLocation();
   const navigate = useNavigate();
   const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   // 서버에서 받은 데이터
   const response = location.state || {};
   const data = response.status === "success" ? response.data : null;
+
+  const handleClick = () => {
+    setIsLoading(true); // 버튼 비활성화
+
+    SaveRecommand(data);
+
+    setTimeout(() => {
+      navigate("/Library", { replace: true });
+      setIsLoading(false); // 1초 후 다시 활성화
+    }, 1000);
+  };
 
   return (
     <div className="bg-gray-500 flex flex-row justify-center w-full">
@@ -66,12 +78,10 @@ export const Home4 = (): JSX.Element => {
             <Button
               variant="secondary"
               className="flex-1 rounded-[3px_20px_20px_3px] bg-[#d9d9d9] active:scale-95 transition-transform duration-150 hover:bg-[#c4c4c4]"
-              onClick={() => {
-                SaveRecommand(data);
-                navigate("/Library", { replace: true });
-              }}
+              onClick={handleClick}
+              disabled={isLoading} // 버튼 비활성화
             >
-              추천도서 저장하기
+              {isLoading ? "저장 중..." : "추천도서 저장하기"}
             </Button>
           </div>
         </div>
