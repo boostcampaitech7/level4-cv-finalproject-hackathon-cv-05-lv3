@@ -2,9 +2,9 @@ version: '3.8'
 services:
   frontend:
     build:
-      context: ./frontend
+      context: ./FE_GLOVA
       dockerfile: Dockerfile
-    container_name: final_front
+    container_name: fe_glova
     expose:
       - "3000"
     ports:
@@ -12,8 +12,7 @@ services:
     depends_on:
       - backend
     environment:
-      - VITE_API_URL=http://223.195.111.44:8080
-      - VITE_WS_URL=ws://223.195.111.44:8080/ws
+      - VITE_API_URL=http://223.195.111.52:8080
       - PYTHONPATH=/app
       - CLOVA_Authorization=${CLOVA_Authorization}
       - CLOVA_REQUEST_ID=${CLOVA_REQUEST_ID}
@@ -23,17 +22,51 @@ services:
       - CLOVA_API2_URL=${CLOVA_API2_URL}
       - NAVER_CLIENT_ID=${NAVER_CLIENT_ID}
       - NAVER_CLIENT_SECRET=${NAVER_CLIENT_SECRET}
+      # 추가된 환경변수들
+      - CLOVA_VOICE_CLIENT_ID=${CLOVA_VOICE_CLIENT_ID}
+      - CLOVA_VOICE_CLIENT_SECRET=${CLOVA_VOICE_CLIENT_SECRET}
+      - CLOVA_CHAT_REQUEST_ID=${CLOVA_CHAT_REQUEST_ID}
+      - CLOVA_EMBEDDING_REQUEST_ID=${CLOVA_EMBEDDING_REQUEST_ID}
+      - NAVER_LOGIN_CLIENT_ID=${NAVER_LOGIN_CLIENT_ID}
+      - NAVER_LOGIN_CLIENT_SECRET=${NAVER_LOGIN_CLIENT_SECRET}
+      - NAVER_REDIRECT_URI=${NAVER_REDIRECT_URI}
+      - FRONTEND_URL=${FRONTEND_URL}
+      - VITE_MAP_CLIENT_ID=${VITE_MAP_CLIENT_ID}
+      - VITE_MAP_CLIENT_SECRET=${VITE_MAP_CLIENT_SECRET}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_HOST=${MYSQL_HOST}
+      - MYSQL_PORT=${MYSQL_PORT}
+      - MYSQL_DB=${MYSQL_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_HOST=${POSTGRES_HOST}
+      - POSTGRES_PORT=${POSTGRES_PORT}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - MYSQL_DATABASE_URL=${MYSQL_DATABASE_URL}
+      - PGSQL_DATABASE_URL=${PGSQL_DATABASE_URL}
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    volumes:
+      # 백엔드에서 사용하는 VPN/SSH 파일들을 마운트 (읽기 전용)
+      - /home/sh/nvidia/data/v3/BE_GLOVA/openvpn01-TCP4-1188-config.ovpn:/etc/openvpn/config.ovpn:ro
+      - /home/sh/nvidia/data/v3/BE_GLOVA/credentials.txt:/etc/openvpn/credentials.txt:ro
+      # FE 전용 entrypoint 스크립트
+      - /home/sh/nvidia/data/v3/FE_GLOVA/entrypoint.sh:/entrypoint.sh:ro
 
   backend:
     build:
-      context: ./backend
+      context: ./BE_GLOVA
       dockerfile: Dockerfile
-    container_name: final_back
-    expose:
-      - "8000"
+    container_name: be_glova
     ports:
       - "8000:8000"
     environment:
+      # 기존 환경변수 (기본 DB URL 등)
+      - MYSQL_DATABASE_URL=${MYSQL_DATABASE_URL}
+      - PGSQL_DATABASE_URL=${PGSQL_DATABASE_URL}
       - CLOVA_Authorization=${CLOVA_Authorization}
       - CLOVA_REQUEST_ID=${CLOVA_REQUEST_ID}
       - CLOVA_API_URL=${CLOVA_API_URL}
@@ -42,18 +75,59 @@ services:
       - CLOVA_API2_URL=${CLOVA_API2_URL}
       - NAVER_CLIENT_ID=${NAVER_CLIENT_ID}
       - NAVER_CLIENT_SECRET=${NAVER_CLIENT_SECRET}
-      - NVIDIA_VISIBLE_DEVICES=all  # GPU 사용을 위해 추가
-    runtime: nvidia  # GPU runtime 지정
-
+      # 추가된 환경변수들
+      - CLOVA_VOICE_CLIENT_ID=${CLOVA_VOICE_CLIENT_ID}
+      - CLOVA_VOICE_CLIENT_SECRET=${CLOVA_VOICE_CLIENT_SECRET}
+      - CLOVA_CHAT_REQUEST_ID=${CLOVA_CHAT_REQUEST_ID}
+      - CLOVA_EMBEDDING_REQUEST_ID=${CLOVA_EMBEDDING_REQUEST_ID}
+      - NAVER_LOGIN_CLIENT_ID=${NAVER_LOGIN_CLIENT_ID}
+      - NAVER_LOGIN_CLIENT_SECRET=${NAVER_LOGIN_CLIENT_SECRET}
+      - NAVER_REDIRECT_URI=${NAVER_REDIRECT_URI}
+      - FRONTEND_URL=${FRONTEND_URL}
+      - VITE_MAP_CLIENT_ID=${VITE_MAP_CLIENT_ID}
+      - VITE_MAP_CLIENT_SECRET=${VITE_MAP_CLIENT_SECRET}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_HOST=${MYSQL_HOST}
+      - MYSQL_PORT=${MYSQL_PORT}
+      - MYSQL_DB=${MYSQL_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_HOST=${POSTGRES_HOST}
+      - POSTGRES_PORT=${POSTGRES_PORT}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - NVIDIA_VISIBLE_DEVICES=all
+    runtime: nvidia
+    # NET_ADMIN 권한과 /dev/net/tun 디바이스 사용 설정
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    volumes:
+      - /home/sh/nvidia/data/v3/BE_GLOVA/openvpn01-TCP4-1188-config.ovpn:/etc/openvpn/config.ovpn:ro
+      - /home/sh/nvidia/data/v3/BE_GLOVA/credentials.txt:/etc/openvpn/credentials.txt:ro
+      - /home/sh/nvidia/data/v3/BE_GLOVA/beomjoismoving.pem:/etc/ssh/beomjoismoving.pem:ro
+      # BE 전용 entrypoint 스크립트
+      - /home/sh/nvidia/data/v3/BE_GLOVA/entrypoint.sh:/entrypoint.sh:ro
   apache:
     build:
       context: .
       dockerfile: Dockerfile.apache  # Apache용 Dockerfile 사용
-    container_name: final_apache
+    container_name: server_glova
     ports:
       - "8080:80"
-    volumes:
-      - ./httpd.conf:/usr/local/apache2/conf/httpd.conf:ro
     depends_on:
       - frontend
       - backend
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    volumes:
+      - ./httpd.conf:/usr/local/apache2/conf/httpd.conf:ro
+      - /home/sh/nvidia/data/v3/BE_GLOVA/openvpn01-TCP4-1188-config.ovpn:/etc/openvpn/config.ovpn:ro
+      - /home/sh/nvidia/data/v3/BE_GLOVA/credentials.txt:/etc/openvpn/credentials.txt:ro
+      - /home/sh/nvidia/data/v3/BE_GLOVA/beomjoismoving.pem:/etc/ssh/beomjoismoving.pem:ro
+      # Apache 전용 entrypoint 스크립트 (파일명은 entrypoint-apache.sh지만 컨테이너 내에서는 /entrypoint.sh로 사용)
+      - /home/sh/nvidia/data/v3/entrypoint-apache.sh:/entrypoint.sh:ro
+
