@@ -14,6 +14,7 @@ class User(MySQLBase):
     __tablename__ = "users"
 
     user_id = Column(String(64), primary_key=True)  # BASE64 고유 식별자
+    user_pw = Column(String(100), nullable=False)
     birth_year = Column(String(4), nullable=False)
     gender = Column(Enum("M", "F"), nullable=False)
 
@@ -72,7 +73,7 @@ class RecommendedBook(MySQLBase):
 
     # 관계 설정
     user = relationship("User", back_populates="recommended_books")
-    
+
 # 배지 테이블 (badges)
 class Badge(MySQLBase):
     __tablename__ = "badges"
