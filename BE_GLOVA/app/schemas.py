@@ -40,6 +40,7 @@ class VoiceRequest(BaseModel):
 # Users 테이블 Pydantic Schema
 class UserSchema(BaseModel):
     user_id: str
+    user_pw: str
     birth_year: str
     gender: str
 
