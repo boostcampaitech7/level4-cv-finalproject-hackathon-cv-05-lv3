@@ -13,7 +13,7 @@ export const Review = (): JSX.Element => {
   const [inputText, setInputText] = useState("");
   const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
   const inputRef = useRef<HTMLTextAreaElement>(null);
-  
+
   const book = location.state || {};
 
 
@@ -24,7 +24,7 @@ export const Review = (): JSX.Element => {
     }
   }, [inputText]);
 
-  {/*더미 데이터 버전*/}
+  {/*더미 데이터 버전*/ }
   // const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
   //   if (e.key === "Enter" && !e.shiftKey && inputText.trim()) {
   //     e.preventDefault();
@@ -32,13 +32,13 @@ export const Review = (): JSX.Element => {
   //     setInputText("");
   //   }
   // };
-  
-  {/*서버 통신 버전*/}
+
+  {/*서버 통신 버전*/ }
   const handleKeyDown = async (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter" && !e.shiftKey && inputText.trim()) {
       e.preventDefault();
-      await UploadReview(book.bookTitle, inputText);
-      const reviews = await GetReviews(book.bookTitle);
+      await UploadReview(book.bookId, inputText);
+      const reviews = await GetReviews(book.bookId);
       setReviews(reviews);
       setInputText("");
     }
@@ -101,7 +101,7 @@ export const Review = (): JSX.Element => {
           <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
             <div className="bg-white p-5 rounded-lg w-[350px] shadow-lg text-center relative flex flex-col justify-center items-center">
               <img
-                src="../../image_data/Guide/Review.png" 
+                src="../../image_data/Guide/Review.png"
                 alt="도움말 이미지"
                 className="w-full h-auto rounded-md"
               />
@@ -116,7 +116,7 @@ export const Review = (): JSX.Element => {
         )}
 
         <div className="fixed bottom-0 w-full bg-white" >
-            <NaviBar activeLabel="Community" />
+          <NaviBar activeLabel="Community" />
         </div>
       </div>
     </div>

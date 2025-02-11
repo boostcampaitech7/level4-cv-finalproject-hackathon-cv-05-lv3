@@ -132,15 +132,15 @@ export const PostBadgeMaker = async (bookId: number, speak: string) => {
 // 뱃지 가져오기
 export const GetBadges = async (): Promise<Badge[]> => {
   try {
-    const response = await apiClient.post("/api/badge");
+    const response = await apiClient.get("/api/badge");
 
     if (response.status !== 200) {
       throw new Error(`서버 오류: ${response.status}`);
     }
-
-    return response.data; // Axios는 자동으로 JSON 파싱을 수행하므로 response.data를 반환
+    console.log(response.data)
+    return response.data; // ✅ 서버에서 받은 뱃지 데이터 반환
   } catch (error) {
-    console.error("Error fetching books:", error);
+    console.error("❌ Error fetching badges:", error);
     return []; // 오류 발생 시 빈 배열 반환
   }
 };
@@ -177,11 +177,11 @@ export const GetAudioFile = async () => {
 
 
 // 후기 받아오기
-export const GetReviews = async (bookTitle: string) => {
+export const GetReviews = async (bookId: number) => {
   try {
     const response = await apiClient.post("/api/get_reviews",
       {
-        bookTitle: bookTitle,
+        bookId: bookId,
       }
     );
     return response.data; // 서버에서 받은 데이터를 반환

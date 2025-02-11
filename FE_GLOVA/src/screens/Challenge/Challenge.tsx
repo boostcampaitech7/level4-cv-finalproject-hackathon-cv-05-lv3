@@ -43,17 +43,12 @@ export const Challenge = (): JSX.Element => {
   const [audioElement, setAudioElement] = useState<HTMLAudioElement | null>(null);
 
   useEffect(() => {
-    setBadges(dummyBadges);
+    const fetchData = async () => {
+      const data = await GetBadges(); // ✅ API 호출
+      setBadges(data);
+    };
+    fetchData();
   }, []);
-
-  // {/*서버 통신 버전*/}
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const data = await GetBadges(); // ✅ API 호출
-  //     setBadges(data);
-  //   };
-  //   fetchData();
-  // }, []);
 
   // ✅ 모달 열기 함수
   const openModal = (badge: Badge) => {
@@ -69,7 +64,7 @@ export const Challenge = (): JSX.Element => {
 
   const openAudio = async (badge: Badge): Promise<void> => {
     setSelectedBadge(badge);
-    try{
+    try {
       const mp3URL = await GetAudioFile();
       if (audioElement) {
         audioElement.pause();
@@ -100,8 +95,8 @@ export const Challenge = (): JSX.Element => {
                   className="w-[100px] h-[100px] object-cover cursor-pointer"
                   alt="badge image"
                   // src={base64ToImageUrl(badge.badgeImage)}
-                  src = {badge.badgeImage}
-                  onClick={() => {openModal(badge), openAudio(badge)}} // ✅ 클릭 시 모달 오픈
+                  src={badge.badgeImage}
+                  onClick={() => { openModal(badge), openAudio(badge) }} // ✅ 클릭 시 모달 오픈
                   // onClick = {() => openAudio(badge)}
                   whileTap={{ scale: 0.85 }} // 클릭 시 0.85배 크기로 줄어듦
                   transition={{ type: "spring", stiffness: 400, damping: 10 }} // 부드러운 반응
@@ -119,7 +114,7 @@ export const Challenge = (): JSX.Element => {
               <img
                 className="w-[150px] h-[150px] object-cover mx-auto mt-3"
                 // src={base64ToImageUrl(selectedBadge.badgeImage)} // ✅ Base64 이미지 URL로 변환
-                src = {selectedBadge.badgeImage}
+                src={selectedBadge.badgeImage}
                 alt="badge image"
               />
               <p className="text-sm text-gray-500 mt-2">

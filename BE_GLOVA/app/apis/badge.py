@@ -2,7 +2,7 @@ from fastapi import Request, APIRouter, Depends, HTTPException
 from typing import Dict, Any
 from sqlalchemy.orm import Session
 from database.connections import get_mysql_db
-from database.crud import save_badge_to_db, get_badges_by_id
+from database.crud import save_badge_to_db, get_book_by_id, get_badges_by_id
 from schemas import BadgeSchema
 from apis.save_books import get_user_id, parse_datetime
 from models.createBadge import generate_badge
@@ -69,6 +69,10 @@ async def get_user_badges(
     '''
     한 유저가 갖고있는 뱃지들 조회
     '''
-    return get_badges_by_id(db, user_id)      
+    badges =  get_badges_by_id(db, user_id) 
+    print(badges)
+
+    return [BadgeSchema.from_orm(badge) for badge in badges]  
+
 
   

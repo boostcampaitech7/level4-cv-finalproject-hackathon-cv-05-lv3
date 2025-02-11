@@ -178,6 +178,7 @@ pyrightconfig.json
 chromedriver/
 
 **/*.env
+BE_GLOVA/data
 BE_GLOVA/badge
 BE_GLOVA/calendar
 BE_GLOVA/modelll.py
@@ -219,3 +220,4 @@ dist-ssr
 *.sw?
 
 *.index
+

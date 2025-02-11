@@ -195,7 +195,7 @@ def save_badge_to_db(db: Session, badge_data):
 def get_reviews(db: Session):
     return db.execute(select(Review)).scalars().all()
 
-def get_book_reviews(db: Session, book_id):
+def get_book_reviews(db: Session, book_id: int):
     # 해당 책에 대한 리뷰 전체
     return db.execute(select(Review).where(Review.book_id == book_id)).scalars().all()
 

@@ -5,7 +5,7 @@ from database.connections import init_db
 from database.config import get_db_status  # ✅ DB 상태 조회 함수 추가
 import os
 from dotenv import load_dotenv
-from apis import badge, save_books, login, home, db, library
+from apis import badge, save_books, login, home, db, library, community
 
 load_dotenv()
 FRONTEND_URL = os.getenv("FRONTEND_URL")
@@ -32,6 +32,7 @@ app.include_router(badge.router)
 app.include_router(home.router)
 app.include_router(db.router)
 app.include_router(library.router)
+app.include_router(community.router)
 
 @app.on_event("startup")  # FastAPI 실행 시 DB 초기화 실행
 def startup_event():
