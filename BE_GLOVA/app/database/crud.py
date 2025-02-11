@@ -61,6 +61,11 @@ def get_book_by_id(db: Session, book_id: int):
     query = select(Book).where(Book.book_id == book_id)
     return db.execute(query).scalar_one_or_none()
 
+def get_book_title_by_id(db: Session, book_id: int):
+    """📌 books 테이블에서 특정 book_id의 도서 제목 조회"""
+    query = select(Book.title).where(Book.book_id == book_id)
+    return db.execute(query).scalar_one_or_none()  # title 값 또는 None 반환
+
 def get_book_with_title(db: Session, title: str):
     return db.execute(select(Book).where(Book.title==title)).scalars().first()
 

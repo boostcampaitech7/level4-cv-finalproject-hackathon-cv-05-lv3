@@ -32,6 +32,15 @@ class BadgeResponse(BaseModel):
 class VoiceRequest(BaseModel):
     bookTitle: str
     gender: str
+    
+# 김건우 추가 - title이 필요해서...
+class BadgeWithTitleSchema(BaseModel):
+    badge_id: Optional[int] = None
+    user_id: str
+    book_id: int
+    book_title: str  # 추가된 필드
+    badge_image: str
+    created_at: datetime
 
 # class VoiceResponse(BaseModel):
 #     speak: str

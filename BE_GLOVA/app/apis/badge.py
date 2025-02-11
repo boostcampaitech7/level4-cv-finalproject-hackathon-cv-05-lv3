@@ -2,8 +2,8 @@ from fastapi import Request, APIRouter, Depends, HTTPException
 from typing import Dict, Any
 from sqlalchemy.orm import Session
 from database.connections import get_mysql_db
-from database.crud import save_badge_to_db, get_book_by_id, get_badges_by_id
-from schemas import BadgeSchema
+from database.crud import save_badge_to_db, get_book_by_id, get_badges_by_id, get_book_title_by_id
+from schemas import BadgeSchema, BadgeWithTitleSchema
 from apis.save_books import get_user_id, parse_datetime
 from models.createBadge import generate_badge
 
@@ -60,18 +60,35 @@ async def create_badge(
         print(f"❌ Error in create_badge: {e}")  # ✅ 에러 로그 추가
         raise HTTPException(status_code=500, detail="Internal Server Error")
      
-@router.get("/api/badge", response_model=list[BadgeSchema], tags=["MySQL"])
+# @router.get("/api/badge", response_model=list[BadgeSchema], tags=["MySQL"])
+# async def get_user_badges(
+#     db: Session = Depends(get_mysql_db), 
+#     user_id: str = Depends(get_user_id)
+# ):
+#     '''
+#     한 유저가 갖고있는 뱃지들 조회
+#     '''
+#     badges =  get_badges_by_id(db, user_id) 
+#     print(badges)
+
+#     return [BadgeSchema.from_orm(badge) for badge in badges]  
+
+
+@router.get("/api/badge", response_model=list[BadgeWithTitleSchema], tags=["MySQL"])
 async def get_user_badges(
     db: Session = Depends(get_mysql_db), 
     user_id: str = Depends(get_user_id)
 ):
     '''
-    한 유저가 갖고있는 뱃지들 조회
+    한 유저가 갖고 있는 뱃지들 조회 (book_id에 맞는 title 포함)
     '''
-    badges =  get_badges_by_id(db, user_id) 
-    print(badges)
+    badges = get_badges_by_id(db, user_id)
 
-    return [BadgeSchema.from_orm(badge) for badge in badges]  
-
-
-  
+    # BadgeWithTitleSchema 변환 후 title 추가
+    return [
+        BadgeWithTitleSchema(
+            **BadgeSchema.from_orm(badge).dict(),
+            book_title=get_book_title_by_id(db, badge.book_id) or "Unknown"
+        )
+        for badge in badges
+    ]
