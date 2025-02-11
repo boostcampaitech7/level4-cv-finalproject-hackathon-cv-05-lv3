@@ -5,7 +5,7 @@ from database.connections import init_db
 from database.config import get_db_status  # ✅ DB 상태 조회 함수 추가
 import os
 from dotenv import load_dotenv
-from apis import badge, books, login, home, db
+from apis import badge, save_books, login, home, db
 
 load_dotenv()
 FRONTEND_URL = os.getenv("FRONTEND_URL")
@@ -27,7 +27,7 @@ app.add_middleware(SessionMiddleware, secret_key=SESSIONMIDDLEWARE_SECRET_KEY)  
 
 # API 라우트 추가
 app.include_router(login.router)
-app.include_router(books.router)
+app.include_router(save_books.router)
 app.include_router(badge.router)
 app.include_router(home.router)
 app.include_router(db.router)

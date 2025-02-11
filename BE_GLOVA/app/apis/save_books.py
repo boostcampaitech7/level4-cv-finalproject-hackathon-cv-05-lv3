@@ -160,7 +160,3 @@ async def save_books(
     except Exception as e:
         print("❌ [오류 발생]:", traceback.format_exc())  # ✅ 전체 스택 트레이스를 출력!
         raise HTTPException(status_code=500, detail=f"서버 오류: {str(e)}")
-
-@router.post("/api/recommand_books")
-async def recommand_books():
-    return {"message": "추천 도서 API"}
