@@ -41,7 +41,7 @@ class VoiceRequest(BaseModel):
 class UserSchema(BaseModel):
     user_id: str
     user_pw: str
-    birth_year: str
+    birth_year: int
     gender: str
 
     class Config:

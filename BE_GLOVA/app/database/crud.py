@@ -27,7 +27,7 @@ def get_user_by_login(db: Session, user_id, user_pw):
 
 
 def create_user(db: Session, user_data: UserSchema):
-    new_user = User(**user_data.dict())
+    new_user = User(**user_data)
     db.add(new_user)
     db.commit()
     db.refresh(new_user)

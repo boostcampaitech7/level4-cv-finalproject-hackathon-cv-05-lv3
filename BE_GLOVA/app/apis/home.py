@@ -67,7 +67,7 @@ async def login_check(request: Dict[str, str],mysql_db: Session = Depends(get_my
     """
     try:
         user_id = request["id"]
-        user_pw = request["user_pw"]
+        user_pw = request["password"]
         # user_id = id
         # user_pw = password
     
