@@ -47,7 +47,6 @@ export const Login = (): JSX.Element => {
   
     setIsLoading(true);
     setError("");
-    cookies_saver(userId);
     try {
       const response = await Local_login(userId, password);
   
