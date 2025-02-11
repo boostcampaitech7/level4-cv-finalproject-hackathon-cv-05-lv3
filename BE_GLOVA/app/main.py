@@ -7,10 +7,15 @@ import os
 from dotenv import load_dotenv
 from apis import badge, save_books, login, home, db, library, community
 
+from fastapi.staticfiles import StaticFiles # 김건우 추가 - 파일을 정적으로 받아올 수 있도록 함
+
 load_dotenv()
 FRONTEND_URL = os.getenv("FRONTEND_URL")
 print(f"FRONTEND_URL : {FRONTEND_URL}")
 SESSIONMIDDLEWARE_SECRET_KEY=os.getenv('SESSIONMIDDLEWARE_SECRET_KEY')
+
+BADGE_FILE_DIRECTORY = os.getenv("BADGE_FILE_DIRECTORY")
+
 app = FastAPI()
 
 # CORS 설정
@@ -59,3 +64,5 @@ async def preflight_handler():
         "Access-Control-Allow-Methods": "OPTIONS, GET, POST, PUT, DELETE",  # ✅ 허용할 HTTP 메서드
         "Access-Control-Allow-Headers": "*",  # ✅ 모든 헤더 허용
     })
+
+app.mount("/badge_imgs", StaticFiles(directory=BADGE_FILE_DIRECTORY), name="badge_imgs")

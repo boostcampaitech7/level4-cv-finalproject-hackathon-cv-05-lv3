@@ -7,6 +7,11 @@ from schemas import BadgeSchema, BadgeWithTitleSchema
 from apis.save_books import get_user_id, parse_datetime
 from models.createBadge import generate_badge
 
+import os
+from urllib.parse import urljoin
+
+BACKEND_URL = os.getenv("BACKEND_URL")
+
 # from app.models.createVoice import clova_voice
 router = APIRouter()
 
@@ -82,13 +87,20 @@ async def get_user_badges(
     '''
     한 유저가 갖고 있는 뱃지들 조회 (book_id에 맞는 title 포함)
     '''
+    def get_badge_image_url(badge_image_path: str) -> str:
+        """서버 내 경로를 브라우저에서 접근 가능한 URL로 변환"""
+        if not badge_image_path:
+            return urljoin(BACKEND_URL, "/badge_imgs/default.png")  # 기본 이미지 제공 <------ 없음 그런거
+        return urljoin(BACKEND_URL, f"/badge_imgs/{os.path.basename(badge_image_path)}")
+    
     badges = get_badges_by_id(db, user_id)
 
     # BadgeWithTitleSchema 변환 후 title 추가
     return [
         BadgeWithTitleSchema(
-            **BadgeSchema.from_orm(badge).dict(),
-            book_title=get_book_title_by_id(db, badge.book_id) or "Unknown"
+            **{k: v for k, v in BadgeSchema.from_orm(badge).dict().items() if k != "badge_image"},  # ✅ badge_image 제외
+            book_title=get_book_title_by_id(db, badge.book_id) or "Unknown",
+            badge_image=get_badge_image_url(badge.badge_image)  # ✅ 변환된 값 추가
         )
         for badge in badges
     ]

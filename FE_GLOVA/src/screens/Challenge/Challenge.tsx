@@ -68,6 +68,11 @@ export const Challenge = (): JSX.Element => {
     fetchData();
   }, []);
 
+  const getBadgeImageUrl = (imagePath:string) => {
+    if (!imagePath) return "http://<서버_IP>:8000/images/default.png"; // 기본 이미지
+    return imagePath.startsWith("http") ? imagePath : `http://<서버_IP>:8000/images/${imagePath.split('/').pop()}`;
+  };
+
   // ✅ 모달 열기 함수
   const openModal = (badge: Badge) => {
     setSelectedBadge(badge);
@@ -101,7 +106,8 @@ export const Challenge = (): JSX.Element => {
                   className="w-[100px] h-[100px] object-cover cursor-pointer"
                   alt="badge image"
                   // src={base64ToImageUrl(badge.badge_image)}
-                  src = {badge.badge_image}
+                  src = {getBadgeImageUrl(badge.badge_image)}
+                  // src = {`http://<서버_IP>:8000/badge_imgs/${badge.badge_image.split('/').pop()}`}
                   onClick={() => { openModal(badge) }} // ✅ 클릭 시 모달 오픈
                   whileTap={{ scale: 0.85 }} // 클릭 시 0.85배 크기로 줄어듦
                   transition={{ type: "spring", stiffness: 400, damping: 10 }} // 부드러운 반응
