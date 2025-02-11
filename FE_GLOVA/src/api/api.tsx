@@ -9,8 +9,8 @@ export interface Book {
   date: string;
   time: string;
   bookTitle: string;
-  bookimage: string;
-  question: string;
+  bookImage: string;
+  questionText: string;
 }
 
 export interface Badge {

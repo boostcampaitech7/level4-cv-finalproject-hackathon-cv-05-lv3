@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { HelpCircle, Search } from "lucide-react";
+import { BookImage, HelpCircle, Search } from "lucide-react";
 import { Card, CardContent } from "../../components/ui/card";
 import { useNavigate } from "react-router-dom";
 import NaviBar from "../../components/ui/navigationbar";
@@ -33,9 +33,11 @@ export const Library_home = (): JSX.Element => {
 
         if (response && Array.isArray(response)) {  // ✅ response가 배열인지 체크
           const transformedBooks = response.map((item: any) => ({
-            bookTitle: item.book?.title || "제목 없음",
-            bookImage: item.book?.image || "/default_book_cover.jpg",
-            questionText: item.question?.text || "질문이 없습니다.",
+            date: item.date,
+            time: item.time,
+            bookTitle: item.book?.title || "책을 추천받아 보세요!",
+            bookImage: item.book?.image || "../../image_data/Library_sample.png",
+            questionText: item.question?.text || "추천 받은 책에 대한 후기를 다른 사람들과 공유할 수 있어요!",
           }));
 
           setBooks(transformedBooks);

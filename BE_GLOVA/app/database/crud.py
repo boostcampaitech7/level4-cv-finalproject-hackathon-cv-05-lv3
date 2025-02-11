@@ -117,6 +117,7 @@ def get_recommended_books_by_user(db: Session, user_id: str):
         {
             "book_id": book.book_id,
             "session_id": book.session_id,
+            "recommended_at": book.recommended_at
         }
         for book in books
     ]

@@ -22,12 +22,19 @@ async def get_recommended_books(
 
         # ✅  book_id와 session_id 기반으로 books, user_questions, clova_answers 데이터 조회
         for rec in recommended_books:
+            recommended_datetime = rec["recommended_at"]
+            
+            # Extract date and time safely
+            date = recommended_datetime.strftime("%Y-%m-%d") if recommended_datetime else "N/A"
+            time = recommended_datetime.strftime("%H:%M:%S") if recommended_datetime else "N/A"
             book = get_book_by_id(mysql_db, rec["book_id"])
             question = get_question_by_session(postgresql_db, rec["session_id"])
             answer = get_answer_by_session(postgresql_db, rec["session_id"])
 
             # ✅ 데이터를 JSON으로 변환
             books_with_questions_and_answers.append({
+                "date" : date,
+                "time": time,
                 "book": {
                     "title": book.title if book else "N/A",
                     "image": book.image if book else "N/A"
