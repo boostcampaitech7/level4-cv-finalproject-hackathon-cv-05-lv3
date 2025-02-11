@@ -46,6 +46,11 @@ def read_token(db: Session, user_id: str):
 def get_books(db: Session):
     return db.execute(select(Book)).scalars().all()
 
+def get_book_by_id(db: Session, book_id: int):
+    """📌 books 테이블에서 특정 book_id의 도서 조회"""
+    query = select(Book).where(Book.book_id == book_id)
+    return db.execute(query).scalar_one_or_none()
+
 def get_book_with_title(db: Session, title: str):
     return db.execute(select(Book).where(Book.title==title)).scalars().first()
 
@@ -91,6 +96,23 @@ def update_session(db: Session, session: SessionTable, question_id: int, answer_
 # MySQL CRUD - RecommendedBooks 테이블
 def get_recommended_books(db: Session):
     return db.execute(select(RecommendedBook)).scalars().all()
+
+def get_recommended_books_by_user(db: Session, user_id: str):
+    query = (
+        select(RecommendedBook)
+        .where(RecommendedBook.user_id == user_id)
+    )
+    books = db.execute(query).scalars().all()
+
+    # ✅ 객체를 JSON으로 변환
+    return [
+        {
+            "book_id": book.book_id,
+            "session_id": book.session_id,
+        }
+        for book in books
+    ]
+
 
 def get_recommended_books_by_user_and_session(db: Session, user_id: str, session_id: str):
     query = (
@@ -148,6 +170,11 @@ def create_review(db: Session, review_data):
 def get_user_questions(db: Session):
     return db.execute(select(UserQuestionORMModel)).scalars().all()
 
+def get_question_by_session(db: Session, session_id: str):
+    """📌 user_questions 테이블에서 특정 session_id의 질문 조회"""
+    query = select(UserQuestionORMModel).where(UserQuestionORMModel.session_id == session_id)
+    return db.execute(query).scalar_one_or_none()
+
 def create_user_question(db: Session, question_data: UserQuestionSchema):
     new_question = UserQuestionORMModel(**question_data.dict())
     db.add(new_question)
@@ -157,6 +184,11 @@ def create_user_question(db: Session, question_data: UserQuestionSchema):
 
 def get_user1_questions(db: Session, user_id: str):
     return db.execute(select(UserQuestionORMModel).where(UserQuestionORMModel.user_id == user_id)).scalars().all()
+
+def get_answer_by_session(db: Session, session_id: str):
+    """📌 clova_answers 테이블에서 특정 session_id의 답변 조회"""
+    query = select(ClovaAnswer).where(ClovaAnswer.session_id == session_id)
+    return db.execute(query).scalar_one_or_none()
 
 # PostgreSQL CRUD - ClovaAnswers 테이블
 def get_clova_answers(db: Session):

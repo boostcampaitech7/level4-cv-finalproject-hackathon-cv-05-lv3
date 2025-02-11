@@ -61,14 +61,14 @@ export const SaveRecommand = async (data: any) => {
 
 
 // 추천받은 책 정보 전부 가져오기
-export const GetRecommandBooks = async (): Promise<Book[]> => {
+export const GetRecommandBooks = async () => {
   try {
-    const response = await apiClient.post("/api/recommand_books");
-
-    return response.data; // Axios는 자동으로 JSON 파싱을 수행하므로 response.data를 반환
+    const response = await apiClient.get("/api/recommended_books");
+    console.log("✅ 추천 도서 데이터:", response.data);
+    return response.data.response_body;  // ❗ 'response_body' 내부 데이터만 반환
   } catch (error) {
-    console.error("Error fetching books:", error);
-    return []; // 오류 발생 시 빈 배열 반환
+    console.error("❌ Error fetching recommended books:", error);
+    throw error;
   }
 };
 

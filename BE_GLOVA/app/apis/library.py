@@ -1,79 +1,67 @@
-from fastapi import Request, HTTPException, APIRouter, Depends
-from dotenv import load_dotenv
-import faiss
-import numpy as np
-import pandas as pd
-import http.client
-import requests
-import json
-import time
-import re
-from typing import Dict
-from pydantic import BaseModel
-import os
-from datetime import datetime, timezone, timedelta
+from fastapi import APIRouter, HTTPException, Depends
 from sqlalchemy.orm import Session
 from database.connections import get_mysql_db, get_postgresql_db
-from database.crud import (
-    get_users, create_user, read_user, get_tokens, create_token, get_books, create_book,
-    get_sessions, create_session, get_recommended_books, create_recommended_book,
-    get_badges, create_badge, get_reviews, create_review, 
-    get_user_questions, get_user1_questions, create_user_question, get_clova_answers, create_clova_answer
-)
-from apis.realhome import (
-    api_get_users, api_create_user, api_get_tokens, api_create_token, api_get_books, api_create_book, api_get_sessions, api_create_session, 
-    api_get_recommended_books, get_recommended_books_by_user_and_session, api_create_recommended_book, api_get_badges, api_create_badge, api_get_reviews,api_create_review,  api_get_user_questions, api_create_user_question, 
-    api_get_clova_answers, api_create_clova_answer 
-)
-from schemas import (
-    UserQuestion, ClovaResponse, CalendarResponse,
-    UserSchema, TokenSchema, BookSchema, SessionSchema, RecommendedBookSchema, 
-    BadgeSchema, ReviewSchema, UserQuestionSchema, ClovaAnswerSchema
-)
-import logging
-from models.everyQ import book_question
-from jose import JWTError, jwt
-import secrets
-from app.apis.home_su import get_user_id
+from database.crud import get_recommended_books_by_user, get_book_by_id, get_question_by_session, get_answer_by_session
+from apis.save_books import get_user_id
+
 router = APIRouter()
+
 # 이 유저가 추천받은 책들 겟 
-@router.get("/api/get_books")
-async def get_books(
+@router.get("/api/recommended_books")
+async def get_recommended_books(
     postgresql_db: Session = Depends(get_postgresql_db),
     mysql_db: Session = Depends(get_mysql_db),
     user_id: str = Depends(get_user_id)
 ):
     try:
-        question_recommendedBook = []
-        # 유저 id인 유저 퀘스션을 모두 찾아.
-        user_questions = get_user1_questions(postgresql_db, user_id)
 
-        # 세션 id를 하나하나 돌면서 유저 퀘스션 그 값과 레커멘디드 북스 (유저id세션id) 그 값을 묶어
-        for question in user_questions:
-            recommended_book = get_recommended_books_by_user_and_session(mysql_db, user_id, question.session_id)
-            question_recommendedBook.append([question, recommended_book])
+        # ✅ user_id에 해당하는 추천 도서 조회
+        recommended_books = get_recommended_books_by_user(mysql_db, user_id)
+
+        books_with_questions_and_answers = []
+
+        # ✅  book_id와 session_id 기반으로 books, user_questions, clova_answers 데이터 조회
+        for rec in recommended_books:
+            book = get_book_by_id(mysql_db, rec["book_id"])
+            question = get_question_by_session(postgresql_db, rec["session_id"])
+            answer = get_answer_by_session(postgresql_db, rec["session_id"])
+
+            # ✅ 데이터를 JSON으로 변환
+            books_with_questions_and_answers.append({
+                "book": {
+                    "title": book.title if book else "N/A",
+                    "image": book.image if book else "N/A"
+                },
+                "session_id": rec["session_id"],
+                "question": question.question_text if question else "N/A",
+                "answer": answer.answer_text if answer else "N/A"
+            })
+
+        print("📌 최종 데이터:", books_with_questions_and_answers)
         
-        # 리스트에 유저퀘스션-레커멘디드북 쌍으로 모두 리턴
         return {
             "status": "success",
-            "message": " successfully",
-            "response_body": question_recommendedBook
+            "message": "Recommended books with questions and answers retrieved successfully",
+            "response_body": books_with_questions_and_answers
         }
         
     except Exception as e:
-        raise e
+        print(f"❌ [오류 발생]: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"서버 오류: {str(e)}")
 
-# 책 하나를 눌름     
-@router.get("/api/get_book")
-async def get_book(
-    book_id: str,
-    mysql_db: Session = Depends(get_mysql_db),
-):
-    try:
-        return get_book(mysql_db, book_id)
+
+# # 책 하나를 눌름     
+# @router.get("/api/get_book")
+# async def get_recommended_book(
+#     book_id: int,
+#     mysql_db: Session = Depends(get_mysql_db),
+# ):
+#     try:
+#         recommen
+#         return get_book(mysql_db, book_id)
     
-    except Exception as e:
-        raise e
+#     except Exception as e:
+#         raise e
 
 
 
