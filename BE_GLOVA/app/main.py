@@ -17,7 +17,7 @@ app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[f"{FRONTEND_URL}", "http://localhost:8000"],
-    allow_credentials=True,
+    # allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -50,3 +50,12 @@ def db_status():
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
+
+
+@app.options("/{full_path:path}")  # ✅ 모든 엔드포인트에서 OPTIONS 요청을 받음
+async def preflight_handler():
+    return JSONResponse(content={}, headers={
+        "Access-Control-Allow-Origin": "http://localhost:3000",  # ✅ 프론트엔드 도메인 허용
+        "Access-Control-Allow-Methods": "OPTIONS, GET, POST, PUT, DELETE",  # ✅ 허용할 HTTP 메서드
+        "Access-Control-Allow-Headers": "*",  # ✅ 모든 헤더 허용
+    })

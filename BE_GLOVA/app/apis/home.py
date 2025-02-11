@@ -45,15 +45,16 @@ async def every_Q(
 
 
 @router.post("/api/dupli_check")
-async def dupli_check(id: str, mysql_db: Session = Depends(get_mysql_db)):
+async def dupli_check(request: Dict[str, str], mysql_db: Session = Depends(get_mysql_db)):
     """
     id 중복 확인하는 엔드포인트
     """
     try:
+        id = request["id"]
         get_user(mysql_db, user_id=id)
         if get_user(mysql_db, user_id=id):
             return { "exists": "true" }
-        else:
+        else: 
             return { "exists": "false"}
         
     except Exception as e:
@@ -67,6 +68,8 @@ async def login_check(request: Dict[str, str],mysql_db: Session = Depends(get_my
     try:
         user_id = request["id"]
         user_pw = request["password"]
+        # user_id = id
+        # user_pw = password
     
         if get_user_by_login(mysql_db, user_id, user_pw):
             return { "status": "success" }
