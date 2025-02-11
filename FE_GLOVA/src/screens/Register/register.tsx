@@ -54,7 +54,7 @@ export const SignupForm = () => {
       // 아이디 중복 검사
       const checkResponse = await DuplicateCheck(userId);
 
-      if (checkResponse.data.exists) {
+      if (checkResponse.data.exists === "true") {
         setError("이미 사용 중인 유저 아이디입니다.");
         setLoading(false);
         return;

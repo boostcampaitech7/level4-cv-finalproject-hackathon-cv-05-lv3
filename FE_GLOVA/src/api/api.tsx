@@ -40,9 +40,9 @@ export const DuplicateCheck = async (id: string) => {
 // *회원가입 데이터 저장
 export const SaveUserdata = async (id: string, password:string, birth:number, gender:string) => {
   try {
-    const response = await apiClient.post("/api/regiseter", {
+    const response = await apiClient.post("/db/users", {
       id: id,
-      user_pw: password,
+      password: password,
       birth: birth,
       gender: gender
     });
@@ -61,7 +61,7 @@ export const Local_login = async (id: string, password: string) => {
   try {
     const response = await apiClient.post("/api/local_login", {
       id: id,
-      user_pw: password
+      password: password
     });
 
     return response.data;
