@@ -42,12 +42,10 @@ export const SaveUserdata = async (id: string, password:string, birth:number, ge
   try {
     const response = await apiClient.post("/api/regiseter", {
       id: id,
-      password: password,
+      user_pw: password,
       birth: birth,
       gender: gender
     });
-
-    cookies_saver(id);
 
     return response;
   }
@@ -58,12 +56,12 @@ export const SaveUserdata = async (id: string, password:string, birth:number, ge
 };
 
 
-//로그인하기
+//* 로그인하기
 export const Local_login = async (id: string, password: string) => {
   try {
     const response = await apiClient.post("/api/local_login", {
       id: id,
-      password: password
+      user_pw: password
     });
 
     return response;

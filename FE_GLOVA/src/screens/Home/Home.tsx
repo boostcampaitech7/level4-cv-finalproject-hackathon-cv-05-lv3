@@ -8,6 +8,7 @@ import { HelpCircle } from "lucide-react";
 import NaviBar from "../../components/ui/navigationbar";
 import { RemoveCookie } from "../../api/cookies"; // ✅ 쿠키 삭제 함수 가져오기
 import apiClient from "../../api/cookies"; // ✅ Axios 설정 가져오기
+import { cookie_loader } from "../../api/cookies";
 
 export const Home = (): JSX.Element => {
   const navigate = useNavigate();
@@ -15,36 +16,16 @@ export const Home = (): JSX.Element => {
   const [userId, setUserId] = useState<string | null>(null);
 
   useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        console.log("🔍 인증 상태 확인 중...");
-        const response = await apiClient.get("/api/check-auth");
+    // ✅ 1. 쿠키에서 id 가져오기
+    const userIdFromCookie = cookie_loader();
 
-        if (response.data.user_id) {
-          console.log("✅ 로그인된 사용자 ID:", response.data.user_id);
-          setUserId(response.data.user_id);
-
-          // ✅ 로그인 후 처음 접근 시 알림창 띄우기 (렌더링 완료 후 실행)
-          const hasShownAlert = localStorage.getItem("login_alert_shown");
-          if (!hasShownAlert) {
-            setTimeout(() => {
-              alert("로그인 완료, 사용자가 인증되었습니다.");
-            }, 500); // ✅ 0.5초 후 실행 (렌더링 완료 후)
-            localStorage.setItem("login_alert_shown", "true"); // 알림 기록 저장
-          }
-        } else {
-          console.warn("⚠️ 인증 실패! 로그인 페이지로 이동");
-          RemoveCookie();
-          navigate("/", { replace: true });
-        }
-      } catch (error) {
-        console.error("🚨 인증 확인 요청 실패:", error);
-        RemoveCookie();
-        navigate("/", { replace: true });
-      }
-    };
-
-    checkAuth();
+    if (!userIdFromCookie) {
+      console.warn("⚠️ 인증 실패! 쿠키가 없음. 로그인 페이지로 이동");
+      RemoveCookie();
+      navigate("/", { replace: true });
+      return; // 함수 종료
+    }
+    
   }, [navigate]);
 
   return (
