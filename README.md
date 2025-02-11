@@ -27,6 +27,8 @@ AI가 질문을 분석하고, 관련된 책을 찾아 추천해 줍니다.
 ### 👥 이 책 어때요? 이런 점이 좋았어요!
 책에 대한 감상평, 기대, 그밖에 다양한 코멘트를 작성할 수 있습니다.
 이를 다양한 사람들과 함께 공유해보세요.
+<br/>
+<br/>
 
 ## 주요 기능 사용방식
 | ![image (1)](https://github.com/user-attachments/assets/3481bf92-def9-4761-b686-3ba3d7c04a24) | ![image (2)](https://github.com/user-attachments/assets/a2f4dce8-0683-4e1c-a6fe-a522aaf152f1) | ![image (3)](https://github.com/user-attachments/assets/717b7da9-5c29-4822-9da7-1765aacd7084) |
@@ -34,7 +36,7 @@ AI가 질문을 분석하고, 관련된 책을 찾아 추천해 줍니다.
 
 | ![image (4)](https://github.com/user-attachments/assets/154544c9-ccc2-4481-a414-613c5d0638b9) | ![image (5)](https://github.com/user-attachments/assets/69f448f0-e168-492e-862c-e4831de1c838) | ![image (6)](https://github.com/user-attachments/assets/4ae297b3-e369-496d-b3b0-0bc8cf16f047) | 
 |---|---|---|
-
+<br/>
 
 
 > ## 👥 팀 소개
@@ -42,8 +44,6 @@ AI가 질문을 분석하고, 관련된 책을 찾아 추천해 줍니다.
 |:------:|:------:|:------:|:------:|:------:|:------:|
 | <img src="https://avatars.githubusercontent.com/u/74577797?v=4" alt="김건우" width="150"> | <img src="https://avatars.githubusercontent.com/u/61742009?v=4" alt="김범조" width="150"> | <img src="https://avatars.githubusercontent.com/u/80832362?v=4" alt="김석현" width="150"> | <img src="https://avatars.githubusercontent.com/u/49517864?v=4" alt="임홍철" width="150"> | <img src="https://avatars.githubusercontent.com/u/90364745?v=4" alt="정수현" width="150"> | <img src="https://github.com/user-attachments/assets/22baca4a-189a-4bc3-ab1c-8f6256637a16" alt="조소윤" width="150"> |
 | [GitHub](https://github.com/KOKOLOCOKES) | [GitHub](https://github.com/8eomio) | [GitHub](https://github.com/kimsuckhyun) | [GitHub](https://github.com/limhongcheol) | [GitHub](https://github.com/suhyun6363) | [GitHub](https://github.com/whthdbs03) | 
-
-
 <br/>
 <br/>
 
@@ -83,16 +83,19 @@ AI가 질문을 분석하고, 관련된 책을 찾아 추천해 줍니다.
 - Git / GitHub
 - Notion
 
+<br/>
+
 ## 🏛️ 전체 서비스 아키텍처
 #### 1. 서비스 요청 흐름도
-<img width="794" alt="image (9)" src="https://github.com/user-attachments/assets/0e999a6f-4c48-4590-b276-9c1390b1e5e2" />
+<img width="794" alt="image (9)" src="https://github.com/user-attachments/assets/0e999a6f-4c48-4590-b276-9c1390b1e5e2" />  
 
 #### 2. 모델 아키텍처
-<img width="794" alt="image (8)" src="https://github.com/user-attachments/assets/cb1d330e-5fc1-43e9-8d0d-972705883625" />
+<img width="941" alt="image (1)" src="https://github.com/user-attachments/assets/7a7909c6-3356-456e-baaa-bbbcbaaf743b" />  
+<br/>
 
 ## 🗓️ 프로젝트 타임라인
 <img width="885" alt="image (7)" src="https://github.com/user-attachments/assets/ee2965fa-c9ed-47ae-95f0-ab13e71eee39" />
-
+<br/>
 
 ## ⚙️ 유용한 링크
  - [📚 하이북글로바 발표 자료.pdf](https://github.com/user-attachments/files/18751070/CV_5._._.pdf)
