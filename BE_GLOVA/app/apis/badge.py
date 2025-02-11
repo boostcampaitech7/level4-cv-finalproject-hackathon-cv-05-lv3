@@ -1,8 +1,8 @@
-from fastapi import APIRouter, Depends
+from fastapi import Request, APIRouter, Depends, HTTPException
 from typing import Dict, Any
 from sqlalchemy.orm import Session
 from database.connections import get_mysql_db
-from database.crud import create_badge, get_book_by_id
+from database.crud import save_badge_to_db, get_badges_by_id
 from schemas import BadgeSchema
 from apis.save_books import get_user_id, parse_datetime
 from models.createBadge import generate_badge
@@ -13,7 +13,7 @@ router = APIRouter()
 # 보이스 x 걍 뱃지만! 
 @router.post("/api/badge_create")
 async def create_badge(
-    request: Dict[str, Any],  # book_id, speak
+    request: Request,  # book_id, speak
     mysql_db: Session = Depends(get_mysql_db),
     user_id: str = Depends(get_user_id)  # ✅ JWT 토큰에서 `user_id` 가져오기
 ) -> Dict:
@@ -24,31 +24,42 @@ async def create_badge(
     북 이미지랑 mp3 리턴? 그냥 테이블 쨰로 리턴 
     """
     try:
-        # ✅ 1️⃣ 클라이언트에서 받은 date & time을 이용해 timestamp 생성
-        timestamp = parse_datetime(request["date"], request["time"])
+        data = await request.json()  
+        print("📌 Received request data:", data)
 
-        user_text = request["speak"]
-        book_detail = get_book_by_id(mysql_db, request["bookId"])
-        
-        png_data, timestamp = generate_badge(book_detail.image)
+        if "date" not in data or "time" not in data or "bookId" not in data or "speak" not in data:
+            raise HTTPException(status_code=400, detail="Missing required fields in request")
+
+        timestamp = parse_datetime(data["date"], data["time"])
+        book_id = data["bookId"]
+        user_text = data["speak"]
+
+        book_detail = get_book_by_id(mysql_db, book_id)
+        if not book_detail:
+            raise HTTPException(status_code=404, detail="Book not found")
+
+        # ✅ 4️⃣ 뱃지 이미지 생성
+        png_path = generate_badge(book_detail.image)
 
         badge = BadgeSchema(
             user_id=user_id,
-            book_id=request["book_id"],
-            badge_image=png_data, #?
+            book_id=book_id,
+            badge_image=png_path,
             created_at=timestamp
         )
 
-        badge_response = await create_badge(mysql_db, badge)
+        badge_response = save_badge_to_db(mysql_db, badge)
 
         return {
             "status": "success",
             "message": "Badge saved successfully",
-            "stored_data": badge_response
         }
 
+    except HTTPException as http_err:
+        raise http_err  # FastAPI의 HTTPException을 클라이언트에 전달
     except Exception as e:
-        raise e     
+        print(f"❌ Error in create_badge: {e}")  # ✅ 에러 로그 추가
+        raise HTTPException(status_code=500, detail="Internal Server Error")
      
 @router.get("/api/badge", response_model=list[BadgeSchema], tags=["MySQL"])
 async def get_user_badges(
@@ -58,6 +69,6 @@ async def get_user_badges(
     '''
     한 유저가 갖고있는 뱃지들 조회
     '''
-    return get_user_badges(db, user_id)      
+    return get_badges_by_id(db, user_id)      
 
   
