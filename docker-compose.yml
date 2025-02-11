@@ -1,0 +1,150 @@
+version: '3.8'
+services:
+  frontend:
+    build:
+      context: ./FE_GLOVA
+      dockerfile: Dockerfile
+    container_name: fe_glova
+    expose:
+      - "3000"
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    environment:
+      - VITE_API_URL=http://223.195.111.44:8080
+      - PYTHONPATH=/app
+      - CLOVA_Authorization=${CLOVA_Authorization}
+      - CLOVA_REQUEST_ID=${CLOVA_REQUEST_ID}
+      - CLOVA_API_URL=${CLOVA_API_URL}
+      - SESSIONMIDDLEWARE_SECRET_KEY=${SESSIONMIDDLEWARE_SECRET_KEY}
+      - CLOVA_REQUEST_ID2=${CLOVA_REQUEST_ID2}
+      - CLOVA_API2_URL=${CLOVA_API2_URL}
+      - NAVER_CLIENT_ID=${NAVER_CLIENT_ID}
+      - NAVER_CLIENT_SECRET=${NAVER_CLIENT_SECRET}
+      # 추가된 환경변수들
+      - CLOVA_VOICE_CLIENT_ID=${CLOVA_VOICE_CLIENT_ID}
+      - CLOVA_VOICE_CLIENT_SECRET=${CLOVA_VOICE_CLIENT_SECRET}
+      - CLOVA_CHAT_REQUEST_ID=${CLOVA_CHAT_REQUEST_ID}
+      - CLOVA_EMBEDDING_REQUEST_ID=${CLOVA_EMBEDDING_REQUEST_ID}
+      - NAVER_LOGIN_CLIENT_ID=${NAVER_LOGIN_CLIENT_ID}
+      - NAVER_LOGIN_CLIENT_SECRET=${NAVER_LOGIN_CLIENT_SECRET}
+      - NAVER_REDIRECT_URI=${NAVER_REDIRECT_URI}
+      - FRONTEND_URL=${FRONTEND_URL}
+      - VITE_MAP_CLIENT_ID=${VITE_MAP_CLIENT_ID}
+      - VITE_MAP_CLIENT_SECRET=${VITE_MAP_CLIENT_SECRET}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_HOST=${MYSQL_HOST}
+      - MYSQL_PORT=${MYSQL_PORT}
+      - MYSQL_DB=${MYSQL_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_HOST=${POSTGRES_HOST}
+      - POSTGRES_PORT=${POSTGRES_PORT}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - MYSQL_DATABASE_URL=${MYSQL_DATABASE_URL}
+      - PGSQL_DATABASE_URL=${PGSQL_DATABASE_URL}
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    volumes:
+      # 백엔드에서 사용하는 VPN/SSH 파일들을 마운트 (읽기 전용)
+      - /home/sh/data/data/level4-cv-finalproject-hackathon-cv-05-lv3/BE_GLOVA/openvpn01-TCP4-1188-config.ovpn:/etc/openvpn/config.ovpn:ro
+      - /home/sh/data/data/level4-cv-finalproject-hackathon-cv-05-lv3/BE_GLOVA/credentials.txt:/etc/openvpn/credentials.txt:ro
+      # FE 전용 entrypoint 스크립트
+      - /home/sh/data/data/level4-cv-finalproject-hackathon-cv-05-lv3/FE_GLOVA/entrypoint.sh:/entrypoint.sh:ro
+      # 추가: 데이터 및 배지 파일들 마운트 (읽기 전용)
+      - ./data/vector_store__plz_no_error.index:/app/data/vector_store__plz_no_error.index:ro
+      - ./data/vector_store_only_title.index:/app/data/vector_store_only_title.index:ro
+      - ./data/sorted.csv:/app/data/sorted.csv:ro
+      - ./data/book_data_final.csv:/app/data/book_data_final.csv:ro
+      - ./BE_GLOVA/data/badge_img:/app/BE_GLOVA/data/badge_img:ro
+
+  backend:
+    build:
+      context: ./BE_GLOVA
+      dockerfile: Dockerfile
+    container_name: be_glova
+    ports:
+      - "8000:8000"
+    environment:
+      - MYSQL_DATABASE_URL=${MYSQL_DATABASE_URL}
+      - PGSQL_DATABASE_URL=${PGSQL_DATABASE_URL}
+      - CLOVA_Authorization=${CLOVA_Authorization}
+      - CLOVA_REQUEST_ID=${CLOVA_REQUEST_ID}
+      - CLOVA_API_URL=${CLOVA_API_URL}
+      - SESSIONMIDDLEWARE_SECRET_KEY=${SESSIONMIDDLEWARE_SECRET_KEY}
+      - CLOVA_REQUEST_ID2=${CLOVA_REQUEST_ID2}
+      - CLOVA_API2_URL=${CLOVA_API2_URL}
+      - NAVER_CLIENT_ID=${NAVER_CLIENT_ID}
+      - NAVER_CLIENT_SECRET=${NAVER_CLIENT_SECRET}
+      # 추가된 환경변수들
+      - CLOVA_VOICE_CLIENT_ID=${CLOVA_VOICE_CLIENT_ID}
+      - CLOVA_VOICE_CLIENT_SECRET=${CLOVA_VOICE_CLIENT_SECRET}
+      - CLOVA_CHAT_REQUEST_ID=${CLOVA_CHAT_REQUEST_ID}
+      - CLOVA_EMBEDDING_REQUEST_ID=${CLOVA_EMBEDDING_REQUEST_ID}
+      - NAVER_LOGIN_CLIENT_ID=${NAVER_LOGIN_CLIENT_ID}
+      - NAVER_LOGIN_CLIENT_SECRET=${NAVER_LOGIN_CLIENT_SECRET}
+      - NAVER_REDIRECT_URI=${NAVER_REDIRECT_URI}
+      - FRONTEND_URL=${FRONTEND_URL}
+      - VITE_MAP_CLIENT_ID=${VITE_MAP_CLIENT_ID}
+      - VITE_MAP_CLIENT_SECRET=${VITE_MAP_CLIENT_SECRET}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_HOST=${MYSQL_HOST}
+      - MYSQL_PORT=${MYSQL_PORT}
+      - MYSQL_DB=${MYSQL_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_HOST=${POSTGRES_HOST}
+      - POSTGRES_PORT=${POSTGRES_PORT}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - NVIDIA_VISIBLE_DEVICES=all
+      # FAISS 및 데이터 관련 변수 추가
+      - VECTOR_STORE_INDEX_FILE=${VECTOR_STORE_INDEX_FILE}
+      - VECTOR_STORE_INDEX_FILE_ONLY_TITLE=${VECTOR_STORE_INDEX_FILE_ONLY_TITLE}
+      - DATA=${DATA}
+      - DATA2=${DATA2}
+      - BADGE_FILE_DIRECTORY=${BADGE_FILE_DIRECTORY}
+    runtime: nvidia
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    volumes:
+      - /home/sh/data/data/level4-cv-finalproject-hackathon-cv-05-lv3/BE_GLOVA/openvpn01-TCP4-1188-config.ovpn:/etc/openvpn/config.ovpn:ro
+      - /home/sh/data/data/level4-cv-finalproject-hackathon-cv-05-lv3/BE_GLOVA/credentials.txt:/etc/openvpn/credentials.txt:ro
+      - /home/sh/data/data/level4-cv-finalproject-hackathon-cv-05-lv3/BE_GLOVA/beomjoismoving.pem:/etc/ssh/beomjoismoving.pem:ro
+      # BE 전용 entrypoint 스크립트
+      - /home/sh/data/data/level4-cv-finalproject-hackathon-cv-05-lv3/BE_GLOVA/entrypoint.sh:/entrypoint.sh:ro
+      # 데이터 및 배지 파일들 마운트
+      - ./data/vector_store__plz_no_error.index:/app/data/vector_store__plz_no_error.index:ro
+      - ./data/vector_store_only_title.index:/app/data/vector_store_only_title.index:ro
+      - ./data/sorted.csv:/app/data/sorted.csv:ro
+      - ./data/book_data_final.csv:/app/data/book_data_final.csv:ro
+      - ./BE_GLOVA/data/badge_img:/app/BE_GLOVA/data/badge_img:ro
+
+
+  apache:
+    build:
+      context: .
+      dockerfile: Dockerfile.apache  # Apache용 Dockerfile 사용
+    container_name: server_glova
+    ports:
+      - "8080:80"
+    depends_on:
+      - frontend
+      - backend
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    volumes:
+      - /home/sh/data/data/level4-cv-finalproject-hackathon-cv-05-lv3/httpd.conf:/usr/local/apache2/conf/httpd.conf:ro
+      - /home/sh/data/data/level4-cv-finalproject-hackathon-cv-05-lv3/BE_GLOVA/openvpn01-TCP4-1188-config.ovpn:/etc/openvpn/config.ovpn:ro
+      - /home/sh/data/data/level4-cv-finalproject-hackathon-cv-05-lv3/BE_GLOVA/credentials.txt:/etc/openvpn/credentials.txt:ro
+      - /home/sh/data/data/level4-cv-finalproject-hackathon-cv-05-lv3/BE_GLOVA/beomjoismoving.pem:/etc/ssh/beomjoismoving.pem:ro
+      # Apache 전용 entrypoint 스크립트 (파일명은 entrypoint-apache.sh지만 컨테이너 내에서는 /entrypoint.sh로 사용)
+      - /home/sh/data/data/level4-cv-finalproject-hackathon-cv-05-lv3/entrypoint-apache.sh:/entrypoint.sh:ro
