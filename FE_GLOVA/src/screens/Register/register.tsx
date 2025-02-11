@@ -30,7 +30,7 @@ export const SignupForm = () => {
   const navigate = useNavigate();
   const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
-  const [gender, setGender] = useState("male");
+  const [gender, setGender] = useState("M");
   const [birthYear, setBirthYear] = useState<number>();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -67,7 +67,7 @@ export const SignupForm = () => {
         alert("회원가입이 완료되었습니다.");
         setUserId("");
         setPassword("");
-        setGender("male");
+        setGender("M");
         setBirthYear(0);
         navigate("/", {replace: true});
       } else {
@@ -107,7 +107,7 @@ export const SignupForm = () => {
             <Select
               value={gender}
               onChange={setGender}
-              options={[{ value: "male", label: "남성" }, { value: "female", label: "여성" }]}
+              options={[{ value: "M", label: "남성" }, { value: "F", label: "여성" }]}
             />
           </div>
           <div>

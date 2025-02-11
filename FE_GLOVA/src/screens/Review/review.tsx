@@ -89,7 +89,7 @@ export const Review = (): JSX.Element => {
             <div key={index} className="bg-gray-300 p-2 rounded w-full break-words">
               <div className="flex items-center gap-2">
                 <div className="w-6 h-6 bg-gray-400 rounded" />
-                <span className="font-bold">{review.name}</span>
+                <span className="font-bold">{review.user_id}</span>
               </div>
               <p className="mt-1 text-sm break-words">{review.text}</p>
             </div>

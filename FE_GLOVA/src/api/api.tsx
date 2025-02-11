@@ -1,7 +1,7 @@
 import apiClient, { cookies_saver, cookie_loader, cookie_remover} from "./cookies";
 
 export interface Reviews {
-  name: string;
+  user_id: string;
   text: string;
 }
 
@@ -41,9 +41,9 @@ export const DuplicateCheck = async (id: string) => {
 export const SaveUserdata = async (id: string, password:string, birth:number, gender:string) => {
   try {
     const response = await apiClient.post("/db/users", {
-      id: id,
-      password: password,
-      birth: birth,
+      user_id: id,
+      user_pw: password,
+      birth_year: birth,
       gender: gender
     });
 
