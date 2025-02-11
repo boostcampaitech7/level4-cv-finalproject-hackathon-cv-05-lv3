@@ -68,7 +68,7 @@ export const Home4 = (): JSX.Element => {
               variant="secondary"
               className="flex-1 rounded-[3px_20px_20px_3px] bg-[#d9d9d9] active:scale-95 transition-transform duration-150 hover:bg-[#c4c4c4]"
               onClick={() => {
-                SaveRecommand(data.question_text, data.book_info?.image, data.book_info?.title);
+                SaveRecommand(data);
                 navigate("/Library", { replace: true });
               }}
             >

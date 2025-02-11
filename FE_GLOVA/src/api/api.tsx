@@ -36,27 +36,28 @@ export const Question2Server = async (age: string, gender: string, question: str
 };
 
 // 서버한테 데이터 저장하라고 하기
-export const SaveRecommand = async (question: string, bookimage: string, bookTitle: string) => {
+export const SaveRecommand = async (data: any) => {
   const now = new Date();
+  // 날짜를 KST(한국 표준시)로 변환
+  const date = now.toLocaleDateString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit' })
+    .replace(/. /g, '-').replace('.', ''); // YYYY-MM-DD 포맷
   try {
 
-    // 서버에 데이터를 전송합니다.
-    const response = await apiClient.post("/api/save_books", {
-      date: now.toISOString().split("T")[0], // YYYY-MM-DD 형식의 날짜
-      time: now.toTimeString().split(" ")[0], // HH:mm:ss 형식의 시간
-      question: question,
-      bookimage: bookimage,
-      bookTitle: bookTitle,
-    });
+    const requestData = {
+      date: date, // YYYY-MM-DD
+      time: now.toTimeString().split(" ")[0], // HH:mm:ss
+      data: data, // ✅ JSON 구조 그대로 전송
+    };
 
-    // 서버 응답 데이터 반환
-    console.log(response.data.message); // "Book_data saved Successfully" 출력
-    return response.data; // 서버에서 반환된 데이터를 호출자에게 전달
+    console.log("🔹 전송 데이터:", JSON.stringify(requestData, null, 2));
+
+    const response = await apiClient.post("/api/save_books", requestData);
+    console.log("✅ 추천 도서 저장 성공:", response.data);
   } catch (error) {
-    console.error("Error sending data:", error);
-    throw error; // 호출자에게 예외를 전달
+    console.error("추천 도서 저장 실패:", error);
   }
 };
+
 
 
 // 추천받은 책 정보 전부 가져오기
@@ -125,34 +126,33 @@ export const GetBadges = async (): Promise<Badge[]> => {
 
 
 //뱃지 mp3 가져오기
-export const GetAudioFile = async () => {
-  try {
-    const response = await fetch("http://localhost:8000/api/get_audio");
-    if (!response.ok) {
-      throw new Error("Failed to fetch audio");
-    }
-    const arrayBuffer = await response.arrayBuffer();
-    const blob = new Blob([arrayBuffer], { type: "audio/mp3" });
-    return URL.createObjectURL(blob);
-  } catch (error) {
-    console.error("Error fetching audio:", error);
-    throw error;
-  }
-};
-
 // export const GetAudioFile = async () => {
 //   try {
-//     const response = await apiClient.get('/api/get_audio', {
-//       responseType: 'blob', // MP3 파일을 Blob으로 받기
-//     });
-
-//     const blob = new Blob([response.data], { type: 'audio/mp3' });
-//     return URL.createObjectURL(blob); // Blob을 URL로 변환하여 반환
+//     const response = await fetch("http://localhost:8000/api/get_audio");
+//     if (!response.ok) {
+//       throw new Error("Failed to fetch audio");
+//     }
+//     const arrayBuffer = await response.arrayBuffer();
+//     const blob = new Blob([arrayBuffer], { type: "audio/mp3" });
+//     return URL.createObjectURL(blob);
 //   } catch (error) {
-//     console.error('Error fetching audio:', error);
+//     console.error("Error fetching audio:", error);
 //     throw error;
 //   }
 // };
+
+export const GetAudioFile = async () => {
+  try {
+    const response = await apiClient.get('/api/get_audio', {
+      responseType: 'blob', // MP3 파일을 Blob으로 받기
+    });
+    const blob = new Blob([response.data], { type: 'audio/mp3' });
+    return URL.createObjectURL(blob); // Blob을 URL로 변환하여 반환
+  } catch (error) {
+    console.error('Error fetching audio:', error);
+    throw error;
+  }
+};
 
 
 // 후기 받아오기

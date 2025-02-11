@@ -4,13 +4,16 @@ from .models import (
     User, Token, Book, Session as SessionTable,
     RecommendedBook, Badge, Review, UserQuestionORMModel, ClovaAnswer
 )
+from schemas import (
+    UserSchema, TokenSchema, BookSchema, RecommendedBookSchema, UserQuestionSchema, ClovaAnswerSchema, SessionSchema
+)
 
 # MySQL CRUD - Users 테이블
 def get_users(db: Session):
     return db.execute(select(User)).scalars().all()
 
-def create_user(db: Session, user_data):
-    new_user = User(**user_data)
+def create_user(db: Session, user_data: UserSchema):
+    new_user = User(**user_data.dict())
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
@@ -23,10 +26,9 @@ def read_user(db: Session, user_id: str):
 # MySQL CRUD - Tokens 테이블
 def get_tokens(db: Session):
     return db.execute(select(Token)).scalars().all()
-    # return db.query(Token).all()
 
-def create_token(db: Session, token_data):
-    new_token = Token(**token_data)
+def create_token(db: Session, token_data: TokenSchema):
+    new_token = Token(**token_data.dict())
     db.add(new_token)
     db.commit()
     db.refresh(new_token)
@@ -40,8 +42,24 @@ def read_token(db: Session, user_id: str):
 def get_books(db: Session):
     return db.execute(select(Book)).scalars().all()
 
-def create_book(db: Session, book_data):
-    new_book = Book(**book_data)
+def get_book_with_title(db: Session, title: str):
+    return db.execute(select(Book).where(Book.title==title)).scalars().first()
+
+def create_book(db: Session, book_data: BookSchema):
+    """ 책 정보를 저장하되, 같은 제목 또는 ISBN이 존재하면 기존 book_id 반환 """
+    existing_book = db.execute(
+        select(Book).where(
+            (Book.title == book_data.title) | 
+            (Book.isbn == book_data.isbn)
+        )
+    ).scalar_one_or_none()
+
+    if existing_book:
+        print(f"기존 도서 존재: {existing_book.book_id}")
+        return existing_book  # 기존 도서 반환
+
+    # 새 도서 저장
+    new_book = Book(**book_data.dict())
     db.add(new_book)
     db.commit()
     db.refresh(new_book)
@@ -51,20 +69,28 @@ def create_book(db: Session, book_data):
 def get_sessions(db: Session):
     return db.execute(select(SessionTable)).scalars().all()
 
-def create_session(db: Session, session_data):
-    new_session = SessionTable(**session_data)
-    db.add(new_session)
-    db.commit()
-    db.refresh(new_session)
+def create_session(db: Session, session_data: SessionSchema):
+    new_session = SessionTable(
+        session_id=session_data.session_id,
+        question_id=0,  # ✅ 생성 시 None (추후 업데이트)
+        answer_id=0
+    )
+    db.add(new_session)  # ✅ 커밋은 나중에 진행 (트랜잭션 최적화)
     return new_session
+
+def update_session(db: Session, session: SessionTable, question_id: int, answer_id: int):
+    """ ✅ 기존 세션의 question_id & answer_id 업데이트 후 한 번만 커밋 """
+    session.question_id = question_id
+    session.answer_id = answer_id
+    db.commit()
 
 # MySQL CRUD - RecommendedBooks 테이블
 def get_recommended_books(db: Session):
     return db.execute(select(RecommendedBook)).scalars().all()
     # return db.query(RecommendedBook).all()
 
-def create_recommended_book(db: Session, book_data):
-    new_book = RecommendedBook(**book_data)
+def create_recommended_book(db: Session, book_data: RecommendedBookSchema):
+    new_book = RecommendedBook(**book_data.dict())
     db.add(new_book)
     db.commit()
     db.refresh(new_book)
@@ -97,8 +123,8 @@ def create_review(db: Session, review_data):
 def get_user_questions(db: Session):
     return db.execute(select(UserQuestionORMModel)).scalars().all()
 
-def create_user_question(db: Session, question_data):
-    new_question = UserQuestionORMModel(**question_data)
+def create_user_question(db: Session, question_data: UserQuestionSchema):
+    new_question = UserQuestionORMModel(**question_data.dict())
     db.add(new_question)
     db.commit()
     db.refresh(new_question)
@@ -108,8 +134,8 @@ def create_user_question(db: Session, question_data):
 def get_clova_answers(db: Session):
     return db.execute(select(ClovaAnswer)).scalars().all()
 
-def create_clova_answer(db: Session, answer_data):
-    new_answer = ClovaAnswer(**answer_data)
+def create_clova_answer(db: Session, answer_data: ClovaAnswerSchema):
+    new_answer = ClovaAnswer(**answer_data.dict())
     db.add(new_answer)
     db.commit()
     db.refresh(new_answer)
