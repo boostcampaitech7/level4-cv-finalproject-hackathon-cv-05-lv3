@@ -94,7 +94,9 @@ export const GetBooks = async (): Promise<Book[]> => {
 
 export const PostReadFinished = async (recommendationId: number, speak: string) => {
   try {
-    const response = await apiClient.post("/api/notify_read_finished", recommendationId);
+    const response = await apiClient.post("/api/notify_read_finished", {
+      recommendationId: recommendationId
+    });
 
     console.log(speak, response.data);
   } catch (error) {

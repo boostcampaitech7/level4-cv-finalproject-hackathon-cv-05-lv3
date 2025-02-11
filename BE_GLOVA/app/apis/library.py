@@ -12,7 +12,7 @@ router = APIRouter()
 
 @router.post("/api/notify_read_finished")
 async def update_finishsed_at(
-    request: Request,
+    request: dict,
     mysql_db: Session = Depends(get_mysql_db),
     user_id: str = Depends(get_user_id)
 ):
@@ -20,8 +20,7 @@ async def update_finishsed_at(
     ✅ 사용자가 책을 완독했을 때 `finished_at` 필드를 업데이트하는 API
     """
     try:
-        data = await request.json()  # request를 dict로 변환
-        recommendation_id = data.get("recommendationId")  # ✅ `recommendationId` 가져오기
+        recommendation_id = request.get("recommendationId")  # ✅ `recommendationId` 가져오기
         
         if not recommendation_id:
             raise HTTPException(status_code=400, detail="recommendationId가 필요합니다.")

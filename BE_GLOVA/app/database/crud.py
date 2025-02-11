@@ -1,5 +1,5 @@
 from fastapi import HTTPException
-import datetime
+from datetime import datetime, timedelta
 from sqlalchemy.orm import Session
 from sqlalchemy import select, update
 from .models import (
@@ -120,7 +120,7 @@ def get_recommended_books_by_user(db: Session, user_id: str):
             "recommendation_id": book.recommendation_id,
             "book_id": book.book_id,
             "session_id": book.session_id,
-            "recommended_at": book.recommended_at
+            "recommended_at": book.recommended_at,
         }
         for book in books
     ]
@@ -130,7 +130,10 @@ def update_recommended_books_finished_at(db: Session, user_id: str, recommendati
     ✅ 사용자의 추천 도서에 대해 'finished_at'을 현재 시간으로 업데이트하는 함수
     """
     # ✅ 1️⃣ 현재 시간 설정
-    current_time = datetime.utcnow()
+    utc_now = datetime.utcnow()
+
+    # ✅ 2️⃣ UTC → 한국 시간(KST) 변환
+    kst_now = utc_now + timedelta(hours=9)
 
     # ✅ 2️⃣ 업데이트 실행
     query = (
@@ -139,7 +142,7 @@ def update_recommended_books_finished_at(db: Session, user_id: str, recommendati
             RecommendedBook.recommendation_id == recommendation_id,
             RecommendedBook.user_id == user_id
         )
-        .values(finished_at=current_time)
+        .values(finished_at=kst_now)
     )
 
     result = db.execute(query)
@@ -149,7 +152,7 @@ def update_recommended_books_finished_at(db: Session, user_id: str, recommendati
         raise HTTPException(status_code=404, detail="해당 recommendation_id가 존재하지 않거나 수정 권한이 없습니다.")
 
     db.commit()
-    return current_time
+    return kst_now
 
 def get_recommended_books_by_user_and_session(db: Session, user_id: str, session_id: str):
     query = (
