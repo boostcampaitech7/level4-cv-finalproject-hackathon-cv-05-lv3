@@ -4,10 +4,11 @@ import { Separator } from "../../components/ui/separator";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 
-import { Badge, GetBadges, GetAudioFile } from "../../api/api"; // ✅ Badge 인터페이스 사용
+import { Badge, GetBadges } from "../../api/api"; // ✅ Badge 인터페이스 사용
 import { dummyBadges } from "../../dummy";
 
 import NaviBar from "../../components/ui/navigationbar";
+import { cookie_loader, cookie_remover } from "../../api/cookies";
 
 // Base64 이미지를 img URL로 변환하는 함수
 export const base64ToImageUrl = (base64: string): string => {
@@ -42,17 +43,30 @@ export const Challenge = (): JSX.Element => {
   const [selectedBadge, setSelectedBadge] = useState<Badge | null>(null);
 
   useEffect(() => {
-    setBadges(dummyBadges);
-  }, []);
+      // ✅ 1. 쿠키에서 id 가져오기
+      const userIdFromCookie = cookie_loader();
+  
+      if (!userIdFromCookie) {
+        console.warn("⚠️ 인증 실패! 쿠키가 없음. 로그인 페이지로 이동 (쿠키 생성 실패 또는 쿠키 유효시간 만료)");
+        cookie_remover();
+        navigate("/", { replace: true });
+        return; // 함수 종료
+      }
+      
+    }, [navigate]);
+
+  // useEffect(() => {
+  //   setBadges(dummyBadges);
+  // }, []);
 
   // {/*서버 통신 버전*/}
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const data = await GetBadges(); // ✅ API 호출
-  //     setBadges(data);
-  //   };
-  //   fetchData();
-  // }, []);
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await GetBadges(); // ✅ API 호출
+      setBadges(data);
+    };
+    fetchData();
+  }, []);
 
   // ✅ 모달 열기 함수
   const openModal = (badge: Badge) => {
@@ -86,10 +100,9 @@ export const Challenge = (): JSX.Element => {
                 <motion.img
                   className="w-[100px] h-[100px] object-cover cursor-pointer"
                   alt="badge image"
-                  // src={base64ToImageUrl(badge.badgeImage)}
-                  src = {badge.badgeImage}
+                  src={base64ToImageUrl(badge.badgeImage)}
+                  // src = {badge.badgeImage}
                   onClick={() => {openModal(badge)}} // ✅ 클릭 시 모달 오픈
-                  // onClick = {() => openAudio(badge)}
                   whileTap={{ scale: 0.85 }} // 클릭 시 0.85배 크기로 줄어듦
                   transition={{ type: "spring", stiffness: 400, damping: 10 }} // 부드러운 반응
                 />
@@ -105,8 +118,8 @@ export const Challenge = (): JSX.Element => {
               <h2 className="text-lg font-bold font-Freesentation text-[23px]">{selectedBadge.bookTitle}</h2>
               <img
                 className="w-[150px] h-[150px] object-cover mx-auto mt-3"
-                // src={base64ToImageUrl(selectedBadge.badgeImage)} // ✅ Base64 이미지 URL로 변환
-                src = {selectedBadge.badgeImage}
+                src={base64ToImageUrl(selectedBadge.badgeImage)} // ✅ Base64 이미지 URL로 변환
+                // src = {selectedBadge.badgeImage}
                 alt="badge image"
               />
               <p className="text-sm text-gray-500 mt-2 font-Freesentation">

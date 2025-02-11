@@ -97,7 +97,7 @@ export const SaveRecommand = async (question: string, bookimage: string, bookTit
 
     // 서버에 데이터를 전송합니다.
     const response = await apiClient.post("/api/save_books", {
-      // id: id, // 개인 사용자 구별
+      id: id, // 개인 사용자 구별
       date: now.toISOString().split("T")[0], // YYYY-MM-DD 형식의 날짜
       time: now.toTimeString().split(" ")[0], // HH:mm:ss 형식의 시간
       question: question,
@@ -119,10 +119,10 @@ export const SaveRecommand = async (question: string, bookimage: string, bookTit
 export const GetRecommandBooks = async (): Promise<Book[]> => {
   try {
     // 개인 사용자 구별
-    // const id = cookie_loader();
-    // const response = await apiClient.post("/api/recommand_books", {id: id});
+    const id = cookie_loader();
+    const response = await apiClient.post("/api/recommand_books", {id: id});
 
-    const response = await apiClient.post("/api/recommand_books");
+    // const response = await apiClient.post("/api/recommand_books");
 
     return response.data; // Axios는 자동으로 JSON 파싱을 수행하므로 response.data를 반환
   } catch (error) {
@@ -153,11 +153,11 @@ export const GetBooks = async (): Promise<Book[]> => {
 export const PostBadgeMaker = async (bookTitle: string) => {
   try {
     // 개인 사용자 구별
-    // const id = cookie_loader();
+    const id = cookie_loader();
 
     const response = await apiClient.post("/api/badge_create",
       {
-        // id: id,
+        id: id,
         bookTitle: bookTitle,
       }
     );
@@ -174,10 +174,10 @@ export const PostBadgeMaker = async (bookTitle: string) => {
 export const GetBadges = async (): Promise<Badge[]> => {
   try {
     // 개인 사용자 구별
-    // const id = cookie_loader();
-    // const response = await apiClient.post("/api/badge", { id: id });
+    const id = cookie_loader();
+    const response = await apiClient.post("/api/badge", { id: id });
 
-    const response = await apiClient.post("/api/badge");
+    // const response = await apiClient.post("/api/badge");
 
     if (response.status !== 200) {
       throw new Error(`서버 오류: ${response.status}`);
@@ -195,11 +195,11 @@ export const GetBadges = async (): Promise<Badge[]> => {
 export const GetReviews = async (bookTitle: string) => {
   try {
     // 개인 사용자 구별
-    // const id = cookie_loader();
+    const id = cookie_loader();
 
     const response = await apiClient.post("/api/get_reviews",
       {
-        // id: id,
+        id: id,
         bookTitle: bookTitle,
       }
     );
@@ -215,10 +215,10 @@ export const GetReviews = async (bookTitle: string) => {
 export const UploadReview = async (bookTitle: string, review: string) => {
   try {
     // 개인 사용자 구별
-    // const id = cookie_loader();
+    const id = cookie_loader();
     const response = await apiClient.post("/api/upload_review",
       {
-        // id: id,
+        id: id,
         bookTitle: bookTitle,
         review: review
       }

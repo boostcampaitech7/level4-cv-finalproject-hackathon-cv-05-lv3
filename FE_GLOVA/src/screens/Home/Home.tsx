@@ -6,9 +6,9 @@ import { Card, CardContent } from "../../components/ui/card";
 import { Separator } from "../../components/ui/separator";
 import { HelpCircle } from "lucide-react";
 import NaviBar from "../../components/ui/navigationbar";
-import { RemoveCookie } from "../../api/cookies"; // ✅ 쿠키 삭제 함수 가져오기
 import apiClient from "../../api/cookies"; // ✅ Axios 설정 가져오기
-import { cookie_loader } from "../../api/cookies";
+import { cookie_loader, cookie_remover } from "../../api/cookies";
+import Cookies from "js-cookie";
 
 export const Home = (): JSX.Element => {
   const navigate = useNavigate();
@@ -20,8 +20,8 @@ export const Home = (): JSX.Element => {
     const userIdFromCookie = cookie_loader();
 
     if (!userIdFromCookie) {
-      console.warn("⚠️ 인증 실패! 쿠키가 없음. 로그인 페이지로 이동");
-      RemoveCookie();
+      console.warn("⚠️ 인증 실패! 쿠키가 없음. 로그인 페이지로 이동 (쿠키 생성 실패 또는 쿠키 유효시간 만료)");
+      cookie_remover();
       navigate("/", { replace: true });
       return; // 함수 종료
     }

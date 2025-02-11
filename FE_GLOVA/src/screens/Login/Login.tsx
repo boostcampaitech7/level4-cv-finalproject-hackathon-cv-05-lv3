@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "../../components/ui/button";
 import { Card, CardContent } from "../../components/ui/card";
 import { Local_login } from "../../api/api";
-import { cookies_saver } from "../../api/cookies";
+import { cookie_loader, cookies_saver } from "../../api/cookies";
 
 export const Login = (): JSX.Element => {
   const navigate = useNavigate();

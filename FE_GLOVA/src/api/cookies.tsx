@@ -13,7 +13,7 @@ const apiClient = axios.create({
 
 // Regi용 쿠키 저장 (1시간 유지)
 export const cookies_saver = (id: string) => {
-  Cookies.set("regi_id", id, { expires: 1 / 24, path: "/" }); // 1시간 후 만료
+  Cookies.set("regi_id", id, { expires: 1 / 24 }); // 1시간 후 만료
 };
 
 // Regi용 쿠키 불러오기
@@ -29,7 +29,7 @@ export const cookie_remover = () => {
 
 // ✅ 쿠키 삭제 함수
 export const RemoveCookie = () => {
-    Cookies.remove("access_token", { path: "/" });
+    Cookies.remove("access_token");
     console.log("🗑️ Access Token이 삭제되었습니다.");
 };
 

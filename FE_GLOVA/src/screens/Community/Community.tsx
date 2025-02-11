@@ -8,6 +8,7 @@ import NaviBar from "../../components/ui/navigationbar";
 import { Book, GetRecommandBooks, GetBooks } from "../../api/api"
 import { replace, useNavigate } from "react-router-dom";
 import { dummy_book, Nodata } from "../../dummy";
+import { cookie_loader, cookie_remover } from "../../api/cookies";
 
 
 const Page1: React.FC<{ handleBookClick: (book: Book) => void }> = ({ handleBookClick }) => {
@@ -209,6 +210,19 @@ export const Community: React.FC = () => {
     const [page, setPage] = useState(1);
     const navigate = useNavigate(); // ✅ useNavigate()를 컴포넌트 내부에서 선언
     const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
+
+    useEffect(() => {
+        // ✅ 1. 쿠키에서 id 가져오기
+        const userIdFromCookie = cookie_loader();
+    
+        if (!userIdFromCookie) {
+          console.warn("⚠️ 인증 실패! 쿠키가 없음. 로그인 페이지로 이동 (쿠키 생성 실패 또는 쿠키 유효시간 만료)");
+          cookie_remover();
+          navigate("/", { replace: true });
+          return; // 함수 종료
+        }
+        
+      }, [navigate]);
 
     const handleBookClick = (book: Book) => {
         navigate("/Review", { replace: true, state: book });
