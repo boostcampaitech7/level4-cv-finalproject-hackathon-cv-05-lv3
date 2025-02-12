@@ -1,4 +1,4 @@
-import apiClient, { cookies_saver, cookie_loader, cookie_remover } from "./cookies";
+import { apiClient, cookies_saver, cookie_loader, cookie_remover } from "./cookies";
 
 
 export interface Book {
