@@ -1,9 +1,9 @@
 from fastapi import Request, APIRouter, Depends, HTTPException # HTTPException - 김건우 추가
 from sqlalchemy.orm import Session
 from pydantic import BaseModel # 김건우 추가
-from database.connections import get_mysql_db
-from database.crud import get_user_badge, get_book_reviews
-from apis.save_books import get_user_id
+from ..database.connections import get_mysql_db
+from ..database.crud import get_user_badge, get_book_reviews
+from .save_books import get_user_id
 from typing import List, Union # 김건우 추가가
 
 router = APIRouter()

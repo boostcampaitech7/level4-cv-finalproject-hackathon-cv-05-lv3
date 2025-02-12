@@ -1,11 +1,11 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.sessions import SessionMiddleware
-from database.connections import init_db  
-from database.config import get_db_status  # ✅ DB 상태 조회 함수 추가
+from .database.connections import init_db  
+from .database.config import get_db_status  # ✅ DB 상태 조회 함수 추가
 import os
 from dotenv import load_dotenv
-from apis import badge, save_books, login, home, db, library, community
+from .apis import badge, save_books, login, home, db, library, community
 
 from fastapi.staticfiles import StaticFiles # 김건우 추가 - 파일을 정적으로 받아올 수 있도록 함
 
@@ -21,7 +21,7 @@ app = FastAPI()
 # CORS 설정
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[f"{FRONTEND_URL}", "http://localhost:8000"],
+    allow_origins=[f"{FRONTEND_URL}", "http://223.195.111.44:8080"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -60,7 +60,7 @@ if __name__ == "__main__":
 @app.options("/{full_path:path}")  # ✅ 모든 엔드포인트에서 OPTIONS 요청을 받음
 async def preflight_handler():
     return JSONResponse(content={}, headers={
-        "Access-Control-Allow-Origin": "http://localhost:3000",  # ✅ 프론트엔드 도메인 허용
+        "Access-Control-Allow-Origin": "http://223.195.111.44:8080",  # ✅ 프론트엔드 도메인 허용
         "Access-Control-Allow-Methods": "OPTIONS, GET, POST, PUT, DELETE",  # ✅ 허용할 HTTP 메서드
         "Access-Control-Allow-Headers": "*",  # ✅ 모든 헤더 허용
     })

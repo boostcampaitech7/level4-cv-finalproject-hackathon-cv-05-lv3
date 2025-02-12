@@ -1,13 +1,13 @@
 from fastapi import HTTPException, APIRouter, Depends
 from sqlalchemy.orm import Session
-from database.connections import get_mysql_db, get_postgresql_db
-from database.crud import (
+from ..database.connections import get_mysql_db, get_postgresql_db
+from ..database.crud import (
     get_users, create_user, get_tokens, create_token, get_books, get_book_with_title, create_book,
     get_sessions, create_session, get_recommended_books, create_recommended_book,
     get_badges, save_badge_to_db, get_reviews, create_review, 
     get_user_questions, create_user_question, get_clova_answers, create_clova_answer
 )
-from schemas import (
+from ..schemas import (
     UserSchema, TokenSchema, BookSchema, SessionSchema, RecommendedBookSchema, 
     BadgeSchema, ReviewSchema, UserQuestionSchema, ClovaAnswerSchema
 )
@@ -15,7 +15,7 @@ from schemas import (
 import json # 김건우 추가
 from fastapi import Request # 김건우 추가
 from fastapi import Body # 김건우 추가
-from apis.save_books import get_user_id # 김건우 추가
+from .save_books import get_user_id # 김건우 추가
 
 router = APIRouter()
 

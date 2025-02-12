@@ -4,13 +4,13 @@ from typing import Dict
 import os
 from datetime import datetime, timezone, timedelta
 import logging
-from models.everyQ import book_question
+from ..models.everyQ import book_question
 from jose import JWTError, jwt
 from sqlalchemy.orm import Session
-from database.connections import get_mysql_db
-from database.crud import read_user, get_user, get_user_by_login
-from schemas import UserQuestion
-from apis.login import create_access_token # 토큰 생성기 추가 - 김건우
+from ..database.connections import get_mysql_db
+from ..database.crud import read_user, get_user, get_user_by_login
+from ..schemas import UserQuestion
+from .login import create_access_token # 토큰 생성기 추가 - 김건우
 
 router = APIRouter()
 

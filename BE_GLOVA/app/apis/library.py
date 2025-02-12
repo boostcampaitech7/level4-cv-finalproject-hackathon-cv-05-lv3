@@ -1,12 +1,12 @@
 from fastapi import Request, APIRouter, HTTPException, Depends
 from sqlalchemy.orm import Session
 import datetime
-from database.connections import get_mysql_db, get_postgresql_db
-from database.crud import (
+from ..database.connections import get_mysql_db, get_postgresql_db
+from ..database.crud import (
     get_recommended_books_by_user, get_book_by_id, get_question_by_session, get_answer_by_session,
     update_recommended_books_finished_at
 )
-from apis.save_books import get_user_id
+from .save_books import get_user_id
 
 router = APIRouter()
 

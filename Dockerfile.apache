@@ -1,0 +1,28 @@
+FROM httpd:2.4
+
+# 필수 패키지 설치 (openvpn 포함)
+RUN apt-get update && apt-get install -y \
+    curl \
+    netcat-openbsd \
+    telnet \
+    nodejs \
+    npm \
+    openvpn \
+    && rm -rf /var/lib/apt/lists/*
+
+# 웹소켓 테스트 도구 설치
+RUN npm install -g wscat
+
+# Apache 설정 파일 복사
+COPY httpd.conf /usr/local/apache2/conf/httpd.conf
+
+# Apache 전용 entrypoint 스크립트 복사 (볼륨 마운트로 덮어씌워질 수 있음)
+COPY entrypoint-apache.sh /entrypoint-apache.sh
+RUN chmod +x /entrypoint-apache.sh
+
+EXPOSE 80
+
+ENTRYPOINT ["/entrypoint-apache.sh"]
+
+
+
