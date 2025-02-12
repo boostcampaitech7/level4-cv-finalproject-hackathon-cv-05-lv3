@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 from starlette.middleware.sessions import SessionMiddleware
 from .database.connections import init_db  
 from .database.config import get_db_status  # ✅ DB 상태 조회 함수 추가
