@@ -69,6 +69,7 @@ AI가 질문을 분석하고, 관련된 책을 찾아 추천해 줍니다.
 - HyperCLOVA X
 - Diffusers
 - BGE-M3 Embedding
+- DeepSeek r1
 
 ### **Vector Search & Retrieval**
 - FAISS
