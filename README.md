@@ -100,5 +100,5 @@ AI가 질문을 분석하고, 관련된 책을 찾아 추천해 줍니다.
 
 ## ⚙️ 유용한 링크
  - [📚 하이북글로바 발표 자료.pdf](https://github.com/user-attachments/files/18751070/CV_5._._.pdf)
- - [🍀Notion]([notion](https://slash-english-359.notion.site/HiBookGLOVA-4665f5a0215f4f44bd140bbb2a35026c?pvs=74))
+ - [🍀Notion](https://slash-english-359.notion.site/HiBookGLOVA-4665f5a0215f4f44bd140bbb2a35026c?pvs=74)
    
