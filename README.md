@@ -12,10 +12,24 @@
 
 ### 하이북클로바 실행 방법
 
-```
-git clone https://github.com/boostcampaitech7/level4-cv-finalproject-hackathon-cv-05-lv3.git
+- 터미널 분할 필수
 
-docker-compose up --build -d
+```
+# BE
+
+python -m venv .venv
+source .venv/bin/activate   # Window 환경 - .venv\Scripts\activate
+pip install -r requirements.txt
+
+cd BE_GLOVA/app/
+python main.py
+
+# FE
+
+cd FE_GLOVA/
+npm install
+
+npm run dev
 ```
 
 ## ✨ Key Features & Achievements
